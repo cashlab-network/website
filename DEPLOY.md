@@ -134,6 +134,23 @@ serves the site.
 
 ## Post-launch checklist (delegation address)
 
+### CRITICAL: EIP-55 checksum + on-chain visibility requirements (added 2026-07-16 per Perplexity)
+
+**When you publish the delegation address on this landing page, it MUST:**
+
+1. **Be EIP-55 CHECKSUMMED** (mixed case), NOT lowercase.
+   - Wrong: `0x69141e890f3a79cd2cff552c0b71508be23712dc`
+   - Right: `0x69141E890F3a79cd2CFf552c0B71508bE23712dC`
+   - Use `ethers.getAddress()` or `cast wallet address` to produce the checksummed form.
+   - **Same checksummed address must be used for the TowoLabs PR** — the `logoURI` filename pattern `0x<address>.png` also requires checksum casing.
+
+2. **Be prominently visible on the landing page** — TowoLabs Extended Requirements (README) enforces "on-chain address referenced on the signal provider's website" since 2023-03-31. Missing this blocks `listed: true` promotion.
+   - Currently placed in: Hero section + How-to-delegate section. Both are good.
+   - Do NOT hide it behind a hover, dropdown, or 3rd-page link.
+   - The `<code class="status-card__addr" id="delegation-address">` block in Hero is the primary visible instance — must contain the actual checksummed address post-launch.
+
+
+
 1. Edit `index.html` at the `<!-- REPLACE AT LAUNCH: delegation-address -->` marker
    in the Hero section (see **README.md → "How to add the delegation address at
    launch"**).
