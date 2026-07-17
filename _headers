@@ -1,0 +1,19 @@
+# Cloudflare Pages headers file.
+# Docs: https://developers.cloudflare.com/pages/configuration/headers/
+
+# Security + sensible defaults for all routes
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
+
+# Long-cache immutable, content-hashed-style static assets (images rarely change)
+/images/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# HTML should always be revalidated so content edits go live immediately
+/
+  Cache-Control: public, max-age=0, must-revalidate
+/index.html
+  Cache-Control: public, max-age=0, must-revalidate
