@@ -44,10 +44,10 @@ cashlab-website/
 
 ## Local preview
 
-No build tooling is required. Because the page uses **absolute paths**
-(`/images/...`), open it through a local web server rather than double-clicking
-the file (the `file://` protocol resolves absolute paths against your disk root,
-which breaks the images).
+No build tooling is required. Asset paths are **relative** (`images/...`), so the
+site works served from the domain root or any subdirectory. Opening through a
+local web server is still recommended over double-clicking the file, so paths and
+`fetch()`-based checks behave exactly as they will in production.
 
 ```bash
 cd cashlab-website

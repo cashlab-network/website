@@ -168,3 +168,7 @@ them freely:
    X/social handle exists yet. Add one later per README instructions.
 7. **Kept full-resolution source logos** in `images/` as brand originals; the page
    references smaller web-optimized copies for performance.
+8. **Relative asset paths** (`images/...`, not `/images/...`) so the site works
+   whether it's served from the domain root (Cloudflare Pages) or from a
+   subdirectory (preview hosts). Open Graph and canonical tags intentionally keep
+   the absolute `https://cashlab.network/...` form, which social crawlers require.
