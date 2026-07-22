@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SMS Alert Consent &mdash; CashLab</title>
+<meta name="description" content="CashLab SMS alert consent record. CashLab sends operational SMS and voice alerts exclusively to the sole account owner about the health of the CashLab Flare validator infrastructure. No third-party subscribers." />
+<link rel="canonical" href="https://cashlab.network/sms-consent" />
+<link rel="icon" href="images/favicon.ico" sizes="any" />
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="192x192" href="images/favicon-192.png" />
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
+<meta name="theme-color" content="#ffffff" />
+<meta name="robots" content="index,follow" />
+
+<style>
+  :root {
+    --white: #ffffff;
+    --ink: #0e0e0d;
+    --ink-soft: #3a3a38;
+    --muted: #6a6a66;
+    --hairline: #e6e5e1;
+    --hairline-strong: #d9d8d3;
+    --gold: #c89f3b;
+    --gold-deep: #a8842c;
+    --text-xs: clamp(0.75rem, 0.72rem + 0.15vw, 0.8125rem);
+    --text-sm: clamp(0.875rem, 0.84rem + 0.18vw, 0.9375rem);
+    --text-base: clamp(1rem, 0.97rem + 0.2vw, 1.0625rem);
+    --text-lg: clamp(1.125rem, 1.05rem + 0.4vw, 1.375rem);
+    --h1: clamp(1.75rem, 1.2rem + 2vw, 2.5rem);
+    --h2: clamp(1.25rem, 1.05rem + 0.9vw, 1.5rem);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--ink);
+    background: #fff;
+    line-height: 1.65;
+    font-size: var(--text-base);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: clamp(2rem, 1.5rem + 2vw, 4rem) clamp(1.25rem, 1rem + 1vw, 2rem);
+  }
+  header.doc-header {
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--hairline);
+  }
+  header.doc-header a.home {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: var(--text-sm);
+    margin-bottom: 1.5rem;
+    transition: color 0.2s;
+  }
+  header.doc-header a.home:hover { color: var(--gold-deep); }
+  h1 {
+    font-size: var(--h1);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+  }
+  .updated {
+    font-size: var(--text-sm);
+    color: var(--muted);
+  }
+  h2 {
+    font-size: var(--h2);
+    letter-spacing: -0.015em;
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+    color: var(--ink);
+  }
+  h3 {
+    font-size: var(--text-lg);
+    letter-spacing: -0.01em;
+    margin-top: 1.75rem;
+    margin-bottom: 0.5rem;
+    color: var(--ink);
+  }
+  p, li {
+    color: var(--ink-soft);
+    margin-bottom: 1rem;
+  }
+  ul, ol {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  ul li, ol li { margin-bottom: 0.5rem; }
+  strong { color: var(--ink); font-weight: 600; }
+  code {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, monospace;
+    font-size: 0.9em;
+    background: #f4f3ee;
+    padding: 0.1em 0.35em;
+    border-radius: 3px;
+    color: var(--ink);
+  }
+  a {
+    color: var(--gold-deep);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+  }
+  a:hover { color: var(--gold); }
+
+  .callout {
+    background: #faf9f4;
+    border-left: 3px solid var(--gold);
+    padding: 1rem 1.25rem;
+    margin: 1.5rem 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+
+  .sample-msg {
+    background: #f4f3ee;
+    border-radius: 6px;
+    padding: 0.85rem 1rem;
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, monospace;
+    font-size: 0.9em;
+    color: var(--ink);
+    margin-bottom: 0.75rem;
+    line-height: 1.5;
+    word-break: break-word;
+  }
+
+  .field-list dt {
+    font-weight: 600;
+    color: var(--ink);
+    margin-top: 0.75rem;
+  }
+  .field-list dd {
+    margin-left: 0;
+    color: var(--ink-soft);
+    margin-bottom: 0.5rem;
+  }
+
+  footer.doc-footer {
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--hairline);
+    font-size: var(--text-sm);
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  footer.doc-footer a { color: var(--muted); text-decoration: none; }
+  footer.doc-footer a:hover { color: var(--gold-deep); }
+</style>
+</head>
+<body>
+<main>
+  <header class="doc-header">
+    <a class="home" href="/">&larr; Back to CashLab</a>
+    <h1>SMS Alert Consent Record</h1>
+    <p class="updated">Effective 2026-07-22. Last updated 2026-07-22.</p>
+  </header>
+
+  <div class="callout">
+    <p><strong>This page documents a self-directed operator alert channel, not a public subscription service.</strong> CashLab does not offer SMS alerts to visitors, delegators, or any third party. There is no way for anyone other than the account owner to receive alerts from this channel, and no signup form is provided anywhere on this site.</p>
+  </div>
+
+  <h2>What this page is</h2>
+  <p>This page is the compliance record for CashLab's automated SMS and voice alerting channel. It documents the sole recipient, the message flow, the consent basis, opt-out mechanics, and message samples for A2P 10DLC campaign registration purposes.</p>
+  <p>CashLab is a single-operator Flare blockchain infrastructure business. The operator (Daman Dale Starring) receives infrastructure-health alerts on his own registered mobile number so that he can respond to validator incidents that would otherwise result in lost cryptocurrency rewards for himself and any future delegators.</p>
+
+  <h2>Sole recipient</h2>
+  <dl class="field-list">
+    <dt>Recipient name</dt>
+    <dd>Daman Dale Starring (sole proprietor of CashLab)</dd>
+    <dt>Recipient phone number</dt>
+    <dd><code>+1 702-526-7225</code> (the operator's personal mobile number)</dd>
+    <dt>Sender</dt>
+    <dd><code>+1 949-415-7335</code> (Twilio-provisioned)</dd>
+    <dt>Number of subscribers</dt>
+    <dd>One. No mechanism exists for additional subscribers to be added.</dd>
+  </dl>
+
+  <h2>Consent basis</h2>
+  <p>Consent for these messages is granted directly by the recipient, who is also the sole proprietor of the business sending the messages. This is a self-directed operator alerting channel, not a marketing or notification service to external parties.</p>
+  <p>Documented consent record:</p>
+  <ul>
+    <li><strong>Date of consent:</strong> 2026-07-16 (operator's internal business record)</li>
+    <li><strong>Method:</strong> Direct configuration of the operator's own mobile number in the operator's private server environment (Hetzner AX-line dedicated server), followed by manual verification that alert delivery reaches the operator's phone. Confirmed by successful test call on 2026-07-22 at 21:15 UTC.</li>
+    <li><strong>Revocability:</strong> The recipient can revoke consent at any time by (1) replying <code>STOP</code> to any message, (2) removing the phone number from the server-side alerting configuration, or (3) contacting the operator at <a href="mailto:hello@cashlab.network">hello@cashlab.network</a>.</li>
+  </ul>
+
+  <h2>Message flow</h2>
+  <p>The end-to-end message flow is entirely automated and operates as follows:</p>
+  <ol>
+    <li><strong>Trigger:</strong> CashLab's monitoring stack (running on the operator's dedicated Hetzner server) detects a Flare validator infrastructure condition matching one of the pre-defined alert templates below.</li>
+    <li><strong>Delivery:</strong> The monitoring stack invokes Twilio's Messages API to send a single SMS from <code>+1 949-415-7335</code> to <code>+1 702-526-7225</code>. All messages include the required <code>Reply STOP to opt out, HELP for help</code> footer.</li>
+    <li><strong>Recipient response:</strong> The recipient (operator) receives the SMS on his personal phone, reviews the alert body, and takes operational action on the infrastructure. Reply STOP would remove the number from the alert channel immediately.</li>
+    <li><strong>No forwarding:</strong> Messages are not forwarded, republished, or shared. Third parties never see the message body.</li>
+  </ol>
+
+  <h2>Message frequency</h2>
+  <p><strong>Fewer than 20 messages per year</strong> expected under normal validator operation. Alerts fire only on genuine infrastructure emergencies. There is no promotional, marketing, or advertising content. During any single incident, the operator may receive multiple messages within a short window as the alert escalates through severity tiers.</p>
+
+  <h2>Sample messages</h2>
+  <p>The following are the exact templates the alerting system uses. Placeholders in curly braces are populated at send time with the specific epoch, pass count, or timing values from the triggering condition.</p>
+
+  <h3>Sample 1 &mdash; Pass loss alert (validator lost a scoring pass)</h3>
+  <div class="sample-msg">
+    CashLab: pass LOST &mdash; Passes {before}-&gt;{after}, epoch {epoch}. Verify infrastructure. Reply STOP to opt out, HELP for help.
+  </div>
+
+  <h3>Sample 2 &mdash; Zero passes critical alert (validator has 0 passes remaining)</h3>
+  <div class="sample-msg">
+    CashLab URGENT: 0 PASSES - CRITICAL. Immediate investigation required to avoid reward forfeiture. Reply STOP to opt out, HELP for help.
+  </div>
+
+  <h3>Sample 3 &mdash; Registration deadline countdown</h3>
+  <div class="sample-msg">
+    CashLab: registration deadline T-30m &mdash; reward epoch {epoch} starts soon, RegisterVoter not confirmed. Reply STOP to opt out, HELP for help.
+  </div>
+
+  <h2>Opt-out and help</h2>
+  <p>Standard carrier-required opt-out and help keywords are supported through Twilio's Messaging Service default handling:</p>
+  <dl class="field-list">
+    <dt>Opt-out keywords</dt>
+    <dd><code>STOP</code>, <code>STOPALL</code>, <code>UNSUBSCRIBE</code>, <code>CANCEL</code>, <code>END</code>, <code>QUIT</code>, <code>OPTOUT</code>, <code>REVOKE</code></dd>
+    <dt>Opt-out response</dt>
+    <dd>Twilio automatically responds: "You have successfully been unsubscribed. You will not receive any more messages from this number. Reply START to resubscribe."</dd>
+    <dt>Help keywords</dt>
+    <dd><code>HELP</code>, <code>INFO</code></dd>
+    <dt>Help response</dt>
+    <dd>Twilio automatically responds: "Reply STOP to unsubscribe. Msg&amp;Data Rates May Apply."</dd>
+    <dt>Rates disclosure</dt>
+    <dd>Message and data rates may apply through the recipient's mobile carrier.</dd>
+  </dl>
+
+  <h2>Data handling</h2>
+  <p>CashLab does not collect, store, share, or sell mobile phone numbers from any third party. See the full <a href="/privacy">privacy policy</a> for details. The only number stored in CashLab's alerting configuration is the operator's own number, kept on the operator's own private server, configured by the operator himself.</p>
+
+  <h2>Registration</h2>
+  <p>This channel is registered under Twilio's Application-to-Person (A2P) 10DLC framework as a Sole Proprietor Brand. The Twilio Brand for CashLab is a verified/registered brand tied to the operator's business record. Full Twilio account, brand, and messaging service identifiers are provided directly to carrier auditors through the Twilio Console during A2P registration review; they are not published here.</p>
+
+  <h2>Contact</h2>
+  <p>Questions about this alert channel or this compliance record can be directed to the operator at <a href="mailto:hello@cashlab.network">hello@cashlab.network</a> or via the public GitHub organization <a href="https://github.com/cashlab-network" target="_blank" rel="noopener">github.com/cashlab-network</a>.</p>
+
+  <footer class="doc-footer">
+    <span>&copy; CashLab</span>
+    <span>
+      <a href="/">Home</a> &middot;
+      <a href="/privacy">Privacy</a> &middot;
+      <a href="/terms">Terms</a>
+    </span>
+  </footer>
+</main>
+</body>
+</html>
