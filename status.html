@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CashLab — Status</title>
+<meta name="description" content="Live on-chain status for CashLab, an independent Flare infrastructure entity. Every value on this page is read directly from Flare mainnet by your browser.">
+<link rel="icon" href="images/favicon.ico">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<style>
+:root{--bg:#fff;--fg:#111;--muted:#666;--line:#e5e5e5;--gold:#cf9d43;--ok:#1a7f37;--wait:#9a6700}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:var(--fg);background:var(--bg)}
+.wrap{max-width:820px;margin:0 auto;padding:32px 20px 64px}
+header{display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:28px}
+header img{width:44px;height:44px}
+header a{color:inherit;text-decoration:none}
+h1{font-size:20px;margin:0;font-weight:600}
+h2{font-size:14px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:34px 0 12px;font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+.card{border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.label{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.value{font-size:22px;font-weight:600;margin-top:4px;font-variant-numeric:tabular-nums}
+.value.sm{font-size:13px;font-weight:500;word-break:break-all;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.pill{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:99px;background:#eaf6ec;color:var(--ok)}
+.pill.wait{background:#fff4d6;color:var(--wait)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+td{padding:9px 0;border-bottom:1px solid var(--line);vertical-align:top}
+td:first-child{color:var(--muted);width:38%}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;word-break:break-all}
+.log li{margin-bottom:10px}
+.log time{color:var(--muted);font-size:13px;margin-right:8px;font-variant-numeric:tabular-nums}
+footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+a{color:#0b5fbe}
+@media(prefers-color-scheme:dark){
+:root{--bg:#0f0f10;--fg:#f0f0f0;--muted:#9a9a9a;--line:#2a2a2c;--ok:#4ac26b;--wait:#d9a441}
+.pill{background:#16301c}.pill.wait{background:#33280e}a{color:#6ea8fe}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <img src="images/favicon-192.png" alt="CashLab">
+  <div>
+    <h1>CashLab — Status</h1>
+    <div class="label">Independent Flare infrastructure</div>
+  </div>
+</header>
+
+<p style="color:var(--muted);font-size:14.5px;margin-top:0">
+Every number below is read <strong>live from Flare mainnet by your browser</strong> —
+not from our servers, and not hand-updated. Verify any of it yourself on the
+<a href="https://flare-explorer.flare.network/address/0xDDe5D41C0B79c25Da05EE4E02AECECf6eB7E67De" rel="noopener">block explorer</a>.
+</p>
+
+<h2>Network</h2>
+<div class="grid">
+  <div class="card"><div class="label">Current reward epoch</div><div class="value" id="epoch">…</div></div>
+  <div class="card"><div class="label">Next epoch starts in</div><div class="value" id="countdown">…</div></div>
+  <div class="card"><div class="label">C-chain block</div><div class="value" id="block">…</div></div>
+</div>
+
+<h2>Entity registration</h2>
+<table>
+  <tr><td>On-chain status</td><td><span class="pill" id="regstatus">checking…</span></td></tr>
+  <tr><td>Identity</td><td class="mono">0xDDe5D41C0B79c25Da05EE4E02AECECf6eB7E67De</td></tr>
+  <tr><td>Delegation address</td><td class="mono">0x46F75Ac75a9E389809b965A876303681D32bCf2e</td></tr>
+  <tr><td>Validator NodeID</td><td class="mono">NodeID-8Tp4GLFefnrLzzD7YU6qvEzDRRT1L6Zec</td></tr>
+  <tr><td>Submit address</td><td class="mono" id="submitaddr">…</td></tr>
+  <tr><td>Sortition key</td><td><span id="pubkey">…</span></td></tr>
+</table>
+
+<h2>Protocols</h2>
+<table>
+  <tr><td>FTSO Scaling</td><td>Anchor feeds — own aggregation engine, 9+ exchange sources</td></tr>
+  <tr><td>Fast Updates</td><td>Block-latency feeds via sortition</td></tr>
+  <tr><td>FDC</td><td>Attestations for BTC, DOGE, XRP, ETH, FLR, SGB — self-hosted chain nodes</td></tr>
+  <tr><td>Staking</td><td>Own validator, dedicated host, isolated from all other workloads</td></tr>
+</table>
+
+<h2>Updates</h2>
+<ul class="log" id="log">
+  <li><time>2026-07-30</time>Entity registered on Flare mainnet. All addresses, sortition key and validator NodeID bound on-chain via the EntityManager contract.</li>
+  <li><time>2026-07-31</time>Full protocol pipeline verified end-to-end: feed engine → official Flare client → computed voting round with merkle root.</li>
+</ul>
+
+<footer>
+  <a href="/">cashlab.network</a> ·
+  <a href="https://x.com/CashLabNetwork" rel="noopener">@CashLabNetwork</a> ·
+  <a href="mailto:hello@cashlab.network">hello@cashlab.network</a><br>
+  Not affiliated with, endorsed by, or authorized by the Flare Foundation.
+</footer>
+
+</div>
+
+<script>
+const RPC = "https://flare-api.flare.network/ext/C/rpc";
+const EM  = "0x134b3311C6BdeD895556807a30C7f047D99DfdC2";
+const FSM = "0x89e50dc0380e597ece79c8494baafd84537ad0d4";
+const ID  = "dde5d41c0b79c25da05ee4e02aececf6eb7e67de";
+const pad = a => a.toLowerCase().replace("0x","").padStart(64,"0");
+
+async function call(to, data){
+  const r = await fetch(RPC,{method:"POST",headers:{"content-type":"application/json"},
+    body:JSON.stringify({jsonrpc:"2.0",id:1,method:"eth_call",params:[{to,data},"latest"]})});
+  const j = await r.json();
+  if(j.error) throw new Error(j.error.message);
+  return j.result;
+}
+async function blockNumber(){
+  const r = await fetch(RPC,{method:"POST",headers:{"content-type":"application/json"},
+    body:JSON.stringify({jsonrpc:"2.0",id:1,method:"eth_blockNumber",params:[]})});
+  return parseInt((await r.json()).result,16);
+}
+const set = (id,v) => { const e=document.getElementById(id); if(e) e.textContent=v; };
+
+// selectors (keccak-256 first 4 bytes), precomputed to avoid shipping a hash lib
+const SEL = {
+  epochId:  "0x70562697", // getCurrentRewardEpochId()
+  epochEnd: "0xed54fd63", // currentRewardEpochExpectedEndTs()
+  voterAddr:"0xe5771dbc", // getVoterAddresses(address)
+  pubKey:   "0x75e68605"  // getPublicKeyOf(address)
+};
+
+let endTs = null;
+function tick(){
+  if(endTs===null) return;
+  let s = endTs - Math.floor(Date.now()/1000);
+  if(s < 0){ set("countdown","now"); return; }
+  const d=Math.floor(s/86400); s%=86400;
+  const h=Math.floor(s/3600);  s%=3600;
+  const m=Math.floor(s/60);
+  set("countdown", (d?d+"d ":"")+h+"h "+m+"m");
+}
+
+async function load(){
+  try{ set("block", (await blockNumber()).toLocaleString()); }catch(e){ set("block","—"); }
+
+  try{
+    const id = parseInt(await call(FSM, SEL.epochId), 16);
+    set("epoch", id);
+  }catch(e){ set("epoch","—"); }
+
+  try{
+    endTs = parseInt(await call(FSM, SEL.epochEnd), 16);
+    tick(); setInterval(tick, 30000);
+  }catch(e){ set("countdown","—"); }
+
+  try{
+    const res = await call(EM, SEL.voterAddr + pad(ID));
+    const w = res.replace("0x","").match(/.{64}/g) || [];
+    const submit = "0x" + (w[0]||"").slice(24);
+    if(submit.length === 42 && !/^0x0+$/.test(submit)){
+      set("submitaddr", submit);
+      const p = document.getElementById("regstatus");
+      p.textContent = "Registered on Flare mainnet";
+      p.className = "pill";
+    } else {
+      set("submitaddr","—");
+      const p=document.getElementById("regstatus");
+      p.textContent="Not yet registered"; p.className="pill wait";
+    }
+  }catch(e){
+    set("submitaddr","—");
+    const p=document.getElementById("regstatus");
+    p.textContent="Unable to read chain"; p.className="pill wait";
+  }
+
+  try{
+    const res = await call(EM, SEL.pubKey + pad(ID));
+    const w = res.replace("0x","").match(/.{64}/g) || [];
+    const registered = w[0] && !/^0+$/.test(w[0]);
+    set("pubkey", registered ? "Registered" : "Not registered");
+  }catch(e){ set("pubkey","—"); }
+}
+load();
+setInterval(load, 60000);
+</script>
+</body>
+</html>
