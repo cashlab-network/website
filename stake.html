@@ -134,6 +134,16 @@ nothing you cannot check yourself.
 entire time. Delegation is a vote-power assignment, not a transfer. You can
 undelegate or re-delegate at any moment.</p>
 
+<div class="note">
+<strong>Timing tip almost nobody explains:</strong> each reward epoch measures
+your delegation at a <em>snapshot block drawn at random from the days before
+the epoch starts</em> — not at the moment the epoch begins. If you delegate at
+the last minute, the snapshot has probably already passed and your first
+rewards start one epoch later. Delegating a few days ahead of an epoch
+boundary makes the next epoch certain. (Epoch boundaries are every ~3.5 days —
+see the countdown on our <a href="/status.html">status page</a>.)
+</div>
+
 <h2>Path 2 — Stake FLR to our validator (P-chain)</h2>
 <ol class="steps">
   <li>In the <a href="https://portal.flare.network" rel="noopener">Flare Portal</a>, open the <strong>Staking</strong> section and connect your wallet.</li>
