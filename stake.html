@@ -86,12 +86,22 @@ from Flare mainnet <strong>by your browser</strong> — not from our servers.
 
 <h2>Our fee — stated plainly</h2>
 <p style="font-size:15px">
-<strong>20%.</strong> That is the network-wide minimum entity fee set by Flare
-governance in <a href="https://proposals.flare.network/FIP/FIP_16.html" rel="noopener">FIP.16</a>
-(approved April&nbsp;2026) — no provider may charge less. We charge exactly the
-minimum. It applies to <em>reward</em> flows only: your principal is never
-touched, and the remaining 80% of rewards on what you delegate or stake is yours.
+<strong>20%, on both paths.</strong> It applies to <em>reward</em> flows only —
+your principal is never touched, and 80% of the rewards earned on what you
+delegate or stake is yours.
 </p>
+<table>
+  <tr><td>WFLR delegation</td><td><strong>20%</strong> — the network-wide minimum set by Flare governance in
+      <a href="https://proposals.flare.network/FIP/FIP_16.html" rel="noopener">FIP.16</a>
+      (April&nbsp;2026) and enforced on-chain: the fee contract's
+      <span class="mono">minFeeBIPS</span> reads <span class="mono">2000</span>
+      (= 20.00%) for every provider. Ours is exactly the floor — verifiable, not a promise.</td></tr>
+  <tr><td>Validator staking</td><td><strong>20%</strong> — our posted rate, matching the same governance
+      minimum from day one. You may find validators displaying lower rates:
+      fees set before the FIP.16 rule, or before its enforcement completes
+      across the staking layer, remain in force for the remainder of those
+      validators' current terms.</td></tr>
+</table>
 
 <h2>Live on-chain numbers</h2>
 <div class="grid">
