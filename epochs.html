@@ -53,7 +53,7 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);font-si
 
 <p style="color:var(--muted);font-size:14.5px;margin-top:0">
 One report per reward epoch, published when Flare settles it — wins and losses in the
-same format. Every number comes from the network's official settlement data
+same format, including <strong>what each epoch actually returned</strong> to delegators and stakers. Every number comes from the network's official settlement data
 (<a href="https://github.com/flare-foundation/fsp-rewards" rel="noopener">flare-foundation/fsp-rewards</a>),
 never from our own claims. Live entity status is on the
 <a href="/status.html">status page</a>.
@@ -91,6 +91,27 @@ never from our own claims. Live entity status is on the
 <p style="margin-top:12px">Two gates failed with no passes banked, which under
 <a href="https://proposals.flare.network/FIP/FIP_10.html" rel="noopener">FIP.10</a> zeroes the
 entire epoch — including the staking side, despite the validator running clean throughout.</p>
+
+<h3>What it returned</h3>
+<table>
+  <tr>
+    <td>Delegation (wNat)<div class="sub">what a delegator earned, net of our 20% fee</div></td>
+    <td><span class="num">0.00%</span> <span class="frac">APR · network median 1.54%</span></td>
+    <td style="text-align:right"><span class="chip fail">NIL</span></td>
+  </tr>
+  <tr>
+    <td>Staking (mirror)<div class="sub">what a staker earned, net of our 20% fee</div></td>
+    <td><span class="num">0.00%</span> <span class="frac">APR · network median 7.69%</span></td>
+    <td style="text-align:right"><span class="chip fail">NIL</span></td>
+  </tr>
+</table>
+<p style="margin-top:10px;font-size:13px;color:var(--muted)">
+Rates are <strong>realized</strong>, not projected: derived from the epoch's actual payout file
+(<code>reward-distribution-data.json</code>) as reward ÷ weight, annualized simply over
+104.36 epochs per year — no compounding assumed, because rewards must be claimed and
+re-delegated to compound. The network median covers the 90 providers that paid out in
+this epoch. Our method reproduces Flare's own published per-provider rates exactly.
+</p>
 
 <h3>What happened</h3>
 <p>Our RPC layer had a single point of failure. A metered third-party endpoint we depended on
