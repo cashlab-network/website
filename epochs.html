@@ -59,6 +59,69 @@ never from our own claims. Live entity status is on the
 <a href="/status.html">status page</a>.
 </p>
 
+<!-- ================= EPOCH 423 ================= -->
+<h2 id="e423">Epoch 423<span class="when">Aug 10 – Aug 13, 2026 · settled Aug 14</span><span class="verdict paid">PAID</span></h2>
+
+<p>Our first paying epoch. All four gates passed, zero strikes.</p>
+
+<h3>The four gates</h3>
+<table>
+  <tr>
+    <td>FTSO accuracy<div class="sub">votes within 0.5% of consensus median</div></td>
+    <td><span class="num">94.03%</span> <span class="frac">199,043 / 211,680 · needs 80%</span></td>
+    <td style="text-align:right"><span class="chip pass">✓ PASS</span></td>
+  </tr>
+  <tr>
+    <td>FDC participation<div class="sub">attestation rounds rewarded</div></td>
+    <td><span class="num">99.4%</span> <span class="frac">3,340 / 3,360 · needs 60%</span></td>
+    <td style="text-align:right"><span class="chip pass">✓ PASS</span></td>
+  </tr>
+  <tr>
+    <td>Validator uptime<div class="sub">3,000,000 FLR self-bond</div></td>
+    <td><span class="num">99.9997%</span> <span class="frac">needs 80%</span></td>
+    <td style="text-align:right"><span class="chip pass">✓ PASS</span></td>
+  </tr>
+  <tr>
+    <td>Fast updates<div class="sub">block-latency submissions</div></td>
+    <td><span class="num">197</span> <span class="frac">vs 141 expected · needs ≥141</span></td>
+    <td style="text-align:right"><span class="chip pass">✓ PASS</span></td>
+  </tr>
+</table>
+
+<h3>What it returned</h3>
+<table>
+  <tr>
+    <td>Delegation (wNat)<div class="sub">what a delegator earned, net of our 20% fee</div></td>
+    <td><span class="num">4.35%</span> <span class="frac">APR · network median 1.65%</span></td>
+    <td style="text-align:right"><span class="chip pass">PAID</span></td>
+  </tr>
+  <tr>
+    <td>Staking (mirror)<div class="sub">what a staker earned, net of our 20% fee</div></td>
+    <td><span class="num">21.75%</span> <span class="frac">APR · network median 8.24%</span></td>
+    <td style="text-align:right"><span class="chip pass">PAID</span></td>
+  </tr>
+</table>
+<p style="margin-top:10px;font-size:13px;color:var(--muted)">
+Rates are <strong>realized</strong>, not projected: derived from the epoch's actual payout file
+(<code>reward-distribution-data.json</code>) as reward ÷ weight, annualized simply over
+104.36 epochs per year — no compounding assumed. The network median covers the 91 providers
+that paid out in this epoch. 6,361.67 FLR went to delegators and stakers this epoch;
+our fee was 1,590.42 FLR.
+</p>
+
+<h3>What changed between 422 and 423</h3>
+<p>Everything in 422's "what changed" list ran through this epoch — our own node as
+primary RPC, proven fallbacks on every critical source, work-based health checks,
+off-site alerting. The result: FDC recovered from 35.6% to 99.4% (missing only
+20 of 3,360 rounds), and FTSO accuracy cleared the gate with 14 points of margin.
+Two new feeds (SGB/USD and USDX/USD) shipped mid-epoch and hit the accuracy band in
+essentially every round they were live for; epoch 424 is their first full epoch.</p>
+
+<div class="note">
+Delegators: epoch 423 rewards are claimable now and expire 90 days after settlement
+(~Nov 12, 2026). Unclaimed rewards are lost — claim before then.
+</div>
+
 <!-- ================= EPOCH 422 ================= -->
 <h2 id="e422">Epoch 422<span class="when">Aug 6 – Aug 10, 2026 · settled Aug 10</span><span class="verdict zero">PAID ZERO</span></h2>
 
