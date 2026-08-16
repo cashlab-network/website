@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CashLab — Automatic reward claiming</title>
+<meta name="description" content="CashLab's upcoming auto-claim executor pushes your Flare delegation and staking rewards to your own wallet as WFLR for the 0.1 FLR protocol-minimum fee. Non-custodial, enforced by Flare's own contracts. Not live yet.">
+<link rel="icon" href="images/favicon.ico">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<style>
+:root{--bg:#fff;--fg:#111;--muted:#666;--line:#e5e5e5;--gold:#cf9d43;--ok:#1a7f37;--wait:#9a6700;--warn:#b42318}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:var(--fg);background:var(--bg)}
+.wrap{max-width:860px;margin:0 auto;padding:32px 20px 64px}
+header{display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:28px}
+header img{width:44px;height:44px}
+header a{color:inherit;text-decoration:none}
+h1{font-size:20px;margin:0;font-weight:600}
+h2{font-size:14px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:38px 0 12px;font-weight:600}
+h3{font-size:16px;margin:0 0 6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.card{border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.label{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.value{font-size:22px;font-weight:600;margin-top:4px;font-variant-numeric:tabular-nums}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;word-break:break-all}
+.pill{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:99px;background:#eaf6ec;color:var(--ok)}
+.pill.wait{background:#fff4d6;color:var(--wait)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+td{padding:9px 0;border-bottom:1px solid var(--line);vertical-align:top}
+td:first-child{color:var(--muted);width:38%}
+ol.steps{padding-left:20px;font-size:15px}
+ol.steps li{margin-bottom:10px}
+.note{border-left:3px solid var(--gold);padding:10px 14px;background:#faf6ee;font-size:14px;margin:16px 0;border-radius:0 8px 8px 0}
+.note--safety{border-left-color:#b42318;background:#fdf3f2}
+.note--big{font-size:15px;padding:14px 16px}
+input[type=text],input[type=email]{width:100%;padding:10px 12px;font:inherit;font-size:14.5px;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:8px}
+input:focus{outline:2px solid var(--gold);outline-offset:1px}
+button{font:inherit;font-size:14.5px;font-weight:600;padding:10px 18px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg);cursor:pointer}
+button:hover{border-color:var(--gold)}
+.field{margin-bottom:12px}
+.field label{display:block;font-size:13px;color:var(--muted);margin-bottom:4px}
+.result{margin-top:12px;font-size:14px;display:none;border-radius:8px;padding:10px 14px}
+.result.show{display:block}
+.result--ok{background:#eaf6ec;color:var(--ok)}
+.result--wait{background:#fff4d6;color:var(--wait)}
+.result--err{background:#fdf3f2;color:var(--warn)}
+footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+a{color:#0b5fbe}
+@media(prefers-color-scheme:dark){
+:root{--bg:#0f0f10;--fg:#f0f0f0;--muted:#9a9a9a;--line:#2a2a2c;--ok:#4ac26b;--wait:#d9a441;--warn:#f28b82}
+.pill{background:#16301c}.pill.wait{background:#33280e}a{color:#6ea8fe}
+.note{background:#1c1913}.note--safety{background:#201314}
+.result--ok{background:#16301c}.result--wait{background:#33280e}.result--err{background:#201314}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <img src="images/favicon-192.png" alt="CashLab">
+  <div>
+    <h1>CashLab — Automatic reward claiming</h1>
+    <div class="label">Independent Flare infrastructure · <span class="pill wait">Coming soon — not live yet</span></div>
+  </div>
+</header>
+
+<p style="color:var(--muted);font-size:14.5px;margin-top:0">
+Delegate or stake with CashLab and stop clicking &ldquo;claim&rdquo; every 3.5 days.
+Authorize the CashLab executor once in the Flare portal, and each reward epoch we
+deliver your delegation and staking rewards <strong>straight to your own wallet as
+WFLR</strong> — automatically, on-chain, minus the 0.1&nbsp;FLR protocol-minimum
+fee per claim. We never hold your funds.
+</p>
+
+<div class="note note--safety note--big">
+<strong>Not live yet.</strong> The CashLab executor is <strong>not registered
+on-chain yet</strong>. The executor address shown on this page is a placeholder
+(<span class="mono">0x&lt;PUBLIC_EXECUTOR&gt;</span>) — do not enroll, and treat
+any address anyone sends you claiming to be it as a scam until the real address
+is published here and verifiable on-chain. This page describes how the service
+will work at launch.
+</div>
+
+<h2>Please read this first</h2>
+<div class="note note--safety note--big">
+<strong>This service is best-effort, not guaranteed.</strong>
+Please check your claims yourself to verify — we do not guarantee them.
+Your rewards remain yours at all times and are always claimable by you directly,
+whether or not any executor is authorized. You can verify and claim at
+<a href="https://portal.flare.network" rel="noopener">portal.flare.network</a>
+whenever you like.
+</div>
+
+<h2>What it does</h2>
+<table>
+  <tr><td>What gets claimed</td><td>Your delegation (WFLR / FTSO) and staking (P-chain mirror) rewards — the
+      reward types Flare's <span class="mono">autoClaim</span> supports.</td></tr>
+  <tr><td>Where rewards go</td><td><strong>Your own wallet</strong> (or your Flare delegation account, if you
+      enabled one), wrapped as WFLR. The payout address comes from Flare's
+      ClaimSetupManager contract — the executor has no way to redirect it.</td></tr>
+  <tr><td>Fee per claim</td><td><strong>0.1 FLR</strong>, deducted from the claimed rewards. This is
+      <span class="mono">minFeeValueWei</span> — the lowest fee the
+      <a href="https://flare-explorer.flare.network/address/0xD56c0Ea37B848939B59e6F5Cda119b3fA473b5eB" rel="noopener">ClaimSetupManager
+      contract</a> allows any executor to charge. One claim covers <em>all</em> your
+      accumulated unclaimed epochs at once, so the fee is at most 0.1&nbsp;FLR per
+      epoch and less if rewards accumulate across epochs.</td></tr>
+  <tr><td>One-time enrollment cost</td><td><strong>0.1 FLR</strong>, attached automatically by the portal when you add
+      the executor. Flare's contract pays it to a newly added registered executor
+      from that transaction — it is set by the protocol, not by us.</td></tr>
+  <tr><td>Fee changes</td><td>Capped by the protocol (0.1–100&nbsp;FLR range), and any change an executor
+      makes is delayed 3 reward epochs (~10.5 days) by the contract — no surprise
+      pricing.</td></tr>
+  <tr><td>Custody</td><td>None. No token approvals, no deposits, no smart-contract allowances. The
+      executor can only trigger claims that pay <em>you</em>.</td></tr>
+  <tr><td>Leaving</td><td>Any time, from the Flare portal, without asking us. Manual claiming always
+      keeps working — whichever happens first simply wins; nothing can be claimed
+      twice.</td></tr>
+</table>
+
+<div class="note">
+<strong>Fee honesty.</strong> 0.1&nbsp;FLR is the <em>protocol minimum</em>, and we
+are not the only ones at it: as of 2026-08-14 (read from the chain), Flare had
+17 registered executors charging between 0.1 and 5&nbsp;FLR per claim (median
+0.2), and <strong>nine of the 17 charge the same 0.1 minimum</strong>. We match
+the floor; we don't claim to beat it. Registering as a public executor also
+burns a one-time 1,000&nbsp;FLR protocol fee — that is CashLab's cost, never
+yours.
+</div>
+
+<h2>What it costs you, in full</h2>
+<div class="grid">
+  <div class="card"><div class="label">Once, at enrollment</div><div class="value">0.1 FLR</div>
+    <div style="font-size:13px;color:var(--muted)">Attached by the portal; paid to the executor by the protocol.</div></div>
+  <div class="card"><div class="label">Per claim</div><div class="value">0.1 FLR</div>
+    <div style="font-size:13px;color:var(--muted)">Deducted from the rewards being claimed. One claim covers every unclaimed epoch you have.</div></div>
+  <div class="card"><div class="label">Ever sent to us directly</div><div class="value">0 FLR</div>
+    <div style="font-size:13px;color:var(--muted)">You never transfer funds to CashLab. Anyone asking you to is a scammer.</div></div>
+</div>
+
+<h2>Small balances — the contract's rule, stated plainly</h2>
+<p style="font-size:15px">
+Flare's contract only permits an executor claim when your accumulated rewards are
+at least the 0.1&nbsp;FLR fee. <strong>Below that, we cannot auto-claim for you</strong> —
+your rewards simply keep accumulating until they cross the threshold, and
+<strong>you can always claim any amount yourself, fee-free</strong>, in the
+portal. Remember Flare's claim window: rewards left unclaimed expire after about
+90 days, whether or not an executor is set.
+</p>
+
+<h2>How enrollment will work <span class="pill wait" style="text-transform:none;letter-spacing:0">not live yet</span></h2>
+<ol class="steps">
+  <li>Open the <a href="https://portal.flare.network" rel="noopener">Flare portal</a> and connect the wallet that holds your delegation or stake.</li>
+  <li>Go to the claim-setup / <strong>Set Executor</strong> section and select CashLab, or paste the executor address:<br>
+      <span class="mono">0x&lt;PUBLIC_EXECUTOR&gt;</span> <span class="pill wait">placeholder — published at launch</span></li>
+  <li>Confirm the transaction. The portal attaches the one-time 0.1&nbsp;FLR authorization fee described above.</li>
+  <li>Done. Rewards arrive as WFLR in your wallet each epoch after Flare publishes settlement data.</li>
+</ol>
+
+<div class="note note--safety">
+<strong>Already using another executor?</strong> The portal's transaction
+(<span class="mono">setClaimExecutors</span>) <strong>replaces your entire
+executor list</strong> — it does not add to it. If you want to keep an existing
+executor as well, include both addresses in the same transaction. Setting only
+ours would silently remove the other one.
+</div>
+
+<h2>How to leave</h2>
+<p style="font-size:15px">
+Open the same Set Executor section in the portal and set a new executor list
+without us (or an empty one). That's it — no notice period, no permission from
+CashLab needed. Your rewards and your ability to claim them yourself are never
+affected by enrolling or leaving.
+</p>
+
+<h2>Check my enrollment</h2>
+<p style="font-size:14px;color:var(--muted)">
+This check runs <strong>in your browser</strong> against Flare's public RPC —
+your address is not sent to CashLab's servers. It asks the ClaimSetupManager
+contract (<span class="mono">0xD56c0Ea37B848939B59e6F5Cda119b3fA473b5eB</span>)
+whether the CashLab executor is authorized for your wallet.
+</p>
+<div class="card">
+  <div class="field">
+    <label for="check-addr">Your wallet address (0x…)</label>
+    <input type="text" id="check-addr" inputmode="text" autocomplete="off" spellcheck="false" placeholder="0x0000000000000000000000000000000000000000">
+  </div>
+  <button id="check-btn" type="button">Check enrollment</button>
+  <div class="result" id="check-result" role="status"></div>
+</div>
+
+<h2 id="notifications">Email notifications — opt-in, and only if you want them</h2>
+<p style="font-size:15px">
+If you give us an email address, we will use it for exactly two things:
+</p>
+<table>
+  <tr><td>Claim outcomes</td><td>After each claim run: whether your claim succeeded (and the amount) or did
+      not complete this cycle — in which case you can always claim manually
+      yourself.</td></tr>
+  <tr><td>Stake-expiry reminders</td><td>Delegated stakes on Flare's P-chain <strong>do not auto-renew</strong> —
+      every stake has a fixed on-chain end date and simply stops earning when it
+      passes. If you stake to the CashLab validator and opt in, we email you
+      before your stake ends so you can re-stake in time.</td></tr>
+</table>
+<p style="font-size:14px;color:var(--muted)">
+Opt-in and notification-only: no marketing, no newsletter, never sold or shared,
+and removable at any time by emailing
+<a href="mailto:hello@cashlab.network">hello@cashlab.network</a>. Details in the
+<a href="/privacy">privacy policy</a>.
+</p>
+<div class="card">
+  <form id="notify-form" novalidate>
+    <div class="field">
+      <label for="nf-wallet">Wallet address (0x…)</label>
+      <input type="text" id="nf-wallet" autocomplete="off" spellcheck="false" placeholder="0x0000000000000000000000000000000000000000" required>
+    </div>
+    <div class="field">
+      <label for="nf-email">Email address</label>
+      <input type="email" id="nf-email" autocomplete="email" placeholder="you@example.com" required>
+    </div>
+    <button type="submit">Sign up for notifications</button>
+    <div class="result" id="notify-result" role="status"></div>
+  </form>
+  <p style="font-size:12.5px;color:var(--muted);margin:10px 0 0">
+    Sign-ups open when the service goes live. Submitting before then stores
+    nothing.
+  </p>
+</div>
+
+<h2>Why it's safe — enforced by Flare's contracts, not by our promises</h2>
+<table>
+  <tr><td>Payout destination</td><td>Fixed by the ClaimSetupManager contract to your own address (or your
+      delegation account). Not configurable by the executor.</td></tr>
+  <tr><td>Double claiming</td><td>Impossible by contract: once rewards are claimed — by us or by you — a
+      second claim finds nothing. First claimer wins; nobody pays twice.</td></tr>
+  <tr><td>Our track record</td><td>Once live, we will publish actual per-epoch numbers (claims made /
+      wallets enrolled) on the <a href="/status.html">status page</a> — numbers
+      first, promises never.</td></tr>
+</table>
+
+<footer>
+  <a href="/">cashlab.network</a> ·
+  <a href="/stake.html">Stake with us</a> ·
+  <a href="/status.html">Status</a> ·
+  <a href="https://x.com/CashLabNetwork" rel="noopener">@CashLabNetwork</a> ·
+  <a href="mailto:hello@cashlab.network">hello@cashlab.network</a><br>
+  <span style="display:block;margin:10px 0;font-size:12.5px;line-height:1.55">
+  <strong>Disclaimer.</strong> CashLab is an independent infrastructure operator, not a
+  financial adviser; nothing on this site is financial, investment, or tax advice.
+  Auto-claiming is an on-chain convenience service executed through Flare's own
+  ClaimSetupManager and RewardManager contracts: CashLab never takes custody of your
+  funds, and reward payouts can only be delivered to your own address as enforced by
+  those contracts. The per-claim fee is 0.1 FLR; claims require accumulated rewards of
+  at least the fee, as required by the protocol. The service is provided on a
+  best-effort basis and may be delayed or interrupted — please check your claims
+  yourself to verify; we do not guarantee them. Unclaimed rewards remain claimable by
+  you directly for the period defined by the protocol (currently about 90 days) and
+  expire after it, whether or not any executor is authorized. Reward rates change
+  every epoch, can be zero, and past performance does not predict future results.
+  Figures derive from Flare's published settlement and on-chain data and are provided
+  as-is, without warranty. Do your own research.</span>
+  Not affiliated with, endorsed by, or authorized by the Flare Foundation.
+</footer>
+
+</div>
+
+<script>
+// ---------------------------------------------------------------------------
+// SERVICE GATE: the executor is NOT registered yet. Fill in the real address
+// at launch. While this is empty, the enrollment widget reports "not live".
+// ---------------------------------------------------------------------------
+const PUBLIC_EXECUTOR = ""; // e.g. "0x..." — leave empty until registered
+
+const RPC = "https://flare-api.flare.network/ext/bc/C/rpc";
+const CLAIM_SETUP_MANAGER = "0xD56c0Ea37B848939B59e6F5Cda119b3fA473b5eB";
+// keccak256("isClaimExecutor(address,address)")[0:4], verified against the
+// live contract 2026-08-15 (valid calldata returns a bool word).
+const SELECTOR_IS_CLAIM_EXECUTOR = "0x87962abe";
+
+const isAddress = (s) => /^0x[0-9a-fA-F]{40}$/.test(s);
+const pad32 = (addr) => addr.toLowerCase().replace(/^0x/, "").padStart(64, "0");
+
+function show(el, cls, msg) {
+  el.className = "result show result--" + cls;
+  el.textContent = msg;
+}
+
+// --- Check-my-enrollment widget (client-side only, no backend) ---
+(function () {
+  const btn = document.getElementById("check-btn");
+  const input = document.getElementById("check-addr");
+  const out = document.getElementById("check-result");
+
+  async function check() {
+    const owner = input.value.trim();
+    if (!isAddress(owner)) {
+      show(out, "err", "That doesn't look like a wallet address — expected 0x followed by 40 hex characters.");
+      return;
+    }
+    if (!PUBLIC_EXECUTOR) {
+      show(out, "wait", "The CashLab executor service is not yet live — there is no executor address to be enrolled with. Check back after launch.");
+      return;
+    }
+    show(out, "wait", "Checking on-chain…");
+    try {
+      const data = SELECTOR_IS_CLAIM_EXECUTOR + pad32(owner) + pad32(PUBLIC_EXECUTOR);
+      const r = await fetch(RPC, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "eth_call",
+          params: [{ to: CLAIM_SETUP_MANAGER, data }, "latest"] })
+      });
+      const j = await r.json();
+      if (j.error) throw new Error(j.error.message);
+      const enrolled = BigInt(j.result) === 1n;
+      if (enrolled) {
+        show(out, "ok", "Enrolled: the CashLab executor is authorized for this wallet (read live from ClaimSetupManager).");
+      } else {
+        show(out, "wait", "Not enrolled: the CashLab executor is not authorized for this wallet (read live from ClaimSetupManager).");
+      }
+    } catch (e) {
+      show(out, "err", "Could not reach the Flare public RPC to check. Nothing is wrong with your enrollment — please try again in a moment, or verify directly at portal.flare.network.");
+    }
+  }
+
+  btn.addEventListener("click", check);
+  input.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); check(); } });
+})();
+
+// --- Email opt-in form (POSTs to a placeholder endpoint; worker is staged,
+//     not deployed — see workers/notify-signup/) ---
+(function () {
+  const form = document.getElementById("notify-form");
+  const out = document.getElementById("notify-result");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const wallet = document.getElementById("nf-wallet").value.trim();
+    const email = document.getElementById("nf-email").value.trim();
+    if (!isAddress(wallet)) {
+      show(out, "err", "Please enter a valid wallet address (0x followed by 40 hex characters).");
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      show(out, "err", "Please enter a valid email address.");
+      return;
+    }
+    show(out, "wait", "Submitting…");
+    try {
+      const r = await fetch("/api/notify-signup", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ wallet, email })
+      });
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      show(out, "ok", "Signed up. We'll email you claim outcomes and stake-expiry reminders — nothing else. Remove yourself any time via hello@cashlab.network.");
+    } catch (err) {
+      show(out, "err", "Could not submit — the sign-up service is not yet live. Nothing was stored. Please check back after launch.");
+    }
+  });
+})();
+</script>
+</body>
+</html>
