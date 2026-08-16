@@ -230,20 +230,22 @@
   }
 
   .brand img {
-    height: 30px;
+    height: 40px;
     width: auto;
   }
 
   .nav {
     display: flex;
     align-items: center;
-    gap: clamp(1rem, 2.5vw, 2rem);
+    flex-wrap: nowrap;
+    gap: clamp(0.75rem, 1.4vw, 1.25rem);
   }
 
   .nav a {
     font-size: var(--text-sm);
     font-weight: 500;
     color: var(--ink-soft);
+    white-space: nowrap;
   }
 
   .nav a:hover {
@@ -267,7 +269,8 @@
     display: none;
   }
 
-  @media (max-width: 720px) {
+  /* 10 links + lockup need ~1000px in one row — below that, hamburger */
+  @media (max-width: 1080px) {
     .nav {
       display: none;
     }
