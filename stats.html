@@ -88,18 +88,18 @@ number is published. Narrative reports live on the
 <div class="grid">
   <div class="card">
     <div class="label">Active stake</div>
-    <div class="value">17,288,000 FLR</div>
-    <div class="sub">as of Aug 14, 2026 · hand-updated</div>
+    <div class="value" id="tile-stake">…</div>
+    <div class="sub" id="tile-stake-sub">from epochs.json snapshot</div>
   </div>
   <div class="card">
-    <div class="label">Live price feeds</div>
-    <div class="value">62</div>
-    <div class="sub">as of Aug 14, 2026 · hand-updated</div>
+    <div class="label">Configured price feeds</div>
+    <div class="value" id="tile-feeds">…</div>
+    <div class="sub" id="tile-feeds-sub">from epochs.json snapshot</div>
   </div>
   <div class="card">
     <div class="label">Validator uptime</div>
     <div class="value" id="tile-uptime">…</div>
-    <div class="sub" id="tile-uptime-sub">read at last settlement</div>
+    <div class="sub" id="tile-uptime-sub">read at last report</div>
   </div>
   <div class="card">
     <div class="label">Latest settled epoch</div>
@@ -108,11 +108,15 @@ number is published. Narrative reports live on the
   </div>
 </div>
 <p style="font-size:12.5px;color:var(--muted);margin-top:10px">
-The two left tiles are <strong>point-in-time</strong> values updated by hand and
-dated accordingly. The two right tiles — and everything below — are
-<strong>settled per-epoch data</strong> from <code>epochs.json</code>, which the
-publish pipeline regenerates automatically each epoch, so this page updates
-itself as epochs settle.
+Nothing on this page is typed in by hand. The two left tiles are
+<strong>point-in-time</strong> values the publish pipeline derives at
+generation time — active stake read live from Flare's PChainStakeMirror
+contract, feed count from our machine-readable control plane — and stamps
+with the moment they were read. The two right tiles, and everything below,
+are <strong>settled per-epoch data</strong> from <code>epochs.json</code>.
+The pipeline regenerates the whole file each epoch, so this page updates
+itself as epochs settle; each tile's exact source is in its
+<code>data-source</code> attribute and in <code>epochs.json</code> itself.
 </p>
 
 <h2>FTSO accuracy per epoch <span class="badge settled">settled data</span></h2>
@@ -357,10 +361,28 @@ function renderTable(eps){
   });
 }
 
+function renderSnapshot(doc){
+  const s = doc.snapshot;
+  if(!s || !s.activeStake || !s.feeds){
+    $("tile-stake").textContent = "—";
+    $("tile-feeds").textContent = "—";
+    $("tile-stake-sub").textContent = "snapshot missing from epochs.json";
+    $("tile-feeds-sub").textContent = "snapshot missing from epochs.json";
+    return;
+  }
+  const asOf = s.asOf || doc.generated_at || "";
+  $("tile-stake").textContent = fmtI(s.activeStake.flr) + " FLR";
+  $("tile-stake-sub").textContent = "as of " + asOf + " · chain read";
+  $("tile-stake").closest(".card").setAttribute("data-source", s.activeStake.source || "");
+  $("tile-feeds").textContent = fmtI(s.feeds.configured);
+  $("tile-feeds-sub").textContent = "as of " + asOf + " · control plane";
+  $("tile-feeds").closest(".card").setAttribute("data-source", s.feeds.source || "");
+}
+
 function renderTiles(eps){
   const latest = eps[eps.length - 1], g = latest.gates;
   $("tile-uptime").textContent = g.staking.uptimePct + "%";
-  $("tile-uptime-sub").textContent = `read at epoch-${latest.epoch} settlement · settled data`;
+  $("tile-uptime-sub").textContent = `read at epoch-${latest.epoch} report publication`;
   const passed = [g.ftso.pass, g.fdc.pass, g.staking.pass, g.fastUpdates.pass]
                  .filter(Boolean).length;
   $("tile-epoch").innerHTML = `${latest.epoch} · ` + (latest.paid
@@ -374,8 +396,8 @@ function fail(msg){
     $(id).innerHTML = `<div class="placeholder">${msg}</div>`;
   $("history-body").innerHTML =
     `<tr><td colspan="9" style="color:var(--muted)">${msg}</td></tr>`;
-  $("tile-uptime").textContent = "—";
-  $("tile-epoch").textContent = "—";
+  for(const id of ["tile-stake", "tile-feeds", "tile-uptime", "tile-epoch"])
+    $(id).textContent = "—";
 }
 
 async function load(){
@@ -393,12 +415,14 @@ async function load(){
   const eps = (doc.epochs || []).slice().sort((a, b) => a.epoch - b.epoch);
   if(!eps.length){ fail("epochs.json contains no epochs yet."); return; }
   try{
+    renderSnapshot(doc);
     renderTiles(eps);
     chartAccuracy(eps);
     chartApr(eps);
     renderTable(eps);
-    if(doc.generated)
-      $("gen").textContent = " Dataset generated " + doc.generated +
+    const gen = doc.generated_at || doc.generated;
+    if(gen)
+      $("gen").textContent = " Dataset generated " + gen +
                              " · " + eps.length + " epoch" + (eps.length > 1 ? "s" : "") + ".";
   }catch(err){
     fail("epochs.json loaded but could not be rendered: " + err.message);
