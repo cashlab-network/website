@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CashLab — Delegate</title>
+<meta name="description" content="Delegate WFLR vote power to CashLab's FTSO. Non-custodial, no minimum, no lock-up — your tokens never leave your wallet. Step-by-step Portal guide with our address and live on-chain numbers.">
+<link rel="icon" href="images/favicon.ico">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<style>
+:root{--bg:#fff;--fg:#111;--muted:#666;--line:#e5e5e5;--gold:#cf9d43;--ok:#1a7f37;--wait:#9a6700}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:var(--fg);background:var(--bg)}
+.wrap{max-width:860px;margin:0 auto;padding:32px 20px 64px}
+header{display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:28px}
+header img{width:44px;height:44px}
+header a{color:inherit;text-decoration:none}
+h1{font-size:20px;margin:0;font-weight:600}
+h2{font-size:14px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:38px 0 12px;font-weight:600}
+h3{font-size:16px;margin:0 0 6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.card{border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.label{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.value{font-size:22px;font-weight:600;margin-top:4px;font-variant-numeric:tabular-nums}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;word-break:break-all}
+.pill{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:99px;background:#eaf6ec;color:var(--ok)}
+.pill.wait{background:#fff4d6;color:var(--wait)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+td{padding:9px 0;border-bottom:1px solid var(--line);vertical-align:top}
+td:first-child{color:var(--muted);width:38%}
+ol.steps{padding-left:20px;font-size:15px}
+ol.steps li{margin-bottom:10px}
+.note{border-left:3px solid var(--gold);padding:10px 14px;background:#faf6ee;font-size:14px;margin:16px 0;border-radius:0 8px 8px 0}
+.note--safety{border-left-color:#b42318;background:#fdf3f2}
+.addr-box{border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:12px 14px;margin:14px 0;background:#faf6ee}
+footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+a{color:#0b5fbe}
+/* dark palette intentionally omitted -- fixed light site-wide (cohesion 2026-08-16);
+   add here when the whole-site dark pass happens */
+
+/* ---- site-wide sticky nav (copied from index.html's header; fixed light,
+   matching the homepage -- site-cohesion 2026-08-16) ---- */
+/* display/padding/margin reset shields against each page's own bare-`header` element rules */
+.site-header{display:block;padding:0;margin:0;position:sticky;top:0;z-index:50;background:rgba(255,255,255,.85);backdrop-filter:saturate(180%) blur(12px);-webkit-backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid #e6e5e1}
+.site-header__inner{width:100%;max-width:1080px;margin:0 auto;height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 clamp(1.25rem,5vw,2.5rem)}
+.site-header .brand{display:inline-flex;align-items:center}
+.site-header .brand img{height:30px;width:auto;display:block}
+.site-header .nav{display:flex;align-items:center;gap:clamp(.9rem,2.2vw,1.8rem)}
+.site-header .nav a{font-size:14px;font-weight:500;color:#3a3a38;text-decoration:none;border:0;white-space:nowrap}
+.site-header .nav a:hover{color:#a8842c}
+.site-header .nav a.nav__cta{font-weight:600;color:#0e0e0d;padding:.4rem .8rem;border:1px solid #d9d8d3;border-radius:6px}
+.site-header .nav a.nav__cta:hover{border-color:#c89f3b;color:#a8842c}
+.site-header .nav-toggle{display:none;background:none;cursor:pointer;padding:0}
+@media(max-width:920px){
+ .site-header .nav{display:none}
+ .site-header .nav.nav--open{display:flex;position:absolute;top:64px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:#fff;border-bottom:1px solid #e6e5e1;padding:8px clamp(1.25rem,5vw,2.5rem) 16px}
+ .site-header .nav.nav--open a{padding:10px 0;border-bottom:1px solid #e6e5e1}
+ .site-header .nav.nav--open a:last-child{border-bottom:0}
+ .site-header .nav-toggle{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border:1px solid #d9d8d3;border-radius:6px;color:#0e0e0d}
+}
+</style>
+</head>
+<body>
+<!-- ===== site-wide nav (matches index.html) ===== -->
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="/" class="brand" aria-label="CashLab home"><img src="images/cashlab-lockup-header.png" alt="CashLab" width="760" height="322"></a>
+    <nav class="nav" id="site-nav" aria-label="Primary">
+      <a href="/">Home</a>
+      <a href="/delegate.html">Delegate</a>
+      <a href="/stake.html">Stake with us</a>
+      <a href="/autoclaim.html">Auto-claim</a>
+      <a href="/epochs.html">Epoch reports</a>
+      <a href="/stats.html">Stats</a>
+      <a href="/status.html">Status</a>
+      <a href="/#verify">Verify us</a>
+      <a href="/#contact" class="nav__cta">Contact</a>
+    </nav>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+</header>
+<div class="wrap">
+
+<header>
+  <img src="images/favicon-192.png" alt="CashLab">
+  <div>
+    <h1>CashLab — Delegate</h1>
+    <div class="label">Non-custodial WFLR delegation</div>
+  </div>
+</header>
+
+<p style="color:var(--muted);font-size:14.5px;margin-top:0">
+Delegation assigns your WFLR's <strong>vote power</strong> to CashLab's FTSO —
+your tokens never leave your wallet, there is no minimum, and you can undelegate
+at any moment. This page is the complete guide. Live figures are read from Flare
+mainnet <strong>by your browser</strong> — not from our servers.
+</p>
+
+<h2>Delegation at a glance</h2>
+<div class="grid">
+  <div class="card"><div class="label">Minimum</div><div class="value">None</div></div>
+  <div class="card"><div class="label">Lock-up</div><div class="value">None</div></div>
+  <div class="card"><div class="label">Custody</div><div class="value" style="font-size:16px">Tokens stay in your wallet</div></div>
+  <div class="card"><div class="label">WFLR vote power currently delegated to CashLab</div><div class="value" id="votepower">…</div></div>
+</div>
+<p style="font-size:13.5px;color:var(--muted)">
+The vote-power figure is read live from the wrapped-FLR contract
+(<span class="mono">WNat.votePowerOf</span>) and includes CashLab's own wrapped
+FLR — we delegate our own capital to the same address we ask you to.
+</p>
+
+<h2>Our address — the only one</h2>
+<div class="addr-box">
+  <div class="label">CashLab delegation address</div>
+  <div class="mono" style="font-size:14px;margin-top:4px"><strong>0x46F75Ac75a9E389809b965A876303681D32bCf2e</strong></div>
+</div>
+<p style="font-size:14px;color:var(--muted)">
+Cross-check it before you delegate: it is printed on our
+<a href="/">homepage</a>, posted from our X account
+<a href="https://x.com/CashLabNetwork" rel="noopener">@CashLabNetwork</a>, and
+visible on-chain in every epoch we participate in via the
+<a href="https://flare-systems-explorer.flare.network/providers" rel="noopener">Flare Systems Explorer</a>.
+</p>
+
+<h2>How to delegate — four steps in the Portal</h2>
+<ol class="steps">
+  <li>Go to the <a href="https://portal.flare.network" rel="noopener">Flare Portal</a> and connect your wallet.</li>
+  <li><strong>Wrap</strong> the FLR you want to delegate (FLR &rarr; WFLR). Keep a little FLR unwrapped for gas. Wrapping is fully reversible at any time.</li>
+  <li>Choose <strong>Delegate</strong>, and delegate to the CashLab delegation address:<br>
+      <span class="mono">0x46F75Ac75a9E389809b965A876303681D32bCf2e</span><br>
+      You can split your vote power across up to two providers.</li>
+  <li>Rewards accrue every ~3.5-day reward epoch and are claimable in the Portal.
+      <strong>Claim at least every 90 days</strong> — Flare burns rewards left
+      unclaimed longer than that.</li>
+</ol>
+
+<div class="note">
+<strong>Timing tip almost nobody explains:</strong> each reward epoch measures
+your delegation at a <em>snapshot block drawn at random from the days before
+the epoch starts</em> — not at the moment the epoch begins. If you delegate at
+the last minute, the snapshot has probably already passed and your first
+rewards start one epoch later. Delegating a few days ahead of an epoch
+boundary makes the next epoch certain. (Epoch boundaries are every ~3.5 days —
+see the countdown on our <a href="/status.html">status page</a>.)
+</div>
+
+<h2>Our fee — stated plainly</h2>
+<p style="font-size:15px">
+<strong>20% of rewards.</strong> It applies to <em>reward</em> flows only —
+your principal is never touched, and 80% of the rewards earned on your
+delegation is yours. 20% is the network-wide minimum set by Flare governance in
+<a href="https://proposals.flare.network/FIP/FIP_16.html" rel="noopener">FIP.16</a>
+(April&nbsp;2026) and enforced on-chain: the fee contract's
+<span class="mono">minFeeBIPS</span> reads <span class="mono">2000</span>
+(= 20.00%) for every provider. Ours is exactly the floor — verifiable, not a
+promise.
+</p>
+
+<h2>Claiming your rewards</h2>
+<p style="font-size:15px">
+Rewards are claimed by you, from the RewardManager contract, in the Portal —
+CashLab never holds your funds. Unclaimed rewards expire after 90 days on
+Flare, so claim regularly to avoid losing them.
+</p>
+<div class="note">
+<strong>Coming soon — automatic claiming.</strong> CashLab is preparing an
+opt-in auto-claim executor that delivers rewards to your own wallet as WFLR
+each epoch for the 0.1&nbsp;FLR protocol-minimum fee, plus optional email
+notifications. Not live yet — how it will work, including the honest fine
+print, is on the <a href="/autoclaim.html">auto-claim page</a>.
+</div>
+
+<div class="note note--safety">
+<strong>Safety, once and clearly:</strong> delegation never involves sending
+FLR to us or to anyone. No legitimate provider will ever ask you to transfer
+funds, share a seed phrase, or "validate" your wallet. If anyone claiming to
+be CashLab asks for any of that, it is a scam — our only addresses are the
+ones printed on this page and verifiable on-chain.
+</div>
+
+<h2>Prefer a fixed-term position?</h2>
+<p style="font-size:15px">
+Delegation's sibling is <strong>P-chain staking</strong> to our validator —
+50,000 FLR minimum, fixed end date, settled about every two weeks. Both paths,
+compared side by side, are on the
+<a href="/stake.html">Stake with us</a> page.
+</p>
+
+<footer>
+  <a href="/">cashlab.network</a> ·
+  <a href="/stake.html">Stake with us</a> ·
+  <a href="/autoclaim.html">Auto-claim</a> ·
+  <a href="/status.html">Status</a> ·
+  <a href="https://x.com/CashLabNetwork" rel="noopener">@CashLabNetwork</a> ·
+  <a href="mailto:hello@cashlab.network">hello@cashlab.network</a><br>
+  <span style="display:block;margin-bottom:10px;font-size:12.5px;line-height:1.55">
+  <strong>Disclaimer.</strong> CashLab is an independent infrastructure operator, not a
+  financial adviser; nothing on this site is financial, investment, or tax advice.
+  Any reward rates shown are realized historical results for individual reward epochs,
+  annualized only for comparability — they change every epoch, can be zero, and past
+  performance does not predict future results. Delegating or staking FLR involves risk,
+  including protocol and parameter changes and loss of rewards. Figures derive from
+  Flare's published settlement data and are provided as-is, without warranty. Do your
+  own research.</span>
+  Not affiliated with, endorsed by, or authorized by the Flare Foundation.
+</footer>
+
+</div>
+
+<script>
+const RPC = "https://flare-api.flare.network/ext/C/rpc";
+const WNAT = "0x1D80c49BbBCd1C0911346656B529DF9E5c2F783d";
+const DELEG = "46f75ac75a9e389809b965a876303681d32bcf2e";
+const set = (id,v) => { const e=document.getElementById(id); if(e) e.textContent=v; };
+
+async function load(){
+  try{
+    // votePowerOf(address) — address left-padded to 32 bytes
+    const data = "0x142d1018" + "0".repeat(24) + DELEG;
+    const r = await fetch(RPC,{method:"POST",headers:{"content-type":"application/json"},
+      body:JSON.stringify({jsonrpc:"2.0",id:1,method:"eth_call",params:[{to:WNAT,data},"latest"]})});
+    const j = await r.json();
+    if(j.error) throw new Error(j.error.message);
+    const wflr = Number(BigInt(j.result) / 10n**18n);
+    set("votepower", wflr.toLocaleString() + " WFLR");
+  }catch(e){
+    set("votepower","—");
+  }
+}
+load();
+setInterval(load, 60000);
+</script>
+<script>
+(function(){var b=document.getElementById("nav-toggle"),n=document.getElementById("site-nav");
+if(!b||!n)return;
+b.addEventListener("click",function(){var o=n.classList.toggle("nav--open");
+b.setAttribute("aria-expanded",o?"true":"false");
+b.setAttribute("aria-label",o?"Close menu":"Open menu");});
+n.addEventListener("click",function(e){if(e.target.tagName==="A"&&n.classList.contains("nav--open")){n.classList.remove("nav--open");b.setAttribute("aria-expanded","false");}});
+})();
+</script>
+</body>
+</html>

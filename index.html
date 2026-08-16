@@ -269,8 +269,8 @@
     display: none;
   }
 
-  /* 10 links + lockup need ~1000px in one row — below that, hamburger */
-  @media (max-width: 1080px) {
+  /* 9 links + lockup need ~930px in one row — below that, hamburger */
+  @media (max-width: 980px) {
     .nav {
       display: none;
     }
@@ -837,9 +837,8 @@
     </a>
 
     <nav class="nav" id="primary-nav" aria-label="Primary">
-      <a href="#what-we-do">What we do</a>
-      <a href="#reliability">Reliability</a>
-      <a href="#delegate">Delegate</a>
+      <a href="/">Home</a>
+      <a href="/delegate.html">Delegate</a>
       <a href="/stake.html">Stake with us</a>
       <a href="/autoclaim.html">Auto-claim</a>
       <a href="/epochs.html">Epoch reports</a>
@@ -1056,49 +1055,22 @@
   </section>
 
   <!-- ============================ HOW TO DELEGATE ============================ -->
+  <!-- Delegation moved to its own page 2026-08-16 (the operator request):
+       /delegate.html — full guide, live vote-power widget, fee, safety.
+       The old #delegate section (stale "opens at mainnet launch" wording)
+       is preserved in git history. -->
   <section class="section section--tint" id="delegate">
     <div class="wrap">
-      <span class="eyebrow">How to delegate</span>
+      <span class="eyebrow">Delegate</span>
       <h2 class="section-title">Delegating is non-custodial and takes minutes.</h2>
       <p class="section-intro">
-        Delegation to CashLab opens at Flare mainnet launch. When it does, the
-        steps are straightforward &mdash; and your FLR never leaves your wallet.
+        No minimum, no lock-up, and your FLR never leaves your wallet. The
+        complete step-by-step guide &mdash; with our address, our fee stated
+        plainly, and live on-chain numbers &mdash; has its own page.
       </p>
-
-      <ol class="grid grid--3 steps" data-reveal>
-        <li class="step">
-          <h3>Wrap your FLR</h3>
-          <p>
-            Wrap FLR into WFLR in your own wallet. Wrapping is required before
-            vote power can be delegated, and it's fully reversible at any time.
-          </p>
-        </li>
-        <li class="step">
-          <h3>Delegate to CashLab</h3>
-          <p>
-            Delegate your WFLR vote power to CashLab's Delegation address.
-            There's no minimum and no lock-up &mdash; you can change or undelegate
-            whenever you like.
-          </p>
-        </li>
-        <li class="step">
-          <h3>Claim your rewards</h3>
-          <p>
-            Rewards accrue automatically and are claimed directly by you from the
-            RewardManager contract. CashLab never holds your funds. Unclaimed
-            rewards expire after 90 days on Flare, so claim regularly to avoid
-            losing them.
-          </p>
-        </li>
-      </ol>
-
-      <div class="note" data-reveal>
-        New to wrapping and delegating on Flare? Follow the official guides at
-        <a class="inline-link" href="https://dev.flare.network/" target="_blank" rel="noopener noreferrer">dev.flare.network</a>.
-        <br />
-        <strong>CashLab's Delegation address:</strong>
-        <code class="status-card__addr">0x46F75Ac75a9E389809b965A876303681D32bCf2e</code>
-      </div>
+      <p data-reveal>
+        <a class="pill pill--link" href="/delegate.html">Open the delegation guide &nbsp;&rarr;</a>
+      </p>
     </div>
   </section>
 
@@ -1197,13 +1169,17 @@
       <nav class="footer__links" aria-label="Footer">
         <a href="#what-we-do">What we do</a>
         <a href="#reliability">Reliability</a>
-        <a href="#delegate">Delegate</a>
-        <a href="#verify">Verify us</a>
-        <a href="mailto:hello@cashlab.network">Email</a>
-        <a href="https://github.com/cashlab-network" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="/delegate.html">Delegate</a>
         <a href="/stake.html">Stake with us</a>
-      <a href="/epochs.html">Epoch reports</a> · <a href="/stats.html">Stats</a> · <a href="/status.html">Status</a> · <a href="https://x.com/CashLabNetwork" rel="noopener">@CashLabNetwork</a> · <a href="/privacy">Privacy</a>
-      <a href="/autoclaim.html">Auto-claim</a> · <a href="/epochs.html">Epoch reports</a> · <a href="/status.html">Status</a> · <a href="https://x.com/CashLabNetwork" rel="noopener">@CashLabNetwork</a> · <a href="/privacy">Privacy</a>
+        <a href="/autoclaim.html">Auto-claim</a>
+        <a href="/epochs.html">Epoch reports</a>
+        <a href="/stats.html">Stats</a>
+        <a href="/status.html">Status</a>
+        <a href="#verify">Verify us</a>
+        <a href="https://github.com/cashlab-network" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://x.com/CashLabNetwork" rel="noopener">@CashLabNetwork</a>
+        <a href="mailto:hello@cashlab.network">Email</a>
+        <a href="/privacy">Privacy</a>
         <a href="/terms">Terms</a>
       </nav>
     </div>
