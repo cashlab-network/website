@@ -120,9 +120,10 @@ whenever you like.
 
 <div class="note">
 <strong>Fee honesty.</strong> 0.1&nbsp;FLR is the <em>protocol minimum</em>, and we
-are not the only ones at it: as of 2026-08-14 (read from the chain), Flare had
+are not the only ones at it: as of 2026-08-15 (read from the chain), Flare had
 17 registered executors charging between 0.1 and 5&nbsp;FLR per claim (median
-0.2), and <strong>nine of the 17 charge the same 0.1 minimum</strong>. We match
+0.2), and <strong>eight of the 17 charge the same 0.1 minimum</strong>. Other
+executors can change their fees over time, so this count is a dated snapshot. We match
 the floor; we don't claim to beat it. Registering as a public executor also
 burns a one-time 1,000&nbsp;FLR protocol fee — that is CashLab's cost, never
 yours.
@@ -337,6 +338,11 @@ and removable at any time by emailing
 //   5. LAUNCH GATE: the server-side tamper watchdog (built separately) must
 //      be live — it polls this page and alarms if the displayed executor
 //      address ever differs from the expected constant.
+//   6. Remove ALL not-live markers (FA-26): the meta description's "not yet
+//      live" text, the hero "COMING SOON" pill, the bold not-live banner in
+//      the body, and the two "placeholder — published at launch" pills.
+//      Grep this file for "not live", "COMING SOON", "placeholder" to be
+//      sure none survive.
 // ---------------------------------------------------------------------------
 const PUBLIC_EXECUTOR = ""; // e.g. "0x..." — leave empty until registered
 
