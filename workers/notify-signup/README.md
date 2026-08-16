@@ -13,3 +13,7 @@ gracefully client-side ("not yet live, nothing was stored").
   request via hello@cashlab.network (mirrors `/privacy`).
 
 Do NOT deploy before the operator green-lights the executor service launch.
+
+Launch gate (separate build): a server-side tamper watchdog must be live
+before launch — it polls the published /autoclaim.html and alarms if the
+displayed executor address ever differs from the expected constant.

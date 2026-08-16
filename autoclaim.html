@@ -165,6 +165,62 @@ executor as well, include both addresses in the same transaction. Setting only
 ours would silently remove the other one.
 </div>
 
+<h2>How to verify it's really us</h2>
+<p style="font-size:15px">
+Before you enroll with any executor — ours included — you should be able to
+answer: <em>how do I know this address is really theirs?</em> Here is how, and
+here is why the stakes are smaller than they look.
+</p>
+
+<div class="note note--big">
+<strong>First, what an executor can never do.</strong> Flare's RewardManager
+contract always sends claimed rewards to <strong>your own wallet</strong> (or
+your delegation account, if you enabled one), minus only the executor's fee.
+The executor has no way to choose a destination — the payout address comes from
+the ClaimSetupManager contract, not from the executor. Even a malicious
+executor cannot touch your principal or redirect your rewards.
+<strong>The worst a fake address can do is overcharge you a fee — it can never
+take your rewards.</strong>
+</div>
+
+<p style="font-size:15px">
+<strong>So the one thing to check at enrollment is the fee.</strong> When your
+wallet asks you to confirm the enrollment transaction, it shows the amount
+attached — that amount is the executor's current fee, paid once at enrollment,
+and the same fee is what each later claim deducts. <strong>Ours is exactly
+0.1&nbsp;FLR.</strong> The protocol lets an executor charge up to
+100&nbsp;FLR, so a scam executor's game is a high fee — the confirmation shows
+it before you sign. <strong>If it says anything other than 0.1&nbsp;FLR, stop
+and don't sign.</strong>
+</p>
+
+<p style="font-size:15px">
+<strong>Second, don't take the address from one place — including this
+website.</strong> If this site were ever compromised, the page (and the
+enrollment checker above) could show you a wrong address. That is not
+paranoia, it is how you should treat every operator's website. Before
+enrolling, cross-check the executor address in independent places:
+</p>
+<table>
+  <tr><td>Our X account</td><td><a href="https://x.com/CashLabNetwork" rel="noopener">@CashLabNetwork</a> —
+      at launch we will publish the executor address in a pinned announcement
+      post. The address there and the address here must match exactly.</td></tr>
+  <tr><td>The chain itself</td><td>The executor's registration is an on-chain transaction anyone can read.
+      At launch we will link the executor's page on the
+      <a href="https://flare-explorer.flare.network" rel="noopener">Flare explorer</a>
+      here, including the registration transaction.
+      <span class="pill wait">placeholder — published at launch</span></td></tr>
+  <tr><td>The Flare portal</td><td>Registered executors can appear by name in the portal's own executor
+      list. Whether CashLab is listed by name there is
+      <strong>[pending verification at launch]</strong> — if it is, selecting
+      it from the portal's list avoids pasting an address at all.</td></tr>
+</table>
+<p style="font-size:14px;color:var(--muted)">
+And re-read the red caution above this section: however you enroll,
+<span class="mono">setClaimExecutors</span> replaces your whole executor list,
+so check the full list you are signing, not just one entry.
+</p>
+
 <h2>How to leave</h2>
 <p style="font-size:15px">
 Open the same Set Executor section in the portal and set a new executor list
@@ -268,6 +324,19 @@ and removable at any time by emailing
 // ---------------------------------------------------------------------------
 // SERVICE GATE: the executor is NOT registered yet. Fill in the real address
 // at launch. While this is empty, the enrollment widget reports "not live".
+//
+// FILL-IN-AT-LAUNCH CHECKLIST:
+//   1. Set PUBLIC_EXECUTOR below and replace the two visible
+//      0x<PUBLIC_EXECUTOR> placeholders + the explorer-link placeholder in
+//      the "How to verify it's really us" section.
+//   2. Re-read and re-date the executor-count/fee numbers and the ~90-day
+//      claim window from the chain (WEBSITE-COPY.md requirement).
+//   3. Resolve the [pending verification at launch] marker: does the Flare
+//      portal list CashLab by name?
+//   4. Deploy workers/notify-signup with a KV or webhook binding.
+//   5. LAUNCH GATE: the server-side tamper watchdog (built separately) must
+//      be live — it polls this page and alarms if the displayed executor
+//      address ever differs from the expected constant.
 // ---------------------------------------------------------------------------
 const PUBLIC_EXECUTOR = ""; // e.g. "0x..." — leave empty until registered
 
