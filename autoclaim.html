@@ -74,12 +74,14 @@ fee per claim. We never hold your funds.
 </p>
 
 <div class="note note--safety note--big">
-<strong>Not live yet.</strong> The CashLab executor is <strong>not registered
-on-chain yet</strong>. The executor address shown on this page is a placeholder
-(<span class="mono">0x&lt;PUBLIC_EXECUTOR&gt;</span>) — do not enroll, and treat
-any address anyone sends you claiming to be it as a scam until the real address
-is published here and verifiable on-chain. This page describes how the service
-will work at launch.
+<strong>Soft launch — not announced yet.</strong> The CashLab executor is
+registered on-chain — the address below is real, and you can (and should)
+verify it in the &ldquo;How to verify it's really us&rdquo; section. We are
+still in a limited soft-launch phase, proving the service against real reward
+epochs before announcing it publicly. Enrollment is genuinely live if you
+choose to use it now, but the same rule as always applies: best-effort, not
+guaranteed — check your claims yourself. Treat any address that does not match
+the one published here and on-chain as a scam.
 </div>
 
 <h2>Please read this first</h2>
@@ -120,9 +122,10 @@ whenever you like.
 
 <div class="note">
 <strong>Fee honesty.</strong> 0.1&nbsp;FLR is the <em>protocol minimum</em>, and we
-are not the only ones at it: as of 2026-08-15 (read from the chain), Flare had
-17 registered executors charging between 0.1 and 5&nbsp;FLR per claim (median
-0.2), and <strong>eight of the 17 charge the same 0.1 minimum</strong>. Other
+are not the only ones at it: as of 2026-08-15 (read from the chain), Flare has
+18 registered executors — CashLab now included — charging between 0.1 and
+5&nbsp;FLR per claim (median 0.15), and <strong>nine of the 18 charge the same
+0.1 minimum</strong>. Other
 executors can change their fees over time, so this count is a dated snapshot. We match
 the floor; we don't claim to beat it. Registering as a public executor also
 burns a one-time 1,000&nbsp;FLR protocol fee — that is CashLab's cost, never
@@ -153,7 +156,7 @@ portal. Remember Flare's claim window: rewards left unclaimed expire after about
 <ol class="steps">
   <li>Open the <a href="https://portal.flare.network" rel="noopener">Flare portal</a> and connect the wallet that holds your delegation or stake.</li>
   <li>Go to the claim-setup / <strong>Set Executor</strong> section and select CashLab, or paste the executor address:<br>
-      <span class="mono">0x&lt;PUBLIC_EXECUTOR&gt;</span> <span class="pill wait">placeholder — published at launch</span></li>
+      <span class="mono">0x4b7905d5CBd4f2Ee02Aff3c20bBf728Ec69E33d4</span> <span class="pill wait">verify this address independently — see below</span></li>
   <li>Confirm the transaction. The portal attaches the one-time 0.1&nbsp;FLR authorization fee described above.</li>
   <li>Done. Rewards arrive as WFLR in your wallet each epoch after Flare publishes settlement data.</li>
 </ol>
@@ -206,11 +209,13 @@ enrolling, cross-check the executor address in independent places:
   <tr><td>Our X account</td><td><a href="https://x.com/CashLabNetwork" rel="noopener">@CashLabNetwork</a> —
       at launch we will publish the executor address in a pinned announcement
       post. The address there and the address here must match exactly.</td></tr>
-  <tr><td>The chain itself</td><td>The executor's registration is an on-chain transaction anyone can read.
-      At launch we will link the executor's page on the
-      <a href="https://flare-explorer.flare.network" rel="noopener">Flare explorer</a>
-      here, including the registration transaction.
-      <span class="pill wait">placeholder — published at launch</span></td></tr>
+  <tr><td>The chain itself</td><td>The executor's registration is an on-chain transaction anyone can read:
+      the <a href="https://flare-explorer.flare.network/tx/0x3c19102ee83f4ded98c20ed8df1010049fcc15c7e9327c775c2b7e7ed10a218c" rel="noopener">registration
+      transaction</a> and the executor's
+      <a href="https://flare-explorer.flare.network/address/0x4b7905d5CBd4f2Ee02Aff3c20bBf728Ec69E33d4" rel="noopener">address
+      page</a> on the Flare explorer (chain-verified 2026-08-15). The address
+      in that transaction and the address on this page must match
+      exactly.</td></tr>
   <tr><td>The Flare portal</td><td>Registered executors can appear by name in the portal's own executor
       list. Whether CashLab is listed by name there is
       <strong>[pending verification at launch]</strong> — if it is, selecting
@@ -326,25 +331,28 @@ and removable at any time by emailing
 // SERVICE GATE: the executor is NOT registered yet. Fill in the real address
 // at launch. While this is empty, the enrollment widget reports "not live".
 //
-// FILL-IN-AT-LAUNCH CHECKLIST:
-//   1. Set PUBLIC_EXECUTOR below and replace the two visible
-//      0x<PUBLIC_EXECUTOR> placeholders + the explorer-link placeholder in
-//      the "How to verify it's really us" section.
-//   2. Re-read and re-date the executor-count/fee numbers and the ~90-day
-//      claim window from the chain (WEBSITE-COPY.md requirement).
+// FILL-IN-AT-LAUNCH CHECKLIST (status as of 2026-08-15, soft launch):
+//   1. DONE 2026-08-15 — PUBLIC_EXECUTOR set, visible placeholders replaced,
+//      explorer links (registration tx + address page) filled in. All values
+//      chain-verified: executor is #18 in getRegisteredExecutors, fee 0.1,
+//      registration tx status 1.
+//   2. PARTLY DONE 2026-08-15 — executor-count/fee census re-read from the
+//      chain and re-dated (18 executors, 9 at 0.1, median 0.15). STILL TO DO
+//      at public announce: re-verify the ~90-day claim window from the chain
+//      (WEBSITE-COPY.md requirement).
 //   3. Resolve the [pending verification at launch] marker: does the Flare
 //      portal list CashLab by name?
 //   4. Deploy workers/notify-signup with a KV or webhook binding.
-//   5. LAUNCH GATE: the server-side tamper watchdog (built separately) must
+//   5. ANNOUNCE GATE: the server-side tamper watchdog (built separately) must
 //      be live — it polls this page and alarms if the displayed executor
 //      address ever differs from the expected constant.
-//   6. Remove ALL not-live markers (FA-26): the meta description's "not yet
-//      live" text, the hero "COMING SOON" pill, the bold not-live banner in
-//      the body, and the two "placeholder — published at launch" pills.
-//      Grep this file for "not live", "COMING SOON", "placeholder" to be
-//      sure none survive.
+//   6. AT PUBLIC ANNOUNCE ONLY (deliberately kept during soft launch):
+//      remove ALL not-live markers (FA-26): the meta description's "not yet
+//      live" text, the hero "COMING SOON" pill, the soft-launch banner in
+//      the body, and the h2 "not live yet" pill. Grep this file for
+//      "not live", "COMING SOON", "soft launch" to be sure none survive.
 // ---------------------------------------------------------------------------
-const PUBLIC_EXECUTOR = ""; // e.g. "0x..." — leave empty until registered
+const PUBLIC_EXECUTOR = "0x4b7905d5CBd4f2Ee02Aff3c20bBf728Ec69E33d4"; // registered 2026-08-15, chain-verified
 
 const RPC = "https://flare-api.flare.network/ext/bc/C/rpc";
 const CLAIM_SETUP_MANAGER = "0xD56c0Ea37B848939B59e6F5Cda119b3fA473b5eB";
