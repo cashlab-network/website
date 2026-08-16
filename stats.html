@@ -55,14 +55,56 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px}
 .axis{font-size:11px;fill:var(--muted)}
 .gridline{stroke:var(--grid);stroke-width:1}
 footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+/* dark palette DISABLED for site cohesion 2026-08-16 -- the homepage is fixed light, sub-pages match on every click. Vars kept below for a future whole-site dark pass:
 @media(prefers-color-scheme:dark){
 :root{--bg:#0f0f10;--fg:#f0f0f0;--muted:#9a9a9a;--line:#2a2a2c;--ok:#4ac26b;--bad:#e5534b;
       --s1:#b58a3c;--s2:#5b96e3;--grid:#232325;--tipbg:#1a1a1c}
 .tt{box-shadow:0 2px 10px rgba(0,0,0,.5)}
+}*/
+
+
+/* ---- site-wide sticky nav (copied from index.html's header; fixed light,
+   matching the homepage -- site-cohesion 2026-08-16) ---- */
+/* display/padding/margin reset shields against each page's own bare-`header` element rules */
+.site-header{display:block;padding:0;margin:0;position:sticky;top:0;z-index:50;background:rgba(255,255,255,.85);backdrop-filter:saturate(180%) blur(12px);-webkit-backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid #e6e5e1}
+.site-header__inner{width:100%;max-width:1080px;margin:0 auto;height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 clamp(1.25rem,5vw,2.5rem)}
+.site-header .brand{display:inline-flex;align-items:center}
+.site-header .brand img{height:26px;width:auto;display:block}
+.site-header .nav{display:flex;align-items:center;gap:clamp(.9rem,2.2vw,1.8rem)}
+.site-header .nav a{font-size:14px;font-weight:500;color:#3a3a38;text-decoration:none;border:0}
+.site-header .nav a:hover{color:#a8842c}
+.site-header .nav a.nav__cta{font-weight:600;color:#0e0e0d;padding:.4rem .8rem;border:1px solid #d9d8d3;border-radius:6px}
+.site-header .nav a.nav__cta:hover{border-color:#c89f3b;color:#a8842c}
+.site-header .nav-toggle{display:none;background:none;cursor:pointer;padding:0}
+@media(max-width:860px){
+ .site-header .nav{display:none}
+ .site-header .nav.nav--open{display:flex;position:absolute;top:64px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:#fff;border-bottom:1px solid #e6e5e1;padding:8px clamp(1.25rem,5vw,2.5rem) 16px}
+ .site-header .nav.nav--open a{padding:10px 0;border-bottom:1px solid #e6e5e1}
+ .site-header .nav.nav--open a:last-child{border-bottom:0}
+ .site-header .nav-toggle{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border:1px solid #d9d8d3;border-radius:6px;color:#0e0e0d}
 }
 </style>
 </head>
 <body>
+<!-- ===== site-wide nav (matches index.html) ===== -->
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="/" class="brand" aria-label="CashLab home"><img src="images/cashlab-lockup-header.png" alt="CashLab" width="760" height="322"></a>
+    <nav class="nav" id="site-nav" aria-label="Primary">
+      <a href="/">Home</a>
+      <a href="/stake.html">Stake with us</a>
+      <a href="/autoclaim.html">Auto-claim</a>
+      <a href="/epochs.html">Epoch reports</a>
+      <a href="/stats.html">Stats</a>
+      <a href="/status.html">Status</a>
+      <a href="/#verify">Verify us</a>
+      <a href="/#contact" class="nav__cta">Contact</a>
+    </nav>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+</header>
 <div class="wrap">
 
 <header>
@@ -429,6 +471,15 @@ async function load(){
   }
 }
 load();
+</script>
+<script>
+(function(){var b=document.getElementById("nav-toggle"),n=document.getElementById("site-nav");
+if(!b||!n)return;
+b.addEventListener("click",function(){var o=n.classList.toggle("nav--open");
+b.setAttribute("aria-expanded",o?"true":"false");
+b.setAttribute("aria-label",o?"Close menu":"Open menu");});
+n.addEventListener("click",function(e){if(e.target.tagName==="A"&&n.classList.contains("nav--open")){n.classList.remove("nav--open");b.setAttribute("aria-expanded","false");}});
+})();
 </script>
 </body>
 </html>

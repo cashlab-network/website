@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CashLab — Automatic reward claiming</title>
-<meta name="description" content="CashLab's upcoming auto-claim executor pushes your Flare delegation and staking rewards to your own wallet as WFLR for the 0.1 FLR protocol-minimum fee. Non-custodial, enforced by Flare's own contracts. Not live yet.">
+<meta name="description" content="CashLab's auto-claim executor pushes your Flare delegation and staking rewards to your own wallet as WFLR for the 0.1 FLR protocol-minimum fee. Non-custodial, enforced by Flare's own contracts. In soft launch — not announced yet.">
 <link rel="icon" href="images/favicon.ico">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <style>
@@ -46,22 +46,64 @@ button:hover{border-color:var(--gold)}
 .result--err{background:#fdf3f2;color:var(--warn)}
 footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
 a{color:#0b5fbe}
+/* dark palette DISABLED for site cohesion 2026-08-16 -- the homepage is fixed light, sub-pages match on every click. Vars kept below for a future whole-site dark pass:
 @media(prefers-color-scheme:dark){
 :root{--bg:#0f0f10;--fg:#f0f0f0;--muted:#9a9a9a;--line:#2a2a2c;--ok:#4ac26b;--wait:#d9a441;--warn:#f28b82}
 .pill{background:#16301c}.pill.wait{background:#33280e}a{color:#6ea8fe}
 .note{background:#1c1913}.note--safety{background:#201314}
 .result--ok{background:#16301c}.result--wait{background:#33280e}.result--err{background:#201314}
+}*/
+
+
+/* ---- site-wide sticky nav (copied from index.html's header; fixed light,
+   matching the homepage -- site-cohesion 2026-08-16) ---- */
+/* display/padding/margin reset shields against each page's own bare-`header` element rules */
+.site-header{display:block;padding:0;margin:0;position:sticky;top:0;z-index:50;background:rgba(255,255,255,.85);backdrop-filter:saturate(180%) blur(12px);-webkit-backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid #e6e5e1}
+.site-header__inner{width:100%;max-width:1080px;margin:0 auto;height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 clamp(1.25rem,5vw,2.5rem)}
+.site-header .brand{display:inline-flex;align-items:center}
+.site-header .brand img{height:26px;width:auto;display:block}
+.site-header .nav{display:flex;align-items:center;gap:clamp(.9rem,2.2vw,1.8rem)}
+.site-header .nav a{font-size:14px;font-weight:500;color:#3a3a38;text-decoration:none;border:0}
+.site-header .nav a:hover{color:#a8842c}
+.site-header .nav a.nav__cta{font-weight:600;color:#0e0e0d;padding:.4rem .8rem;border:1px solid #d9d8d3;border-radius:6px}
+.site-header .nav a.nav__cta:hover{border-color:#c89f3b;color:#a8842c}
+.site-header .nav-toggle{display:none;background:none;cursor:pointer;padding:0}
+@media(max-width:860px){
+ .site-header .nav{display:none}
+ .site-header .nav.nav--open{display:flex;position:absolute;top:64px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:#fff;border-bottom:1px solid #e6e5e1;padding:8px clamp(1.25rem,5vw,2.5rem) 16px}
+ .site-header .nav.nav--open a{padding:10px 0;border-bottom:1px solid #e6e5e1}
+ .site-header .nav.nav--open a:last-child{border-bottom:0}
+ .site-header .nav-toggle{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border:1px solid #d9d8d3;border-radius:6px;color:#0e0e0d}
 }
 </style>
 </head>
 <body>
+<!-- ===== site-wide nav (matches index.html) ===== -->
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="/" class="brand" aria-label="CashLab home"><img src="images/cashlab-lockup-header.png" alt="CashLab" width="760" height="322"></a>
+    <nav class="nav" id="site-nav" aria-label="Primary">
+      <a href="/">Home</a>
+      <a href="/stake.html">Stake with us</a>
+      <a href="/autoclaim.html">Auto-claim</a>
+      <a href="/epochs.html">Epoch reports</a>
+      <a href="/stats.html">Stats</a>
+      <a href="/status.html">Status</a>
+      <a href="/#verify">Verify us</a>
+      <a href="/#contact" class="nav__cta">Contact</a>
+    </nav>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+</header>
 <div class="wrap">
 
 <header>
   <img src="images/favicon-192.png" alt="CashLab">
   <div>
     <h1>CashLab — Automatic reward claiming</h1>
-    <div class="label">Independent Flare infrastructure · <span class="pill wait">Coming soon — not live yet</span></div>
+    <div class="label">Independent Flare infrastructure · <span class="pill wait">Soft launch — not announced yet</span></div>
   </div>
 </header>
 
@@ -152,7 +194,7 @@ portal. Remember Flare's claim window: rewards left unclaimed expire after about
 90 days, whether or not an executor is set.
 </p>
 
-<h2>How enrollment will work <span class="pill wait" style="text-transform:none;letter-spacing:0">not live yet</span></h2>
+<h2>How enrollment works <span class="pill wait" style="text-transform:none;letter-spacing:0">soft launch</span></h2>
 <ol class="steps">
   <li>Open the <a href="https://portal.flare.network" rel="noopener">Flare portal</a> and connect the wallet that holds your delegation or stake.</li>
   <li>Go to the claim-setup / <strong>Set Executor</strong> section and paste the executor address:<br>
@@ -293,7 +335,7 @@ and removable at any time by emailing
     <div class="result" id="notify-result" role="status"></div>
   </form>
   <p style="font-size:12.5px;color:var(--muted);margin:10px 0 0">
-    Sign-ups open when the service goes live. Submitting before then stores
+    Sign-ups open at the public announcement. Submitting before then stores
     nothing.
   </p>
 </div>
@@ -360,10 +402,14 @@ and removable at any time by emailing
 //      be live — it polls this page and alarms if the displayed executor
 //      address ever differs from the expected constant.
 //   6. AT PUBLIC ANNOUNCE ONLY (deliberately kept during soft launch):
-//      remove ALL not-live markers (FA-26): the meta description's "not yet
-//      live" text, the hero "COMING SOON" pill, the soft-launch banner in
-//      the body, and the h2 "not live yet" pill. Grep this file for
-//      "not live", "COMING SOON", "soft launch" to be sure none survive.
+//      remove ALL soft-launch markers (FA-26; reworded per FA-29
+//      2026-08-16 -- "not live" phrasing contradicted the live
+//      enrollment and is gone): the meta description's "soft launch"
+//      text, the hero "Soft launch — not announced yet" pill, the
+//      soft-launch banner in the body, the h2 "soft launch" pill, and
+//      the sign-up form's "Sign-ups open at the public announcement"
+//      line. Grep this file for "soft launch", "not announced",
+//      "announcement" to be sure none survive.
 // ---------------------------------------------------------------------------
 const PUBLIC_EXECUTOR = "0x4b7905d5CBd4f2Ee02Aff3c20bBf728Ec69E33d4"; // registered 2026-08-15, chain-verified
 
@@ -454,6 +500,15 @@ function show(el, cls, msg) {
       show(out, "err", "Could not submit — the sign-up service is not yet live. Nothing was stored. Please check back after launch.");
     }
   });
+})();
+</script>
+<script>
+(function(){var b=document.getElementById("nav-toggle"),n=document.getElementById("site-nav");
+if(!b||!n)return;
+b.addEventListener("click",function(){var o=n.classList.toggle("nav--open");
+b.setAttribute("aria-expanded",o?"true":"false");
+b.setAttribute("aria-label",o?"Close menu":"Open menu");});
+n.addEventListener("click",function(e){if(e.target.tagName==="A"&&n.classList.contains("nav--open")){n.classList.remove("nav--open");b.setAttribute("aria-expanded","false");}});
 })();
 </script>
 </body>
