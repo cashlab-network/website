@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CashLab — Stats</title>
+<meta name="description" content="CashLab's epoch-by-epoch track record on Flare, charted from the same machine-readable file you can fetch yourself: FTSO accuracy, realized APRs, and every reward gate with its numerator and denominator.">
+<link rel="icon" href="images/favicon.ico">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<style>
+:root{--bg:#fff;--fg:#111;--muted:#666;--line:#e5e5e5;--gold:#cf9d43;--ok:#1a7f37;--bad:#b91c1c;
+      --s1:#cf9d43;--s2:#0b5fbe;--grid:#ececec;--tipbg:#fff}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:var(--fg);background:var(--bg)}
+.wrap{max-width:820px;margin:0 auto;padding:32px 20px 64px}
+header{display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:28px}
+header img{width:44px;height:44px}
+header a{color:inherit;text-decoration:none}
+h1{font-size:20px;margin:0;font-weight:600}
+h2{font-size:14px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:34px 0 12px;font-weight:600}
+.label{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
+.card{border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.value{font-size:22px;font-weight:600;margin-top:4px;font-variant-numeric:tabular-nums}
+.card .sub{font-size:12px;color:var(--muted);margin-top:4px}
+.badge{display:inline-block;font-size:10.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
+       padding:1px 7px;border-radius:99px;border:1px solid var(--line);color:var(--muted);vertical-align:2px}
+.badge.settled{border-color:var(--ok);color:var(--ok)}
+p{font-size:14.5px}
+a{color:inherit}
+.num{font-variant-numeric:tabular-nums;font-weight:600}
+.frac{color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums;display:block}
+.chip{font-weight:700;font-size:12.5px}
+.chip.pass{color:var(--ok)}
+.chip.fail{color:var(--bad)}
+.verdict{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:99px;color:#fff}
+.verdict.zero{background:var(--bad)}
+.verdict.paid{background:var(--ok)}
+.fig{border:1px solid var(--line);border-radius:10px;padding:14px 10px 8px;position:relative}
+.fig svg{display:block;width:100%;height:auto}
+.fig .placeholder{color:var(--muted);font-size:13.5px;padding:32px 12px;text-align:center}
+.legend{display:flex;gap:18px;font-size:12.5px;color:var(--muted);margin:0 0 8px 8px;flex-wrap:wrap}
+.legend .sw{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.tt{position:absolute;pointer-events:none;background:var(--tipbg);border:1px solid var(--line);border-radius:8px;
+    box-shadow:0 2px 10px rgba(0,0,0,.08);padding:7px 10px;font-size:12.5px;line-height:1.5;display:none;z-index:2;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+.tt strong{font-size:12.5px}
+.tablewrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:660px}
+th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600;
+   padding:6px 10px 6px 0;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:9px 10px 9px 0;border-bottom:1px solid var(--line);vertical-align:top;white-space:nowrap}
+.note{color:var(--muted);font-size:13px;border-left:3px solid var(--gold);padding-left:12px;margin:16px 0}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px}
+.axis{font-size:11px;fill:var(--muted)}
+.gridline{stroke:var(--grid);stroke-width:1}
+footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+@media(prefers-color-scheme:dark){
+:root{--bg:#0f0f10;--fg:#f0f0f0;--muted:#9a9a9a;--line:#2a2a2c;--ok:#4ac26b;--bad:#e5534b;
+      --s1:#b58a3c;--s2:#5b96e3;--grid:#232325;--tipbg:#1a1a1c}
+.tt{box-shadow:0 2px 10px rgba(0,0,0,.5)}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <img src="images/favicon-192.png" alt="CashLab">
+  <div>
+    <h1><a href="/">CashLab</a> — Stats</h1>
+    <div class="label">Independent Flare infrastructure</div>
+  </div>
+</header>
+
+<p style="color:var(--muted);font-size:14.5px;margin-top:0">
+Our epoch-by-epoch track record, charted directly from
+<a href="/epochs.json"><code>epochs.json</code></a> — the same machine-readable
+file anyone can fetch. It is regenerated from Flare's official settlement data
+(<a href="https://github.com/flare-foundation/fsp-rewards" rel="noopener">flare-foundation/fsp-rewards</a>)
+each time an epoch settles, with every payout file chain-verified before a
+number is published. Narrative reports live on the
+<a href="/epochs.html">epochs page</a>; live on-chain reads on the
+<a href="/status.html">status page</a>.
+</p>
+
+<h2>Where we stand <span class="badge">point-in-time</span></h2>
+<div class="grid">
+  <div class="card">
+    <div class="label">Active stake</div>
+    <div class="value">17,288,000 FLR</div>
+    <div class="sub">as of Aug 14, 2026 · hand-updated</div>
+  </div>
+  <div class="card">
+    <div class="label">Live price feeds</div>
+    <div class="value">62</div>
+    <div class="sub">as of Aug 14, 2026 · hand-updated</div>
+  </div>
+  <div class="card">
+    <div class="label">Validator uptime</div>
+    <div class="value" id="tile-uptime">…</div>
+    <div class="sub" id="tile-uptime-sub">read at last settlement</div>
+  </div>
+  <div class="card">
+    <div class="label">Latest settled epoch</div>
+    <div class="value" id="tile-epoch">…</div>
+    <div class="sub" id="tile-epoch-sub">from epochs.json</div>
+  </div>
+</div>
+<p style="font-size:12.5px;color:var(--muted);margin-top:10px">
+The two left tiles are <strong>point-in-time</strong> values updated by hand and
+dated accordingly. The two right tiles — and everything below — are
+<strong>settled per-epoch data</strong> from <code>epochs.json</code>, which the
+publish pipeline regenerates automatically each epoch, so this page updates
+itself as epochs settle.
+</p>
+
+<h2>FTSO accuracy per epoch <span class="badge settled">settled data</span></h2>
+<div class="fig" id="fig-acc"><div class="placeholder">Loading epochs.json…</div></div>
+<p style="font-size:12.5px;color:var(--muted);margin-top:8px">
+Share of votes within 0.5% of the consensus median, per reward epoch, with the
+numerator and denominator in each point's tooltip. The dashed line is the 80%
+FIP.10 reward gate. Full fractions are in the table below.
+</p>
+
+<h2>Realized APR per epoch <span class="badge settled">settled data</span></h2>
+<div class="legend" id="apr-legend">
+  <span><span class="sw" style="background:var(--s1)"></span>Delegation (wNat), net of fee</span>
+  <span><span class="sw" style="background:var(--s2)"></span>Staking (mirror), net of fee</span>
+</div>
+<div class="fig" id="fig-apr"><div class="placeholder">Loading epochs.json…</div></div>
+<p style="font-size:12.5px;color:var(--muted);margin-top:8px">
+<strong>Realized</strong> historical rates from each epoch's actual payout file —
+reward ÷ weight, annualized simply over 104.36 epochs/yr, no compounding — not a
+projection. A zeroed epoch really pays 0.00%. Tooltips include that epoch's
+network medians for comparison.
+</p>
+
+<h2>Epoch history <span class="badge settled">settled data</span></h2>
+<div class="tablewrap">
+<table id="history">
+  <thead>
+    <tr><th>Epoch</th><th>Dates</th><th>FTSO</th><th>FDC</th><th>Uptime*</th>
+        <th>Fast&nbsp;updates</th><th>Delegation</th><th>Staking</th><th>Verdict</th></tr>
+  </thead>
+  <tbody id="history-body">
+    <tr><td colspan="9" style="color:var(--muted)">Loading epochs.json…</td></tr>
+  </tbody>
+</table>
+</div>
+<p style="font-size:12.5px;color:var(--muted);margin-top:8px">
+*Uptime is a point-in-time read of the validator at settlement, not an epoch
+average — the official record only attests the ≥80% pass/fail. Every other
+column is Flare's settled data, shown with numerator / denominator.
+</p>
+
+<div class="note">
+Machine-readable: <code>curl https://cashlab.network/epochs.json</code> — epochs
+ascending, every gate with numerator and denominator, plus links to the official
+source files and the chain-verified merkle root per epoch.
+<span id="gen"></span>
+</div>
+
+<noscript><p class="note">This page draws its charts from
+<a href="/epochs.json">epochs.json</a> in your browser; with JavaScript off,
+fetch that file directly — it is the complete dataset.</p></noscript>
+
+<footer>
+  <p style="margin-bottom:14px;font-size:12.5px;line-height:1.55">
+  <strong>Disclaimer.</strong> CashLab is an independent infrastructure operator, not a
+  financial adviser; nothing on this site is financial, investment, or tax advice.
+  Reward rates shown are <em>realized historical results for individual reward
+  epochs</em>, annualized only to make epochs comparable — they change every epoch,
+  can be zero, and past performance does not predict future results. Delegating or
+  staking FLR involves risk, including protocol and parameter changes and loss of
+  rewards. All figures derive from Flare's published settlement data
+  (<a href="https://github.com/flare-foundation/fsp-rewards" rel="noopener">fsp-rewards</a>)
+  and are provided as-is, without warranty. Do your own research.
+  </p>
+  <a href="/">cashlab.network</a> ·
+  <a href="/epochs.html">epoch reports</a> ·
+  <a href="/status.html">status</a> ·
+  <a href="https://x.com/CashLabNetwork" rel="noopener">@CashLabNetwork</a> ·
+  <a href="mailto:hello@cashlab.network">hello@cashlab.network</a><br>
+  Not affiliated with, endorsed by, or authorized by the Flare Foundation.
+</footer>
+
+</div>
+
+<script>
+"use strict";
+const $ = id => document.getElementById(id);
+const NS = "http://www.w3.org/2000/svg";
+const fmt2 = n => n.toFixed(2);
+const fmtI = n => n.toLocaleString("en-US");
+
+function el(name, attrs, text){
+  const e = document.createElementNS(NS, name);
+  for(const k in attrs) e.setAttribute(k, attrs[k]);
+  if(text !== undefined) e.textContent = text;
+  return e;
+}
+
+function makeTip(fig){
+  const t = document.createElement("div");
+  t.className = "tt";
+  fig.appendChild(t);
+  return {
+    show(html, x, y){
+      t.innerHTML = html;
+      t.style.display = "block";
+      const fw = fig.clientWidth, tw = t.offsetWidth;
+      let left = x + 14;
+      if(left + tw > fw - 6) left = x - tw - 14;
+      t.style.left = Math.max(6, left) + "px";
+      t.style.top = Math.max(6, y - t.offsetHeight - 8) + "px";
+    },
+    hide(){ t.style.display = "none"; }
+  };
+}
+
+// Shared frame: category x-axis of epoch numbers, linear y.
+function frame(svg, epochs, ymin, ymax, yticks, yfmt){
+  const W = 720, H = 240, L = 46, R = 16, T = 14, B = 28;
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  const iw = W - L - R, ih = H - T - B, n = epochs.length;
+  const x = i => L + (n === 1 ? iw/2 : (i + 0.5) * iw / n);
+  const y = v => T + ih * (1 - (v - ymin) / (ymax - ymin));
+  for(const tv of yticks){
+    svg.appendChild(el("line", {x1:L, x2:W-R, y1:y(tv), y2:y(tv), class:"gridline"}));
+    svg.appendChild(el("text", {x:L-7, y:y(tv)+4, "text-anchor":"end", class:"axis"}, yfmt(tv)));
+  }
+  const step = Math.max(1, Math.ceil(n / 12));
+  epochs.forEach((ep, i) => {
+    if(i % step === 0 || i === n-1)
+      svg.appendChild(el("text", {x:x(i), y:H-8, "text-anchor":"middle", class:"axis"}, ep));
+  });
+  return {x, y, W, H, L, R, T};
+}
+
+function polyline(svg, pts, color, dashed){
+  if(pts.length < 2) return;
+  const a = {points: pts.map(p => p.join(",")).join(" "), fill:"none",
+             "stroke-width":"2", "stroke-linejoin":"round", "stroke-linecap":"round",
+             style:`stroke:${color}`};
+  if(dashed) a["stroke-dasharray"] = "5 4";
+  svg.appendChild(el("polyline", a));
+}
+
+function marker(svg, cx, cy, color){
+  svg.appendChild(el("circle", {cx, cy, r:"4", style:`fill:${color};stroke:var(--bg)`,
+                                "stroke-width":"2"}));
+}
+
+function hit(svg, cx, cy, tip, html){
+  const h = el("circle", {cx, cy, r:"15", fill:"transparent"});
+  h.addEventListener("mouseenter", () => {
+    const sr = svg.getBoundingClientRect(), vb = svg.viewBox.baseVal;
+    tip.show(html, (cx - vb.x) * sr.width / vb.width,
+                   (cy - vb.y) * sr.height / vb.height);
+  });
+  h.addEventListener("mouseleave", tip.hide);
+  svg.appendChild(h);
+}
+
+function chartAccuracy(eps){
+  const fig = $("fig-acc"); fig.innerHTML = "";
+  const svg = el("svg", {role:"img",
+    "aria-label":"Line chart of FTSO accuracy percentage per reward epoch against the 80 percent gate"});
+  const lo = Math.min(70, Math.floor(Math.min(...eps.map(e => e.gates.ftso.pct)) / 10) * 10);
+  const ticks = []; for(let v = lo; v <= 100; v += 10) ticks.push(v);
+  const f = frame(svg, eps.map(e => e.epoch), lo, 100, ticks, v => v + "%");
+  // 80% FIP.10 gate
+  svg.appendChild(el("line", {x1:f.L, x2:f.W-f.R, y1:f.y(80), y2:f.y(80),
+    "stroke-dasharray":"5 4", "stroke-width":"1.5", style:"stroke:var(--muted)"}));
+  svg.appendChild(el("text", {x:f.W-f.R, y:f.y(80)-5, "text-anchor":"end", class:"axis"}, "80% gate"));
+  const pts = eps.map((e, i) => [f.x(i), f.y(e.gates.ftso.pct)]);
+  polyline(svg, pts, "var(--s1)");
+  fig.appendChild(svg);
+  const tip = makeTip(fig);
+  const labelStep = Math.max(1, Math.ceil(eps.length / 10));
+  eps.forEach((e, i) => {
+    const [cx, cy] = pts[i], g = e.gates.ftso;
+    marker(svg, cx, cy, "var(--s1)");
+    if(i % labelStep === 0 || i === eps.length-1)
+      svg.appendChild(el("text", {x:cx, y:cy + (g.pct >= 80 ? -11 : 16),
+        "text-anchor":"middle", class:"axis",
+        style:"font-weight:600;fill:var(--fg)"}, fmt2(g.pct) + "%"));
+    hit(svg, cx, cy, tip,
+      `<strong>Epoch ${e.epoch}</strong> · ${e.dates.human}<br>` +
+      `FTSO accuracy ${fmt2(g.pct)}% <span style="color:var(--muted)">` +
+      `(${fmtI(g.num)} / ${fmtI(g.den)})</span><br>` +
+      (g.pass ? `<span class="chip pass">✓ gate passed</span>`
+              : `<span class="chip fail">✗ below the 80% gate</span>`));
+  });
+}
+
+function chartApr(eps){
+  const fig = $("fig-apr"); fig.innerHTML = "";
+  const svg = el("svg", {role:"img",
+    "aria-label":"Line chart of realized delegation and staking APR percentages per reward epoch"});
+  const top = Math.max(1, ...eps.map(e => Math.max(e.returns.delegationAprPct, e.returns.stakingAprPct)));
+  const stepv = top > 20 ? 10 : top > 8 ? 5 : top > 3 ? 2 : 1;
+  const hi = Math.ceil(top * 1.15 / stepv) * stepv;
+  const ticks = []; for(let v = 0; v <= hi; v += stepv) ticks.push(v);
+  const f = frame(svg, eps.map(e => e.epoch), 0, hi, ticks, v => v + "%");
+  const dpts = eps.map((e, i) => [f.x(i), f.y(e.returns.delegationAprPct)]);
+  const spts = eps.map((e, i) => [f.x(i), f.y(e.returns.stakingAprPct)]);
+  polyline(svg, spts, "var(--s2)");
+  polyline(svg, dpts, "var(--s1)");
+  fig.appendChild(svg);
+  const tip = makeTip(fig);
+  const last = eps.length - 1;
+  eps.forEach((e, i) => {
+    const r = e.returns;
+    marker(svg, spts[i][0], spts[i][1], "var(--s2)");
+    marker(svg, dpts[i][0], dpts[i][1], "var(--s1)");
+    if(i === last){ // direct labels on the newest point
+      svg.appendChild(el("text", {x:spts[i][0], y:spts[i][1]-11, "text-anchor":"middle",
+        class:"axis", style:"font-weight:600;fill:var(--fg)"}, "Staking " + fmt2(r.stakingAprPct) + "%"));
+      svg.appendChild(el("text", {x:dpts[i][0], y:dpts[i][1]+18, "text-anchor":"middle",
+        class:"axis", style:"font-weight:600;fill:var(--fg)"}, "Delegation " + fmt2(r.delegationAprPct) + "%"));
+    }
+    hit(svg, dpts[i][0], (dpts[i][1] + spts[i][1]) / 2, tip,
+      `<strong>Epoch ${e.epoch}</strong> · ${e.dates.human}<br>` +
+      `Delegation ${fmt2(r.delegationAprPct)}% <span style="color:var(--muted)">` +
+      `· median ${fmt2(r.medians.delegationAprPct)}%</span><br>` +
+      `Staking ${fmt2(r.stakingAprPct)}% <span style="color:var(--muted)">` +
+      `· median ${fmt2(r.medians.stakingAprPct)}%</span>`);
+  });
+}
+
+function cell(html){ const td = document.createElement("td"); td.innerHTML = html; return td; }
+
+function renderTable(eps){
+  const tb = $("history-body"); tb.innerHTML = "";
+  [...eps].reverse().forEach(e => {
+    const g = e.gates, r = e.returns, tr = document.createElement("tr");
+    const chip = ok => ok ? "" : ' <span class="chip fail">✗</span>';
+    tr.appendChild(cell(`<span class="num">${e.epoch}</span>`));
+    tr.appendChild(cell(`<span style="color:var(--muted)">${e.dates.human}</span>`));
+    tr.appendChild(cell(`<span class="num">${fmt2(g.ftso.pct)}%</span>${chip(g.ftso.pass)}` +
+      `<span class="frac">${fmtI(g.ftso.num)} / ${fmtI(g.ftso.den)}</span>`));
+    tr.appendChild(cell(`<span class="num">${g.fdc.pct.toFixed(1)}%</span>${chip(g.fdc.pass)}` +
+      `<span class="frac">${fmtI(g.fdc.num)} / ${fmtI(g.fdc.den)}</span>`));
+    tr.appendChild(cell(`<span class="num">${g.staking.uptimePct}%</span>${chip(g.staking.pass)}` +
+      `<span class="frac">${fmtI(g.staking.selfBond)} FLR bond</span>`));
+    tr.appendChild(cell(`<span class="num">${g.fastUpdates.actual}</span>${chip(g.fastUpdates.pass)}` +
+      `<span class="frac">vs ${g.fastUpdates.expected} expected</span>`));
+    tr.appendChild(cell(`<span class="num">${fmt2(r.delegationAprPct)}%</span>` +
+      `<span class="frac">median ${fmt2(r.medians.delegationAprPct)}%</span>`));
+    tr.appendChild(cell(`<span class="num">${fmt2(r.stakingAprPct)}%</span>` +
+      `<span class="frac">median ${fmt2(r.medians.stakingAprPct)}%</span>`));
+    tr.appendChild(cell(e.paid ? '<span class="verdict paid">PAID</span>'
+                               : '<span class="verdict zero">PAID ZERO</span>'));
+    tb.appendChild(tr);
+  });
+}
+
+function renderTiles(eps){
+  const latest = eps[eps.length - 1], g = latest.gates;
+  $("tile-uptime").textContent = g.staking.uptimePct + "%";
+  $("tile-uptime-sub").textContent = `read at epoch-${latest.epoch} settlement · settled data`;
+  const passed = [g.ftso.pass, g.fdc.pass, g.staking.pass, g.fastUpdates.pass]
+                 .filter(Boolean).length;
+  $("tile-epoch").innerHTML = `${latest.epoch} · ` + (latest.paid
+    ? '<span class="verdict paid">PAID</span>'
+    : '<span class="verdict zero">PAID ZERO</span>');
+  $("tile-epoch-sub").textContent = `${passed}/4 gates passed · settled data`;
+}
+
+function fail(msg){
+  for(const id of ["fig-acc", "fig-apr"])
+    $(id).innerHTML = `<div class="placeholder">${msg}</div>`;
+  $("history-body").innerHTML =
+    `<tr><td colspan="9" style="color:var(--muted)">${msg}</td></tr>`;
+  $("tile-uptime").textContent = "—";
+  $("tile-epoch").textContent = "—";
+}
+
+async function load(){
+  let doc;
+  try{
+    const res = await fetch("epochs.json", {cache: "no-cache"});
+    if(!res.ok) throw new Error("HTTP " + res.status);
+    doc = await res.json();
+  }catch(err){
+    fail("Could not load epochs.json (" + err.message +
+         "). If you opened this file directly from disk, serve it over " +
+         "HTTP — or fetch /epochs.json yourself; it is the complete dataset.");
+    return;
+  }
+  const eps = (doc.epochs || []).slice().sort((a, b) => a.epoch - b.epoch);
+  if(!eps.length){ fail("epochs.json contains no epochs yet."); return; }
+  try{
+    renderTiles(eps);
+    chartAccuracy(eps);
+    chartApr(eps);
+    renderTable(eps);
+    if(doc.generated)
+      $("gen").textContent = " Dataset generated " + doc.generated +
+                             " · " + eps.length + " epoch" + (eps.length > 1 ? "s" : "") + ".";
+  }catch(err){
+    fail("epochs.json loaded but could not be rendered: " + err.message);
+  }
+}
+load();
+</script>
+</body>
+</html>
