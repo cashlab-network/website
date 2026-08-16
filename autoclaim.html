@@ -155,8 +155,11 @@ portal. Remember Flare's claim window: rewards left unclaimed expire after about
 <h2>How enrollment will work <span class="pill wait" style="text-transform:none;letter-spacing:0">not live yet</span></h2>
 <ol class="steps">
   <li>Open the <a href="https://portal.flare.network" rel="noopener">Flare portal</a> and connect the wallet that holds your delegation or stake.</li>
-  <li>Go to the claim-setup / <strong>Set Executor</strong> section and select CashLab, or paste the executor address:<br>
-      <span class="mono">0x4b7905d5CBd4f2Ee02Aff3c20bBf728Ec69E33d4</span> <span class="pill wait">verify this address independently — see below</span></li>
+  <li>Go to the claim-setup / <strong>Set Executor</strong> section and paste the executor address:<br>
+      <span class="mono">0x4b7905d5CBd4f2Ee02Aff3c20bBf728Ec69E33d4</span> <span class="pill wait">verify this address independently — see below</span><br>
+      The portal shows executors by address, not by name — it will confirm the
+      address is a registered executor and display its 0.1&nbsp;FLR fee (see
+      &ldquo;How to verify it's really us&rdquo;).</li>
   <li>Confirm the transaction. The portal attaches the one-time 0.1&nbsp;FLR authorization fee described above.</li>
   <li>Done. Rewards arrive as WFLR in your wallet each epoch after Flare publishes settlement data.</li>
 </ol>
@@ -216,10 +219,16 @@ enrolling, cross-check the executor address in independent places:
       page</a> on the Flare explorer (chain-verified 2026-08-15). The address
       in that transaction and the address on this page must match
       exactly.</td></tr>
-  <tr><td>The Flare portal</td><td>Registered executors can appear by name in the portal's own executor
-      list. Whether CashLab is listed by name there is
-      <strong>[pending verification at launch]</strong> — if it is, selecting
-      it from the portal's list avoids pasting an address at all.</td></tr>
+  <tr><td>The Flare portal</td><td>The portal checks the address for you. When you paste an executor
+      address into its Set Executor field, <strong>the portal itself reads
+      Flare's ClaimSetupManager contract live</strong> and tells you whether
+      the address is a registered executor and what fee it charges — for ours
+      it must say registered, with a <strong>0.1&nbsp;FLR</strong> fee. That
+      confirmation comes from the chain, not from this website, so it works
+      even if you trust nothing we publish. (The portal shows all executors
+      this way — by address, not by name.) If the portal does not confirm the
+      address as a registered executor, or shows any fee other than
+      0.1&nbsp;FLR, stop.</td></tr>
 </table>
 <p style="font-size:14px;color:var(--muted)">
 And re-read the red caution above this section: however you enroll,
@@ -340,8 +349,12 @@ and removable at any time by emailing
 //      chain and re-dated (18 executors, 9 at 0.1, median 0.15). STILL TO DO
 //      at public announce: re-verify the ~90-day claim window from the chain
 //      (WEBSITE-COPY.md requirement).
-//   3. Resolve the [pending verification at launch] marker: does the Flare
-//      portal list CashLab by name?
+//   3. DONE 2026-08-15 — portal-listing question resolved (verified from the
+//      portal's production frontend bundle): the portal names NO executor;
+//      its Set Executor field is free-text address entry, and on pasting a
+//      registered executor's address the portal itself reads
+//      ClaimSetupManager live and confirms "registered executor" + the fee.
+//      Row rewritten as a third independent verification path.
 //   4. Deploy workers/notify-signup with a KV or webhook binding.
 //   5. ANNOUNCE GATE: the server-side tamper watchdog (built separately) must
 //      be live — it polls this page and alarms if the displayed executor
