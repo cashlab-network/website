@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CashLab — Operations log</title>
+<meta name="description" content="A dated, human-written history of notable operational events at CashLab — incidents, what they cost, and what changed afterwards. Written after the fact, honestly.">
+<link rel="icon" href="images/favicon.ico">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<style>
+:root{--bg:#fff;--fg:#111;--muted:#666;--line:#e5e5e5;--gold:#cf9d43;--ok:#1a7f37;--wait:#9a6700}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:var(--fg);background:var(--bg)}
+.wrap{max-width:820px;margin:0 auto;padding:32px 20px 64px}
+header{display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:28px}
+header img{width:44px;height:44px}
+header a{color:inherit;text-decoration:none}
+h1{font-size:20px;margin:0;font-weight:600}
+.label{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.intro{color:var(--muted);font-size:14.5px;margin-top:0}
+.entry{border-bottom:1px solid var(--line);padding:22px 0}
+.entry:last-of-type{border-bottom:0}
+.entry time{color:var(--muted);font-size:13px;font-variant-numeric:tabular-nums;display:block;margin-bottom:2px}
+.entry h2{font-size:16.5px;margin:0 0 8px;font-weight:600}
+.entry p{margin:0 0 10px;font-size:15px}
+.entry p:last-child{margin-bottom:0}
+.changed{font-size:14px;background:#fafaf8;border:1px solid var(--line);border-radius:8px;padding:10px 14px}
+.changed strong{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600;display:block;margin-bottom:2px}
+.tag{display:inline-block;font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;padding:2px 8px;border-radius:99px;border:1px solid var(--line);color:var(--muted);margin-left:8px;vertical-align:1px}
+.tag.incident{background:#fdecea;border-color:#f5c6c0;color:#a13123}
+.tag.improvement{background:#eaf6ec;border-color:#c4e4cc;color:var(--ok)}
+.tag.routine{background:#f4f4f2;color:var(--muted)}
+footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+a{color:#0b5fbe}
+/* dark palette DISABLED for site cohesion 2026-08-16 -- the homepage is fixed light, sub-pages match on every click. Vars kept below for a future whole-site dark pass:
+@media(prefers-color-scheme:dark){
+:root{--bg:#0f0f10;--fg:#f0f0f0;--muted:#9a9a9a;--line:#2a2a2c;--ok:#4ac26b;--wait:#d9a441}
+a{color:#6ea8fe}
+}*/
+
+
+/* ---- site-wide sticky nav (copied from index.html's header; fixed light,
+   matching the homepage -- site-cohesion 2026-08-16) ---- */
+/* display/padding/margin reset shields against each page's own bare-`header` element rules */
+.site-header{display:block;padding:0;margin:0;position:sticky;top:0;z-index:50;background:rgba(255,255,255,.85);backdrop-filter:saturate(180%) blur(12px);-webkit-backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid #e6e5e1}
+.site-header__inner{width:100%;max-width:1080px;margin:0 auto;height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 clamp(1.25rem,5vw,2.5rem)}
+.site-header .brand{display:inline-flex;align-items:center}
+.site-header .brand img{height:30px;width:auto;display:block}
+.site-header .nav{display:flex;align-items:center;gap:clamp(.9rem,2.2vw,1.8rem)}
+.site-header .nav a{font-size:14px;font-weight:500;color:#3a3a38;text-decoration:none;border:0;white-space:nowrap}
+.site-header .nav a:hover{color:#a8842c}
+.site-header .nav a.nav__cta{font-weight:600;color:#0e0e0d;padding:.4rem .8rem;border:1px solid #d9d8d3;border-radius:6px}
+.site-header .nav a.nav__cta:hover{border-color:#c89f3b;color:#a8842c}
+.site-header .nav-toggle{display:none;background:none;cursor:pointer;padding:0}
+@media(max-width:920px){
+ .site-header .nav{display:none}
+ .site-header .nav.nav--open{display:flex;position:absolute;top:64px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:#fff;border-bottom:1px solid #e6e5e1;padding:8px clamp(1.25rem,5vw,2.5rem) 16px}
+ .site-header .nav.nav--open a{padding:10px 0;border-bottom:1px solid #e6e5e1}
+ .site-header .nav.nav--open a:last-child{border-bottom:0}
+ .site-header .nav-toggle{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border:1px solid #d9d8d3;border-radius:6px;color:#0e0e0d}
+}
+</style>
+</head>
+<body>
+<!-- ===== site-wide nav (matches index.html) ===== -->
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="/" class="brand" aria-label="CashLab home"><img src="images/cashlab-lockup-header.png" alt="CashLab" width="760" height="322"></a>
+    <nav class="nav" id="site-nav" aria-label="Primary">
+      <a href="/">Home</a>
+      <a href="/delegate.html">Delegate</a>
+      <a href="/stake.html">Stake with us</a>
+      <a href="/autoclaim.html">Auto-claim</a>
+      <a href="/epochs.html">Epoch reports</a>
+      <a href="/stats.html">Stats</a>
+      <a href="/status.html">Status</a>
+      <a href="/#verify">Verify us</a>
+      <a href="/#contact" class="nav__cta">Contact</a>
+    </nav>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+</header>
+<div class="wrap">
+
+<header>
+  <img src="images/favicon-192.png" alt="CashLab">
+  <div>
+    <h1>CashLab — Operations log</h1>
+    <div class="label">Independent Flare infrastructure</div>
+  </div>
+</header>
+
+<p class="intro">
+This page is a dated, human-written history of notable operational events at
+CashLab: incidents, what they cost, and what changed afterwards. Entries are
+written <strong>after the fact</strong>, once an event is fully understood and
+resolved — this is a record, not a live status feed (that's the
+<a href="/status.html">status page</a>). We update it whenever something notable
+happens, including things that went wrong; honesty about failures is the point.
+Routine day-to-day operations are not logged here.
+</p>
+
+<div class="entry">
+  <time datetime="2026-08-16">2026-08-16</time>
+  <h2>Delegation guide gets its own page; navigation unified<span class="tag routine">Routine</span></h2>
+  <p>The delegation guide moved from a homepage section to a dedicated
+  <a href="/delegate.html">Delegate</a> page, including a widget that reads the
+  stake currently delegated to CashLab live from the WNat contract — so the
+  number on the page is the chain's, not ours. At the same time the navigation
+  bar was made identical across every page of the site, and the sitemap was
+  completed.</p>
+  <div class="changed"><strong>What changed</strong>
+  No operational impact — logged to show the working cadence: site changes ship
+  in small, verified steps, and every number a page displays should be readable
+  from the chain by your own browser.</div>
+</div>
+
+<div class="entry">
+  <time datetime="2026-08-16">2026-08-16</time>
+  <h2>Misconfigured security header broke the site's live widgets<span class="tag incident">Incident</span></h2>
+  <p>While verifying a site deploy we found that a content-security-policy
+  header, set at our CDN rather than in the site's own code, was blocking the
+  site's own scripts: the live-number widgets on several pages sat stuck at
+  "checking…" and the mobile menu was dead on sub-pages. No wrong data was ever
+  shown — the widgets fail toward showing nothing rather than showing something
+  stale or invented.</p>
+  <p>Fixed the same day in two steps: page scripts were moved into standalone
+  files the policy permits, and the header itself was corrected so browsers may
+  read Flare's public API. Every widget was then re-verified live.</p>
+  <div class="changed"><strong>What changed</strong>
+  Header configuration that lives outside the site's code is now documented
+  alongside it, and deploy verification includes loading each page the way a
+  visitor's browser does — not just checking that files uploaded.</div>
+</div>
+
+<div class="entry">
+  <time datetime="2026-08-15">2026-08-13 → 15</time>
+  <h2>Failover for BTC and DOGE attestation data, rehearsed live<span class="tag improvement">Improvement</span></h2>
+  <p>Our FDC attestations for BTC and DOGE depend on full nodes of those chains
+  that we run ourselves. Applying the epoch 422 lesson (below) before it could
+  repeat elsewhere, we built automatic failure detection and failover for those
+  data sources and then rehearsed it live: deliberately pointed the system at a
+  dead endpoint and watched it detect, rotate, and recover on both chains.</p>
+  <div class="changed"><strong>What changed</strong>
+  No outage occurred — this was proactive. Detection of a dead BTC/DOGE data
+  source went from roughly an hour and a half to a few minutes, and the
+  recovery path is now something we have actually executed, not something we
+  believe would work.</div>
+</div>
+
+<div class="entry">
+  <time datetime="2026-08-10">2026-08-09 → 10</time>
+  <h2>Epoch 422 paid zero: a 14-hour submission outage nothing alerted on<span class="tag incident">Incident</span></h2>
+  <p>Our paid RPC provider's endpoint shut down after our own indexer traffic
+  burned through the plan's request cap — a billing failure, and our fault for
+  putting a heavy workload on a metered service. Protocol submissions stopped
+  for 14 straight hours on August 9. Worse than the outage was the silence: we
+  had no alarm on the one thing that matters — whether submissions are actually
+  landing on-chain — and the stall alarms we did have were built to fire once
+  and never again.</p>
+  <p>The cost was real: epoch 422, our first reward-eligible epoch, settled at
+  zero. FTSO accuracy came in at 74.85% against an 80% gate (roughly 89.8%
+  outside the outage window — the outage alone flipped the gate). Validator
+  uptime was unaffected (99.999%, separate machine). Full per-gate numbers are
+  in the <a href="/epochs.html">epoch report</a>.</p>
+  <div class="changed"><strong>What changed</strong>
+  Our own node is now the primary RPC with automatic failover behind it; a
+  liveness alarm watches actual on-chain submissions and keeps re-firing until
+  the problem is fixed; and independent off-site monitoring alerts us even if
+  the main server dies entirely.</div>
+</div>
+
+<div class="entry">
+  <time datetime="2026-07-10">2026-07-10 (found mid-August)</time>
+  <h2>A background service died silently and stayed dead for a month<span class="tag incident">Incident</span></h2>
+  <p>A routine security review in mid-August found that a background monitoring
+  service on one of our servers had been dead since July 10: an automatic
+  operating-system update had killed it mid-upgrade, and nothing noticed. There
+  was no reward or user-facing impact — but a detection gap of over a month is
+  the real finding, and we'd rather log it than pretend it didn't happen.</p>
+  <div class="changed"><strong>What changed</strong>
+  The service was restored on August 15, and it — like our other critical
+  background services — now has its own liveness check that restarts it and
+  alerts us if it dies. The general lesson we now apply everywhere: every
+  watcher gets a watcher, because a service that dies silently stays dead.</div>
+</div>
+
+<footer>
+  <a href="/">cashlab.network</a> ·
+  <a href="/epochs.html">epoch reports</a> ·
+  <a href="/stats.html">stats</a> ·
+  <a href="https://x.com/CashLabNetwork" rel="noopener">@CashLabNetwork</a> ·
+  <a href="mailto:hello@cashlab.network">hello@cashlab.network</a><br>
+  Entries describe past events as we understood them at time of writing,
+  provided as-is without warranty; they are not advice and do not guarantee
+  future performance. Not affiliated with, endorsed by, or authorized by the
+  Flare Foundation.
+</footer>
+
+</div>
+
+<script src="js/nav.js"></script>
+</body>
+</html>
