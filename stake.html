@@ -242,6 +242,34 @@ are the ones printed on this page and verifiable on-chain.
   <tr><td>Track record</td><td>New validator (live August 2026). We publish live numbers rather than promises — judge us on the <a href="/status.html">status page</a> as the history accrues.</td></tr>
 </table>
 
+<h2>Risks — stated plainly</h2>
+<table>
+  <tr><td>Your FLR is locked</td><td>There is no early exit. Once a stake is
+      confirmed, your FLR is locked until the end date you chose — Flare has no
+      mechanism to unlock it sooner, for anyone. Only stake what you will not
+      need before that date.</td></tr>
+  <tr><td>Worst case</td><td>Missed rewards — never lost principal. Flare's
+      P-chain has no slashing for stakers: if our validator underperforms or
+      goes offline, you can earn nothing for that period, but your staked FLR
+      cannot be taken or reduced. FTSO-side penalties fall on CashLab's own
+      stake, not yours.</td></tr>
+  <tr><td>One validator</td><td>CashLab runs a single validator node today —
+      there is no second node to fail over to. It is monitored around the clock
+      with escalation to a human, and an independent read-only auditor reviews
+      the infrastructure, but we state the single point plainly rather than
+      hide it.</td></tr>
+  <tr><td>Term boundary</td><td>Our current bond period ends
+      <strong>Oct&nbsp;7,&nbsp;2026</strong>. Stakes cannot extend past that
+      date until we re-bond for the next term — the Portal's date picker
+      enforces this.</td></tr>
+  <tr><td>Variable rewards</td><td>Rewards change every epoch and can be zero.
+      Nothing on this page is a guarantee of any return.</td></tr>
+</table>
+<p style="font-size:14px;color:var(--muted)">
+And as covered above: stakes never renew themselves. When your end date passes,
+your FLR unlocks and simply stops earning until you act.
+</p>
+
 <footer>
   <a href="/">cashlab.network</a> ·
   <a href="/autoclaim.html">Auto-claim</a> ·
