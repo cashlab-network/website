@@ -8,3 +8,25 @@ Thumbs.db
 # Local dev / Cloudflare
 .wrangler/
 node_modules/
+
+# --- secret-name guard (added 2026-08-20, secrets audit surface-2) ---
+# This repo is PUBLIC. Nothing matching these may ever be committed.
+# No such file exists today; this is a door closed before it matters.
+*.env
+!*.env.example
+.env.*
+!.env.example
+*.keystore
+*.pass
+*.pem
+*.p12
+*.pfx
+id_rsa*
+id_ed25519*
+*.key
+.git-credentials
+*credential*
+*secret*
+*token*
+mnemonic*
+seed*
