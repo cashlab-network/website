@@ -71,6 +71,10 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);font-si
 }*/
 
 
+.page-head{padding:6px 0 26px;border-bottom:1px solid var(--line);margin-bottom:12px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#a8842c;margin:0 0 14px}
+.eyebrow::before{content:"";width:22px;height:2px;background:#c89f3b}
+.lede{color:var(--muted);font-size:clamp(1.05rem,1rem + .3vw,1.2rem);line-height:1.55;max-width:62ch;margin-top:0}
 @font-face{font-family:"Inter";src:url("/fonts/inter-var.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
 /* ---- site-wide sticky nav (copied from index.html's header; fixed light,
    matching the homepage -- site-cohesion 2026-08-16) ---- */
@@ -115,9 +119,11 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);font-si
 </header>
 <div class="wrap">
 
+<div class="page-head">
+<span class="eyebrow">Machine-readable history</span>
 <h1>Stats</h1>
 
-<p style="color:var(--muted);font-size:14.5px;margin-top:0">
+<p class="lede">
 Our epoch-by-epoch track record, charted directly from
 <a href="/epochs.json"><code>epochs.json</code></a> — the same machine-readable
 file anyone can fetch. It is regenerated from Flare's official settlement data
@@ -127,6 +133,7 @@ number is published. Narrative reports live on the
 <a href="/epochs">epochs page</a>; live on-chain reads on the
 <a href="/status">status page</a>.
 </p>
+</div>
 
 <h2>Where we stand <span class="badge">point-in-time</span></h2>
 <div class="grid">

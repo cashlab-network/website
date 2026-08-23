@@ -46,6 +46,8 @@
     margin: 0 auto;
     padding: clamp(2rem, 1.5rem + 2vw, 4rem) clamp(1.25rem, 1rem + 1vw, 2rem);
   }
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep);margin:0 0 10px}
+  .eyebrow::before{content:"";width:22px;height:2px;background:var(--gold)}
   header.doc-header {
     padding-bottom: 1.5rem;
     margin-bottom: 2rem;
@@ -169,6 +171,7 @@
 <main>
   <header class="doc-header">
     <a class="home" href="/">&larr; Back to CashLab</a>
+    <span class="eyebrow" style="display:flex">Legal</span>
     <h1>Privacy Policy</h1>
     <p class="updated">Effective 2026-07-20. Last updated 2026-08-15.</p>
   </header>

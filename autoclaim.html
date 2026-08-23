@@ -63,6 +63,10 @@ a{color:#0b5fbe}
 }*/
 
 
+.page-head{padding:6px 0 26px;border-bottom:1px solid var(--line);margin-bottom:12px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#a8842c;margin:0 0 14px}
+.eyebrow::before{content:"";width:22px;height:2px;background:#c89f3b}
+.lede{color:var(--muted);font-size:clamp(1.05rem,1rem + .3vw,1.2rem);line-height:1.55;max-width:62ch;margin-top:0}
 @font-face{font-family:"Inter";src:url("/fonts/inter-var.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
 /* ---- site-wide sticky nav (copied from index.html's header; fixed light,
    matching the homepage -- site-cohesion 2026-08-16) ---- */
@@ -107,16 +111,19 @@ a{color:#0b5fbe}
 </header>
 <div class="wrap">
 
+<div class="page-head">
+<span class="eyebrow">Delegator service</span>
 <h1>Auto-Claim</h1>
 <p style="margin:6px 0 0"><span class="pill wait">Soft launch — not announced yet</span></p>
 
-<p style="color:var(--muted);font-size:14.5px;margin-top:0">
+<p class="lede">
 Delegate or stake with CashLab and stop clicking &ldquo;claim&rdquo; every 3.5 days.
 Authorize the CashLab executor once in the Flare portal, and each reward epoch we
 deliver your delegation and staking rewards <strong>straight to your own wallet as
 WFLR</strong> — automatically, on-chain, minus the 0.1&nbsp;FLR protocol-minimum
 fee per claim. We never hold your funds.
 </p>
+</div>
 
 <div class="note note--safety note--big">
 <strong>Soft launch — not announced yet.</strong> The CashLab executor is

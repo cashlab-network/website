@@ -52,6 +52,10 @@ a{color:#0b5fbe}
 .note{border-left:3px solid var(--gold);padding:10px 14px;background:#faf6ee;font-size:14px;margin:16px 0;border-radius:0 8px 8px 0}
 footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
 
+.page-head{padding:6px 0 26px;border-bottom:1px solid var(--line);margin-bottom:12px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#a8842c;margin:0 0 14px}
+.eyebrow::before{content:"";width:22px;height:2px;background:#c89f3b}
+.lede{color:var(--muted);font-size:clamp(1.05rem,1rem + .3vw,1.2rem);line-height:1.55;max-width:62ch;margin-top:0}
 @font-face{font-family:"Inter";src:url("/fonts/inter-var.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
 /* ---- site-wide sticky nav (copied from index.html's header; fixed light,
    matching the homepage -- site-cohesion 2026-08-16) ---- */
@@ -107,9 +111,11 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);font-si
 </header>
 <div class="wrap">
 
+<div class="page-head">
+<span class="eyebrow">Verified results</span>
 <h1>Track Record</h1>
 
-<p style="color:var(--muted);font-size:14.5px;margin-top:0">
+<p class="lede">
 One report per reward epoch, published when Flare settles it — wins and losses in the
 same format, including <strong>what each epoch actually returned</strong> to delegators and stakers. Every number comes from the network's official settlement data
 (<a href="https://github.com/flare-foundation/fsp-rewards" rel="noopener">flare-foundation/fsp-rewards</a>),
@@ -117,6 +123,7 @@ never from our own claims. Charts and the machine-readable history are on the
 <a href="/stats">stats page</a>; live entity status is on the
 <a href="/status">status page</a>.
 </p>
+</div>
 
 <h2>Where we stand <span class="badge">point-in-time</span></h2>
 <div class="grid">

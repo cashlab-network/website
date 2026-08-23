@@ -49,6 +49,10 @@ a{color:#0b5fbe}
 /* dark palette intentionally omitted -- fixed light site-wide (cohesion 2026-08-16);
    add here when the whole-site dark pass happens */
 
+.page-head{padding:6px 0 26px;border-bottom:1px solid var(--line);margin-bottom:12px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#a8842c;margin:0 0 14px}
+.eyebrow::before{content:"";width:22px;height:2px;background:#c89f3b}
+.lede{color:var(--muted);font-size:clamp(1.05rem,1rem + .3vw,1.2rem);line-height:1.55;max-width:62ch;margin-top:0}
 @font-face{font-family:"Inter";src:url("/fonts/inter-var.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
 /* ---- site-wide sticky nav (copied from index.html's header; fixed light,
    matching the homepage -- site-cohesion 2026-08-16) ---- */
@@ -93,14 +97,17 @@ a{color:#0b5fbe}
 </header>
 <div class="wrap">
 
+<div class="page-head">
+<span class="eyebrow">Delegation guide</span>
 <h1>Delegate</h1>
 
-<p style="color:var(--muted);font-size:14.5px;margin-top:0">
+<p class="lede">
 Delegation assigns your WFLR's <strong>vote power</strong> to CashLab's FTSO —
 your tokens never leave your wallet, there is no minimum, and you can undelegate
 at any moment. This page is the complete guide. Live figures are read from Flare
 mainnet <strong>by your browser</strong> — not from our servers.
 </p>
+</div>
 
 <h2>Delegation at a glance</h2>
 <div class="grid">

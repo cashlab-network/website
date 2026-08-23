@@ -47,6 +47,10 @@ a{color:#6ea8fe}
 }*/
 
 
+.page-head{padding:6px 0 26px;border-bottom:1px solid var(--line);margin-bottom:12px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#a8842c;margin:0 0 14px}
+.eyebrow::before{content:"";width:22px;height:2px;background:#c89f3b}
+.lede{color:var(--muted);font-size:clamp(1.05rem,1rem + .3vw,1.2rem);line-height:1.55;max-width:62ch;margin-top:0}
 @font-face{font-family:"Inter";src:url("/fonts/inter-var.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
 /* ---- site-wide sticky nav (copied from index.html's header; fixed light,
    matching the homepage -- site-cohesion 2026-08-16) ---- */
@@ -91,9 +95,11 @@ a{color:#6ea8fe}
 </header>
 <div class="wrap">
 
+<div class="page-head">
+<span class="eyebrow">Transparency</span>
 <h1>Operations Log</h1>
 
-<p class="intro">
+<p class="lede">
 This page is a dated, human-written history of notable operational events at
 CashLab: incidents, what they cost, and what changed afterwards. Entries are
 written <strong>after the fact</strong>, once an event is fully understood and
@@ -102,6 +108,7 @@ resolved — this is a record, not a live status feed (that's the
 happens, including things that went wrong; honesty about failures is the point.
 Routine day-to-day operations are not logged here.
 </p>
+</div>
 
 <div class="entry">
   <time datetime="2026-08-16">2026-08-16</time>
