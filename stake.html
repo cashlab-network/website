@@ -82,6 +82,7 @@ a{color:#0b5fbe}
   <div class="site-header__inner">
     <a href="/" class="brand" aria-label="CashLab home"><img src="images/cashlab-lockup-header.png" alt="CashLab" width="760" height="322"></a>
     <nav class="nav" id="site-nav" aria-label="Primary">
+      <a href="/">Home</a>
       <a href="/stake">Stake with us</a>
       <a href="/autoclaim">Auto-claim</a>
       <a href="/epochs">Track record</a>
@@ -121,6 +122,7 @@ from Flare mainnet <strong>by your browser</strong> — not from our servers.
       <tr><td>Rewards</td><td>Every reward epoch (~3.5 days)</td></tr>
       <tr><td>Best for</td><td>Most holders. Simple and flexible.</td></tr>
     </table>
+    <p style="margin-top:12px"><a href="/delegate" style="display:inline-block;background:#0E0E0D;color:#fff;font-weight:600;padding:10px 20px;border-radius:6px;text-decoration:none;border:0">Delegate now &rarr;</a></p>
   </div>
   <div class="card card--path">
     <h3>Stake to our validator <span class="label">· P-chain</span></h3>
@@ -131,9 +133,23 @@ from Flare mainnet <strong>by your browser</strong> — not from our servers.
       <tr><td>Rewards</td><td>Settled about every two weeks</td></tr>
       <tr><td>Best for</td><td>Larger, longer-horizon positions</td></tr>
     </table>
+    <p style="margin-top:12px"><a href="#path-2" style="display:inline-block;background:#0E0E0D;color:#fff;font-weight:600;padding:10px 20px;border-radius:6px;text-decoration:none;border:0">Stake now &rarr;</a></p>
   </div>
 </div>
 
+
+<div class="note" style="margin-top:26px">
+<strong>Why you can check us before trusting us.</strong> You never send tokens
+to CashLab on either path &mdash; delegation and staking are on-chain
+assignments controlled only by your keys, and no legitimate provider will ever
+ask you to transfer FLR. Beyond that, don't take our word for anything:
+every settled epoch &mdash; including <a href="/epochs">the one that paid
+zero</a> &mdash; is published with numbers derived from Flare's official
+settlement data; our validator, entity, and delegation address are
+<a href="/#verify">verifiable on-chain</a>; our failures are logged publicly in
+the <a href="/ops-log">operations log</a>; and this site reads live figures
+from the chain in your own browser, not from our servers.
+</div>
 <h2>Our fee — stated plainly</h2>
 <p style="font-size:15px">
 <strong>20%, on both paths.</strong> It applies to <em>reward</em> flows only —
@@ -175,7 +191,7 @@ The full guide — live numbers, snapshot-timing tips, auto-claim, and safety �
 lives on one page so it can never go stale in two places:
 <a href="/delegate"><strong>Delegate &rarr;</strong></a></p>
 
-<h2>Path 2 — Stake FLR to our validator (P-chain)</h2>
+<h2 id="path-2">Path 2 — Stake FLR to our validator (P-chain)</h2>
 <ol class="steps">
   <li>In the <a href="https://portal.flare.network" rel="noopener">Flare Portal</a>, open the <strong>Staking</strong> section and connect your wallet.</li>
   <li>First time only: the Portal will ask you to <strong>register your address</strong> (binding your C-chain and P-chain addresses — one signature, no funds move).</li>
