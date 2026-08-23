@@ -925,10 +925,10 @@
           </span>
           <h3>FTSO price submissions</h3>
           <p>
-            Time Series Oracle price feeds across all supported feeds, submitted
-            every voting round. At mainnet launch, CashLab will run an in-house
-            Feed Value Provider with multi-exchange sourcing, designed to meet
-            Flare's robust-FVP requirement.
+            Time Series Oracle price feeds submitted every voting round. CashLab
+            runs an in-house Feed Value Provider with multi-exchange sourcing
+            &mdash; 63 feeds configured as of Aug 23, 2026 (live count on the
+            stats page).
           </p>
           <span class="tag">All supported feeds</span>
         </div>
@@ -939,11 +939,11 @@
           </span>
           <h3>FDC attestations</h3>
           <p>
-            Flare Data Connector attestations for BTC, DOGE, XRP, and ETH via
-            professional-grade RPC infrastructure with tested failover across
-            multiple providers. All four chains covered from launch.
+            Flare Data Connector attestations for BTC, DOGE, XRP, ETH, FLR, and
+            SGB via self-hosted chain nodes and professional-grade RPC
+            infrastructure with tested failover.
           </p>
-          <span class="tag">BTC &middot; DOGE &middot; XRP &middot; ETH covered</span>
+          <span class="tag">6 chains covered</span>
         </div>
 
         <div class="card">
@@ -977,9 +977,10 @@
       <div class="note" data-reveal>
         <strong>On fees:</strong> CashLab charges the protocol minimum of
         <strong>20%</strong>. Under Flare's FIP.16 (April 2026), 20% is the
-        network-wide <em>minimum</em> fee floor &mdash; not a ceiling. Every
-        registered provider charges at least this amount, so anyone advertising a
-        lower fee is misleading you.
+        network-wide <em>minimum</em> fee floor &mdash; not a ceiling &mdash;
+        enforced on-chain. No registered provider can durably charge less;
+        rates below the floor from before enforcement expire with those
+        validators' current terms.
       </div>
     </div>
   </section>
@@ -998,11 +999,12 @@
         <li class="rel-item">
           <span class="rel-item__check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
           <div>
-            <h3>3M FLR self-bond target</h3>
+            <h3>3M FLR self-bond &mdash; staked</h3>
             <p>
-              Self-bond sized to reach the FIP.10 pass tier (3M FLR self-bond
-              alongside target total stake), aligning CashLab's incentives
-              directly with sustained, performant uptime.
+              Our own 3,000,000 FLR is staked to the same validator our delegators
+              rely on &mdash; the FIP.10 pass-tier self-bond, aligning
+              CashLab's incentives directly with sustained, performant
+              uptime.
             </p>
           </div>
         </li>
@@ -1024,7 +1026,7 @@
           <div>
             <h3>24/7 monitoring with escalation alerting</h3>
             <p>
-              A layered monitoring stack, deployed pre-launch, watches per-round
+              A layered monitoring stack watches per-round
               submission success, indexer health, node health, and reward-epoch
               conditions with tiered alerts that escalate to a phone for critical
               events.
@@ -1035,21 +1037,24 @@
         <li class="rel-item">
           <span class="rel-item__check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
           <div>
-            <h3>Coston2 testnet rehearsal pre-launch</h3>
+            <h3>Rehearsed on Coston2 before mainnet</h3>
             <p>
-              The full stack &mdash; FTSO, FDC, and Fast Updates &mdash; is
-              rehearsed end-to-end on Flare's Coston2 testnet, including restart
-              drills and reward-claim testing, before any mainnet activity.
+              The full stack &mdash; FTSO, FDC, and Fast Updates &mdash; was
+              rehearsed end-to-end on Flare's Coston2 testnet, including
+              restart drills and reward-claim testing, before our first
+              mainnet epoch.
             </p>
           </div>
         </li>
       </ul>
 
       <div class="note" data-reveal>
-        <strong>What we won't publish yet:</strong> exact operating metrics such
-        as uptime percentage and pass history come only after mainnet launch,
-        from live on-chain data. We won't quote numbers we can't yet stand
-        behind. Once live, they'll be independently verifiable via the links in
+        <strong>A promise we kept:</strong> we said we'd publish exact operating
+        metrics only once they were live on-chain. They are: every settled
+        epoch &mdash; including the one that paid zero &mdash; is on the
+        <a class="inline-link" href="/epochs">epoch reports</a> page, with
+        uptime, pass history, and realized rates derived from Flare's official
+        settlement data, independently verifiable via
         <a class="inline-link" href="#verify">Verify us</a>.
       </div>
     </div>
@@ -1136,7 +1141,7 @@
   <section class="section section--tint" id="contact">
     <div class="wrap">
       <span class="eyebrow">Contact</span>
-      <h2 class="section-title">Questions before mainnet? Get in touch.</h2>
+      <h2 class="section-title">Questions? Get in touch.</h2>
       <p class="section-intro">
         We're happy to answer questions about our setup, reliability approach, or
         delegation.
