@@ -4,6 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CashLab — Status</title>
+<link rel="canonical" href="https://cashlab.network/status">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://cashlab.network/status">
+<meta property="og:title" content="CashLab — Status">
+<meta property="og:description" content="Live on-chain status for CashLab, an independent Flare infrastructure entity. Every value on this page is read directly from Flare mainnet by your browser.">
+<meta property="og:image" content="https://cashlab.network/images/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CashLab — Status">
+<meta name="twitter:description" content="Live on-chain status for CashLab, an independent Flare infrastructure entity. Every value on this page is read directly from Flare mainnet by your browser.">
+<meta name="twitter:image" content="https://cashlab.network/images/og-image.png">
+
 <meta name="description" content="Live on-chain status for CashLab, an independent Flare infrastructure entity. Every value on this page is read directly from Flare mainnet by your browser.">
 <link rel="icon" href="images/favicon.ico">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
@@ -67,16 +78,11 @@ a{color:#0b5fbe}
   <div class="site-header__inner">
     <a href="/" class="brand" aria-label="CashLab home"><img src="images/cashlab-lockup-header.png" alt="CashLab" width="760" height="322"></a>
     <nav class="nav" id="site-nav" aria-label="Primary">
-      <a href="/">Home</a>
-      <a href="/delegate.html">Delegate</a>
-      <a href="/stake.html">Stake with us</a>
-      <a href="/autoclaim.html">Auto-claim</a>
-      <a href="/epochs.html">Epoch reports</a>
-      <a href="/rewards.html">Your rewards</a>
-      <a href="/stats.html">Stats</a>
-      <a href="/status.html">Status</a>
-      <a href="/#verify">Verify us</a>
-      <a href="/#contact" class="nav__cta">Contact</a>
+      <a href="/stake">Stake with us</a>
+      <a href="/autoclaim">Auto-claim</a>
+      <a href="/epochs">Track record</a>
+      <a href="/rewards">Your rewards</a>
+      <a href="/delegate" class="nav__cta">Delegate</a>
     </nav>
     <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
@@ -130,13 +136,16 @@ not from our servers, and not hand-updated. Verify any of it yourself on the
   <li><time>2026-07-31</time>Full protocol pipeline verified end-to-end: feed engine → official Flare client → computed voting round with merkle root.</li>
   <li><time>2026-08-04</time>First delegation received (50,000 FLR); stake mirror confirmed on-chain the following cycle.</li>
   <li><time>2026-08-06</time>Reward epoch 422 began — CashLab's first reward-eligible epoch.</li>
-  <li><time>2026-08-10</time>Epoch 422 settled at zero: 2 of 4 gates failed after an RPC-provider outage. Full numbers and fixes in the <a href="/epochs.html">epoch report</a>. RPC layer rebuilt: own node primary, automatic failover, work-based health checks, off-site dead-man monitoring.</li>
+  <li><time>2026-08-21</time>Epochs 423&ndash;425 settled: all four FIP.10 gates passed in each; three consecutive paying epochs, first pass banked at 425. Details in the <a href="/epochs">epoch reports</a>.</li>
+  <li><time>2026-08-21</time>Auto-claim executor registered on-chain and live in soft launch; first unattended epoch claim delivered. <a href="/autoclaim">How it works</a>.</li>
+  <li><time>2026-08-10</time>Epoch 422 settled at zero: 2 of 4 gates failed after an RPC-provider outage. Full numbers and fixes in the <a href="/epochs">epoch report</a>. RPC layer rebuilt: own node primary, automatic failover, work-based health checks, off-site dead-man monitoring.</li>
 </ul>
+<p style="font-size:13.5px">Fuller history — incidents, what they cost, and what changed: <a href="/ops-log"><strong>operations log &rarr;</strong></a></p>
 
 <footer>
   <a href="/">cashlab.network</a> ·
-  <a href="/epochs.html">epoch reports</a> ·
-  <a href="/stats.html">stats</a> ·
+  <a href="/epochs">epoch reports</a> ·
+  <a href="/stats">stats</a> ·
   <a href="https://x.com/CashLabNetwork" rel="noopener">@CashLabNetwork</a> ·
   <a href="mailto:hello@cashlab.network">hello@cashlab.network</a><br>
   Operational metrics are historical observations, provided as-is without

@@ -4,6 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CashLab — Epoch Reports</title>
+<link rel="canonical" href="https://cashlab.network/epochs">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://cashlab.network/epochs">
+<meta property="og:title" content="CashLab — Epoch Reports">
+<meta property="og:description" content="Every reward epoch, scored by Flare's published settlement data. Wins and losses in the same format, with numerators and denominators.">
+<meta property="og:image" content="https://cashlab.network/images/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CashLab — Epoch Reports">
+<meta name="twitter:description" content="Every reward epoch, scored by Flare's published settlement data. Wins and losses in the same format, with numerators and denominators.">
+<meta name="twitter:image" content="https://cashlab.network/images/og-image.png">
+
 <meta name="description" content="Every reward epoch, scored by Flare's published settlement data. Wins and losses in the same format, with numerators and denominators.">
 <link rel="icon" href="images/favicon.ico">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
@@ -59,6 +70,15 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);font-si
  .site-header .nav.nav--open a:last-child{border-bottom:0}
  .site-header .nav-toggle{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border:1px solid #d9d8d3;border-radius:6px;color:#0e0e0d}
 }
+.badge{display:inline-block;font-size:10.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
+       padding:1px 7px;border-radius:99px;border:1px solid var(--line);color:var(--muted);vertical-align:2px}
+.badge.settled{border-color:var(--ok);color:var(--ok)}
+.fig{border:1px solid var(--line);border-radius:10px;padding:14px 10px 8px;position:relative}
+.fig svg{display:block;width:100%;height:auto}
+.fig .placeholder{color:var(--muted);font-size:13.5px;padding:32px 12px;text-align:center}
+.legend{display:flex;gap:18px;font-size:12.5px;color:var(--muted);margin:0 0 8px 8px;flex-wrap:wrap}
+.legend .sw{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.axis{font-size:11px;fill:var(--muted)}
 </style>
 </head>
 <body>
@@ -67,16 +87,11 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);font-si
   <div class="site-header__inner">
     <a href="/" class="brand" aria-label="CashLab home"><img src="images/cashlab-lockup-header.png" alt="CashLab" width="760" height="322"></a>
     <nav class="nav" id="site-nav" aria-label="Primary">
-      <a href="/">Home</a>
-      <a href="/delegate.html">Delegate</a>
-      <a href="/stake.html">Stake with us</a>
-      <a href="/autoclaim.html">Auto-claim</a>
-      <a href="/epochs.html">Epoch reports</a>
-      <a href="/rewards.html">Your rewards</a>
-      <a href="/stats.html">Stats</a>
-      <a href="/status.html">Status</a>
-      <a href="/#verify">Verify us</a>
-      <a href="/#contact" class="nav__cta">Contact</a>
+      <a href="/stake">Stake with us</a>
+      <a href="/autoclaim">Auto-claim</a>
+      <a href="/epochs">Track record</a>
+      <a href="/rewards">Your rewards</a>
+      <a href="/delegate" class="nav__cta">Delegate</a>
     </nav>
     <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
@@ -98,9 +113,33 @@ One report per reward epoch, published when Flare settles it — wins and losses
 same format, including <strong>what each epoch actually returned</strong> to delegators and stakers. Every number comes from the network's official settlement data
 (<a href="https://github.com/flare-foundation/fsp-rewards" rel="noopener">flare-foundation/fsp-rewards</a>),
 never from our own claims. Charts and the machine-readable history are on the
-<a href="/stats.html">stats page</a>; live entity status is on the
-<a href="/status.html">status page</a>.
+<a href="/stats">stats page</a>; live entity status is on the
+<a href="/status">status page</a>.
 </p>
+
+<h2>Track record at a glance <span class="badge settled">settled data</span></h2>
+<p style="font-size:14px;color:var(--muted)">Charted from the same machine-readable <a href="/epochs.json">epochs.json</a> anyone can fetch. Live point-in-time tiles and the full history table: <a href="/stats">stats page &rarr;</a> &middot; live entity status: <a href="/status">status &rarr;</a></p>
+<h2>FTSO accuracy per epoch <span class="badge settled">settled data</span></h2>
+<div class="fig" id="fig-acc"><div class="placeholder">Loading epochs.json…</div></div>
+<p style="font-size:12.5px;color:var(--muted);margin-top:8px">
+Share of votes within 0.5% of the consensus median, per reward epoch, with the
+numerator and denominator in each point's tooltip. The dashed line is the 80%
+FIP.10 reward gate. Full fractions are in the table below.
+</p>
+
+<h2>Realized APR per epoch <span class="badge settled">settled data</span></h2>
+<div class="legend" id="apr-legend">
+  <span><span class="sw" style="background:var(--s1)"></span>Delegation (wNat), net of fee</span>
+  <span><span class="sw" style="background:var(--s2)"></span>Staking (mirror), net of fee</span>
+</div>
+<div class="fig" id="fig-apr"><div class="placeholder">Loading epochs.json…</div></div>
+<p style="font-size:12.5px;color:var(--muted);margin-top:8px">
+<strong>Realized</strong> historical rates from each epoch's actual payout file —
+reward ÷ weight, annualized simply over 104.36 epochs/yr, no compounding — not a
+projection. A zeroed epoch really pays 0.00%. Tooltips include that epoch's
+network medians for comparison.
+</p>
+
 
 <!-- ================= EPOCH 425 ================= -->
 <h2 id="e425">Epoch 425<span class="when">Aug 17 – Aug 20, 2026 · ended Aug 20</span><span class="verdict paid">PAID</span></h2>
@@ -376,14 +415,15 @@ this same format, as promised.
   and are provided as-is, without warranty. Do your own research.
   </p>
   <a href="/">cashlab.network</a> ·
-  <a href="/stats.html">stats</a> ·
-  <a href="/status.html">status</a> ·
+  <a href="/stats">stats</a> ·
+  <a href="/status">status</a> ·
   <a href="https://x.com/CashLabNetwork" rel="noopener">@CashLabNetwork</a> ·
   <a href="mailto:hello@cashlab.network">hello@cashlab.network</a><br>
   Not affiliated with, endorsed by, or authorized by the Flare Foundation.
 </footer>
 
 </div>
+<script src="js/stats-live.js"></script>
 <script src="js/nav.js"></script>
 </body>
 </html>

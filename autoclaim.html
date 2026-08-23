@@ -4,6 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CashLab — Automatic reward claiming</title>
+<link rel="canonical" href="https://cashlab.network/autoclaim">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://cashlab.network/autoclaim">
+<meta property="og:title" content="CashLab — Automatic reward claiming">
+<meta property="og:description" content="CashLab's auto-claim executor pushes your Flare delegation and staking rewards to your own wallet as WFLR for the 0.1 FLR protocol-minimum fee. Non-custodial, enforced by Flare's own contracts. In soft launch — not announced yet.">
+<meta property="og:image" content="https://cashlab.network/images/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CashLab — Automatic reward claiming">
+<meta name="twitter:description" content="CashLab's auto-claim executor pushes your Flare delegation and staking rewards to your own wallet as WFLR for the 0.1 FLR protocol-minimum fee. Non-custodial, enforced by Flare's own contracts. In soft launch — not announced yet.">
+<meta name="twitter:image" content="https://cashlab.network/images/og-image.png">
+
 <meta name="description" content="CashLab's auto-claim executor pushes your Flare delegation and staking rewards to your own wallet as WFLR for the 0.1 FLR protocol-minimum fee. Non-custodial, enforced by Flare's own contracts. In soft launch — not announced yet.">
 <link rel="icon" href="images/favicon.ico">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
@@ -83,16 +94,11 @@ a{color:#0b5fbe}
   <div class="site-header__inner">
     <a href="/" class="brand" aria-label="CashLab home"><img src="images/cashlab-lockup-header.png" alt="CashLab" width="760" height="322"></a>
     <nav class="nav" id="site-nav" aria-label="Primary">
-      <a href="/">Home</a>
-      <a href="/delegate.html">Delegate</a>
-      <a href="/stake.html">Stake with us</a>
-      <a href="/autoclaim.html">Auto-claim</a>
-      <a href="/epochs.html">Epoch reports</a>
-      <a href="/rewards.html">Your rewards</a>
-      <a href="/stats.html">Stats</a>
-      <a href="/status.html">Status</a>
-      <a href="/#verify">Verify us</a>
-      <a href="/#contact" class="nav__cta">Contact</a>
+      <a href="/stake">Stake with us</a>
+      <a href="/autoclaim">Auto-claim</a>
+      <a href="/epochs">Track record</a>
+      <a href="/rewards">Your rewards</a>
+      <a href="/delegate" class="nav__cta">Delegate</a>
     </nav>
     <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
@@ -333,7 +339,7 @@ and removable at any time by emailing
     </div>
     <div class="field">
       <label for="nf-email">Email address</label>
-      <input type="email" id="nf-email" autocomplete="email" placeholder="you@example.com" required>
+      <input type="email" id="nf-email" autocomplete="email" placeholder="Sign-ups open at public announcement" disabled aria-disabled="true">
     </div>
     <button type="submit">Sign up for notifications</button>
     <div class="result" id="notify-result" role="status"></div>
@@ -351,14 +357,15 @@ and removable at any time by emailing
   <tr><td>Double claiming</td><td>Impossible by contract: once rewards are claimed — by us or by you — a
       second claim finds nothing. First claimer wins; nobody pays twice.</td></tr>
   <tr><td>Our track record</td><td>Once live, we will publish actual per-epoch numbers (claims made /
-      wallets enrolled) on the <a href="/status.html">status page</a> — numbers
+      wallets enrolled) on the <a href="/status">status page</a> — numbers
       first, promises never.</td></tr>
 </table>
 
 <footer>
   <a href="/">cashlab.network</a> ·
-  <a href="/stake.html">Stake with us</a> ·
-  <a href="/status.html">Status</a> ·
+  <a href="/stake">Stake with us</a> ·
+  <a href="/status">Status</a> ·
+  <a href="/ops-log">Ops log</a> ·
   <a href="https://x.com/CashLabNetwork" rel="noopener">@CashLabNetwork</a> ·
   <a href="mailto:hello@cashlab.network">hello@cashlab.network</a><br>
   <span style="display:block;margin:10px 0;font-size:12.5px;line-height:1.55">

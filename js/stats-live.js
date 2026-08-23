@@ -141,6 +141,7 @@ function chartApr(eps){
   });
 }
 
+function ifel(id, fn){ const el = $(id); if (el) fn(el); }
 function cell(html){ const td = document.createElement("td"); td.innerHTML = html; return td; }
 
 function renderTable(eps){
@@ -149,6 +150,12 @@ function renderTable(eps){
     const g = e.gates, r = e.returns, tr = document.createElement("tr");
     const chip = ok => ok ? "" : ' <span class="chip fail">✗</span>';
     tr.appendChild(cell(`<span class="num">${e.epoch}</span>`));
+    tr.appendChild(cell(`<span class="num">${fmt2(r.delegationAprPct)}%</span>` +
+      `<span class="frac">median ${fmt2(r.medians.delegationAprPct)}%</span>`));
+    tr.appendChild(cell(`<span class="num">${fmt2(r.stakingAprPct)}%</span>` +
+      `<span class="frac">median ${fmt2(r.medians.stakingAprPct)}%</span>`));
+    tr.appendChild(cell(e.paid ? '<span class="verdict paid">PAID</span>'
+                               : '<span class="verdict zero">PAID ZERO</span>'));
     tr.appendChild(cell(`<span style="color:var(--muted)">${e.dates.human}</span>`));
     tr.appendChild(cell(`<span class="num">${fmt2(g.ftso.pct)}%</span>${chip(g.ftso.pass)}` +
       `<span class="frac">${fmtI(g.ftso.num)} / ${fmtI(g.ftso.den)}</span>`));
@@ -158,12 +165,6 @@ function renderTable(eps){
       `<span class="frac">${fmtI(g.staking.selfBond)} FLR bond</span>`));
     tr.appendChild(cell(`<span class="num">${g.fastUpdates.actual}</span>${chip(g.fastUpdates.pass)}` +
       `<span class="frac">vs ${g.fastUpdates.expected} expected</span>`));
-    tr.appendChild(cell(`<span class="num">${fmt2(r.delegationAprPct)}%</span>` +
-      `<span class="frac">median ${fmt2(r.medians.delegationAprPct)}%</span>`));
-    tr.appendChild(cell(`<span class="num">${fmt2(r.stakingAprPct)}%</span>` +
-      `<span class="frac">median ${fmt2(r.medians.stakingAprPct)}%</span>`));
-    tr.appendChild(cell(e.paid ? '<span class="verdict paid">PAID</span>'
-                               : '<span class="verdict zero">PAID ZERO</span>'));
     tb.appendChild(tr);
   });
 }
@@ -200,11 +201,11 @@ function renderTiles(eps){
 
 function fail(msg){
   for(const id of ["fig-acc", "fig-apr"])
-    $(id).innerHTML = `<div class="placeholder">${msg}</div>`;
-  $("history-body").innerHTML =
-    `<tr><td colspan="9" style="color:var(--muted)">${msg}</td></tr>`;
+    ifel(id, el => el.innerHTML = `<div class="placeholder">${msg}</div>`);
+  ifel("history-body", el => el.innerHTML =
+    `<tr><td colspan="9" style="color:var(--muted)">${msg}</td></tr>`);
   for(const id of ["tile-stake", "tile-feeds", "tile-uptime", "tile-epoch"])
-    $(id).textContent = "—";
+    ifel(id, el => el.textContent = "—");
 }
 
 async function load(){
@@ -222,13 +223,13 @@ async function load(){
   const eps = (doc.epochs || []).slice().sort((a, b) => a.epoch - b.epoch);
   if(!eps.length){ fail("epochs.json contains no epochs yet."); return; }
   try{
-    renderSnapshot(doc);
-    renderTiles(eps);
-    chartAccuracy(eps);
-    chartApr(eps);
-    renderTable(eps);
+    if ($("tile-stake")) renderSnapshot(doc);
+    if ($("tile-epoch")) renderTiles(eps);
+    if ($("fig-acc")) chartAccuracy(eps);
+    if ($("fig-apr")) chartApr(eps);
+    if ($("history-body")) renderTable(eps);
     const gen = doc.generated_at || doc.generated;
-    if(gen)
+    if(gen && $("gen"))
       $("gen").textContent = " Dataset generated " + gen +
                              " · " + eps.length + " epoch" + (eps.length > 1 ? "s" : "") + ".";
   }catch(err){

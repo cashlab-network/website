@@ -4,6 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CashLab — Stats</title>
+<link rel="canonical" href="https://cashlab.network/stats">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://cashlab.network/stats">
+<meta property="og:title" content="CashLab — Stats">
+<meta property="og:description" content="CashLab's epoch-by-epoch track record on Flare, charted from the same machine-readable file you can fetch yourself: FTSO accuracy, realized APRs, and every reward gate with its numerator and denominator.">
+<meta property="og:image" content="https://cashlab.network/images/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CashLab — Stats">
+<meta name="twitter:description" content="CashLab's epoch-by-epoch track record on Flare, charted from the same machine-readable file you can fetch yourself: FTSO accuracy, realized APRs, and every reward gate with its numerator and denominator.">
+<meta name="twitter:image" content="https://cashlab.network/images/og-image.png">
+
 <meta name="description" content="CashLab's epoch-by-epoch track record on Flare, charted from the same machine-readable file you can fetch yourself: FTSO accuracy, realized APRs, and every reward gate with its numerator and denominator.">
 <link rel="icon" href="images/favicon.ico">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
@@ -91,16 +102,11 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);font-si
   <div class="site-header__inner">
     <a href="/" class="brand" aria-label="CashLab home"><img src="images/cashlab-lockup-header.png" alt="CashLab" width="760" height="322"></a>
     <nav class="nav" id="site-nav" aria-label="Primary">
-      <a href="/">Home</a>
-      <a href="/delegate.html">Delegate</a>
-      <a href="/stake.html">Stake with us</a>
-      <a href="/autoclaim.html">Auto-claim</a>
-      <a href="/epochs.html">Epoch reports</a>
-      <a href="/rewards.html">Your rewards</a>
-      <a href="/stats.html">Stats</a>
-      <a href="/status.html">Status</a>
-      <a href="/#verify">Verify us</a>
-      <a href="/#contact" class="nav__cta">Contact</a>
+      <a href="/stake">Stake with us</a>
+      <a href="/autoclaim">Auto-claim</a>
+      <a href="/epochs">Track record</a>
+      <a href="/rewards">Your rewards</a>
+      <a href="/delegate" class="nav__cta">Delegate</a>
     </nav>
     <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
@@ -124,8 +130,8 @@ file anyone can fetch. It is regenerated from Flare's official settlement data
 (<a href="https://github.com/flare-foundation/fsp-rewards" rel="noopener">flare-foundation/fsp-rewards</a>)
 each time an epoch settles, with every payout file chain-verified before a
 number is published. Narrative reports live on the
-<a href="/epochs.html">epochs page</a>; live on-chain reads on the
-<a href="/status.html">status page</a>.
+<a href="/epochs">epochs page</a>; live on-chain reads on the
+<a href="/status">status page</a>.
 </p>
 
 <h2>Where we stand <span class="badge">point-in-time</span></h2>
@@ -188,8 +194,8 @@ network medians for comparison.
 <div class="tablewrap">
 <table id="history">
   <thead>
-    <tr><th>Epoch</th><th>Dates</th><th>FTSO</th><th>FDC</th><th>Uptime*</th>
-        <th>Fast&nbsp;updates</th><th>Delegation</th><th>Staking</th><th>Verdict</th></tr>
+    <tr><th>Epoch</th><th>Delegation</th><th>Staking</th><th>Verdict</th><th>Dates</th>
+        <th>FTSO</th><th>FDC</th><th>Uptime*</th><th>Fast&nbsp;updates</th></tr>
   </thead>
   <tbody id="history-body">
     <tr><td colspan="9" style="color:var(--muted)">Loading epochs.json…</td></tr>
@@ -226,8 +232,8 @@ fetch that file directly — it is the complete dataset.</p></noscript>
   and are provided as-is, without warranty. Do your own research.
   </p>
   <a href="/">cashlab.network</a> ·
-  <a href="/epochs.html">epoch reports</a> ·
-  <a href="/status.html">status</a> ·
+  <a href="/epochs">epoch reports</a> ·
+  <a href="/status">status</a> ·
   <a href="https://x.com/CashLabNetwork" rel="noopener">@CashLabNetwork</a> ·
   <a href="mailto:hello@cashlab.network">hello@cashlab.network</a><br>
   Not affiliated with, endorsed by, or authorized by the Flare Foundation.

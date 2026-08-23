@@ -46,6 +46,7 @@
     font-display: swap;
   }
   :root {
+    --gold-text: #8A6A23;
     /* Palette */
     --white: #ffffff;
     --ink: #0e0e0d;
@@ -821,13 +822,13 @@
   }
 
   /* Subtle scroll-in animation */
-  [data-reveal] {
+  html.js [data-reveal] {
     opacity: 0;
     transform: translateY(14px);
     transition: opacity 600ms var(--ease), transform 600ms var(--ease);
   }
 
-  [data-reveal].is-visible {
+  html.js [data-reveal].is-visible {
     opacity: 1;
     transform: none;
   }
@@ -844,16 +845,11 @@
     </a>
 
     <nav class="nav" id="primary-nav" aria-label="Primary">
-      <a href="/">Home</a>
-      <a href="/delegate.html">Delegate</a>
-      <a href="/stake.html">Stake with us</a>
-      <a href="/autoclaim.html">Auto-claim</a>
-      <a href="/epochs.html">Epoch reports</a>
-      <a href="/rewards.html">Your rewards</a>
-      <a href="/stats.html">Stats</a>
-      <a href="/status.html">Status</a>
-      <a href="#verify">Verify us</a>
-      <a href="#contact" class="nav__cta">Contact</a>
+      <a href="/stake">Stake with us</a>
+      <a href="/autoclaim">Auto-claim</a>
+      <a href="/epochs">Track record</a>
+      <a href="/rewards">Your rewards</a>
+      <a href="/delegate" class="nav__cta">Delegate</a>
     </nav>
 
     <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="primary-nav">
@@ -887,7 +883,7 @@
             <p class="status-card__text">
               Delegation is live on Flare mainnet. The entity is registered,
               the validator is staked with a 3,000,000 FLR self-bond, and the
-              delegation address is published below.
+              delegation address is:
             </p>
             <!-- REPLACE AT LAUNCH: delegation-address
                  STAGED 2026-07-29: value below is the real Delegation address.
@@ -1062,7 +1058,7 @@
               A layered monitoring stack watches per-round
               submission success, indexer health, node health, and reward-epoch
               conditions with tiered alerts that escalate to a phone for critical
-              events.
+              events. <a class="inline-link" href="/ops-log">We log our failures publicly &rarr;</a>
             </p>
           </div>
         </li>
@@ -1108,7 +1104,7 @@
         plainly, and live on-chain numbers &mdash; has its own page.
       </p>
       <p data-reveal>
-        <a class="pill pill--link" href="/delegate.html">Open the delegation guide &nbsp;&rarr;</a>
+        <a class="pill pill--link" href="/delegate">Open the delegation guide &nbsp;&rarr;</a>
       </p>
     </div>
   </section>
@@ -1119,8 +1115,7 @@
       <span class="eyebrow">Verify us</span>
       <h2 class="section-title">Don't take our word for it.</h2>
       <p class="section-intro">
-        Everything CashLab does is on-chain and independently checkable. These
-        links go live as each source becomes available.
+        Everything CashLab does is on-chain and independently checkable.
       </p>
 
       <ul class="verify-list" data-reveal>
@@ -1134,8 +1129,8 @@
               <p>Live per-epoch minimal-conditions and pass status.</p>
             </div>
           </div>
-          <a class="pill pill--link" href="https://flare-systems-explorer.flare.network/providers" target="_blank" rel="noopener noreferrer">
-            Open provider list
+          <a class="pill pill--link" href="https://flare-systems-explorer.flare.network/entity/0xDDe5D41C0B79c25Da05EE4E02AECECf6eB7E67De" target="_blank" rel="noopener noreferrer">
+            Open our entity page
           </a>
         </li>
 
@@ -1208,13 +1203,13 @@
       <nav class="footer__links" aria-label="Footer">
         <a href="#what-we-do">What we do</a>
         <a href="#reliability">Reliability</a>
-        <a href="/delegate.html">Delegate</a>
-        <a href="/stake.html">Stake with us</a>
-        <a href="/autoclaim.html">Auto-claim</a>
-        <a href="/epochs.html">Epoch reports</a>
-      <a href="/rewards.html">Your rewards</a>
-        <a href="/stats.html">Stats</a>
-        <a href="/status.html">Status</a>
+        <a href="/delegate">Delegate</a>
+        <a href="/stake">Stake with us</a>
+        <a href="/autoclaim">Auto-claim</a>
+        <a href="/epochs">Epoch reports</a>
+      <a href="/rewards">Your rewards</a>
+        <a href="/stats">Stats</a>
+        <a href="/status">Status</a>
         <a href="#verify">Verify us</a>
         <a href="https://github.com/cashlab-network" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a href="https://x.com/CashLabNetwork" rel="noopener">@CashLabNetwork</a>

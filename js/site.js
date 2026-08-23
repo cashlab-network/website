@@ -1,3 +1,4 @@
+document.documentElement.classList.add("js");
   // Current year
   document.getElementById("year").textContent = new Date().getFullYear();
 
@@ -37,7 +38,7 @@
           }
         });
       },
-      { threshold: 0.12 }
+      { threshold: 0.01, rootMargin: "0px 0px 25% 0px" }
     );
     els.forEach(function (el) { io.observe(el); });
   })();

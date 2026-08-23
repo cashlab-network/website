@@ -7,14 +7,15 @@ const SEL_DELEGATESOF = "0x7de5b8ed", SEL_ISCLAIMEXEC = "0x87962abe";
 const pad = a => "0".repeat(24) + a.toLowerCase().replace("0x","");
 let META=null, PRICES=null, ROWS=[]; const SHARDS={};
 
+function withTimeout(p, ms) { return Promise.race([p, new Promise((_,rej)=>setTimeout(()=>rej(new Error("timeout")), ms))]); }
 async function ethCall(to, data) {
-  const r = await fetch(RPC, {method:"POST", headers:{"Content-Type":"application/json"},
+  const r = await withTimeout(fetch(RPC, {method:"POST", headers:{"Content-Type":"application/json"},
     body: JSON.stringify({jsonrpc:"2.0", id:1, method:"eth_call",
-                          params:[{to, data}, "latest"]})});
+                          params:[{to, data}, "latest"]})}), 8000);
   return (await r.json()).result || "0x";
 }
 async function delegationPct(addr) {  // share of WNat delegated to CashLab, in %
-  const res = await ethCall(WNAT, SEL_DELEGATESOF + pad(addr));
+  let res; try { res = await ethCall(WNAT, SEL_DELEGATESOF + pad(addr)); } catch(e) { return null; }
   if (res.length < 260) return null;
   const w = i => res.slice(2 + i*64, 2 + (i+1)*64);
   const offA = parseInt(w(0),16)/32, offB = parseInt(w(1),16)/32;
@@ -25,7 +26,7 @@ async function delegationPct(addr) {  // share of WNat delegated to CashLab, in 
   return 0;
 }
 async function autoclaimOn(addr) {
-  const res = await ethCall(CSM, SEL_ISCLAIMEXEC + pad(addr) + pad(PUBLIC_EXECUTOR));
+  let res; try { res = await ethCall(CSM, SEL_ISCLAIMEXEC + pad(addr) + pad(PUBLIC_EXECUTOR)); } catch(e) { return null; }
   return res.endsWith("1");
 }
 const fmt = (x,d=2) => x.toLocaleString("en-US",{minimumFractionDigits:d,maximumFractionDigits:d});
@@ -65,7 +66,7 @@ document.getElementById("go").onclick = async () => {
   document.getElementById("c_dpct").textContent =
       dp.length ? (addrs.length>1 ? dp.map(x=>fmt(x,0)+"%").join(" / ") : fmt(dp[0],0)+"%") : "—";
   document.getElementById("c_auto").textContent =
-      autos.every(Boolean) ? "enabled ✓" : autos.some(Boolean) ? "partial" : "not enabled";
+      autos.every(a=>a===null) ? "— (couldn\u2019t reach Flare RPC)" : autos.every(Boolean) ? "enabled ✓" : autos.some(Boolean) ? "partial" : "not enabled";
   document.getElementById("zero").style.display = ROWS.length ? "none" : "block";
   const tb = document.getElementById("tbody"); tb.innerHTML = "";
   for (const r of ROWS) {
@@ -77,6 +78,20 @@ document.getElementById("go").onclick = async () => {
   }
   document.getElementById("tbl").style.display = ROWS.length ? "table" : "none";
   document.getElementById("csv").style.display = ROWS.length ? "inline-block" : "none";
+  var follow = document.getElementById("follow");
+  if (!follow) { follow = document.createElement("p"); follow.id = "follow";
+    follow.style.cssText = "margin-top:14px;font-size:14.5px";
+    document.getElementById("status").parentNode.appendChild(follow); }
+  var dsum = dp.length ? Math.max.apply(null, dp) : null;
+  if (dsum === 0) {
+    follow.innerHTML = "This wallet isn\u2019t delegating to CashLab. What our delegators " +
+      "earned each epoch, wins and losses alike: <a href=\"/epochs\"><b>epoch reports \u2192</b></a> " +
+      "&middot; <a href=\"/delegate\"><b>how to delegate \u2192</b></a>";
+  } else if (dsum > 0 && autos.length && !autos.every(Boolean)) {
+    follow.innerHTML = "You\u2019re delegating to CashLab \u2014 thank you. Claiming manually? " +
+      "Our executor can deliver rewards to your wallet automatically each epoch " +
+      "(protocol-minimum fee): <a href=\"/autoclaim\"><b>auto-claim \u2192</b></a>";
+  } else { follow.innerHTML = ""; }
   st.textContent = `${ROWS.length} reward receipt(s) · receipts since ${META.history_starts} · data to block ${META.scanned_to_block} · generated ${META.generated_utc}`;
 };
 

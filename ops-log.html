@@ -4,6 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CashLab — Operations log</title>
+<link rel="canonical" href="https://cashlab.network/ops-log">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://cashlab.network/ops-log">
+<meta property="og:title" content="CashLab — Operations log">
+<meta property="og:description" content="A dated, human-written history of notable operational events at CashLab — incidents, what they cost, and what changed afterwards. Written after the fact, honestly.">
+<meta property="og:image" content="https://cashlab.network/images/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CashLab — Operations log">
+<meta name="twitter:description" content="A dated, human-written history of notable operational events at CashLab — incidents, what they cost, and what changed afterwards. Written after the fact, honestly.">
+<meta name="twitter:image" content="https://cashlab.network/images/og-image.png">
+
 <meta name="description" content="A dated, human-written history of notable operational events at CashLab — incidents, what they cost, and what changed afterwards. Written after the fact, honestly.">
 <link rel="icon" href="images/favicon.ico">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
@@ -67,16 +78,11 @@ a{color:#6ea8fe}
   <div class="site-header__inner">
     <a href="/" class="brand" aria-label="CashLab home"><img src="images/cashlab-lockup-header.png" alt="CashLab" width="760" height="322"></a>
     <nav class="nav" id="site-nav" aria-label="Primary">
-      <a href="/">Home</a>
-      <a href="/delegate.html">Delegate</a>
-      <a href="/stake.html">Stake with us</a>
-      <a href="/autoclaim.html">Auto-claim</a>
-      <a href="/epochs.html">Epoch reports</a>
-      <a href="/rewards.html">Your rewards</a>
-      <a href="/stats.html">Stats</a>
-      <a href="/status.html">Status</a>
-      <a href="/#verify">Verify us</a>
-      <a href="/#contact" class="nav__cta">Contact</a>
+      <a href="/stake">Stake with us</a>
+      <a href="/autoclaim">Auto-claim</a>
+      <a href="/epochs">Track record</a>
+      <a href="/rewards">Your rewards</a>
+      <a href="/delegate" class="nav__cta">Delegate</a>
     </nav>
     <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
@@ -98,7 +104,7 @@ This page is a dated, human-written history of notable operational events at
 CashLab: incidents, what they cost, and what changed afterwards. Entries are
 written <strong>after the fact</strong>, once an event is fully understood and
 resolved — this is a record, not a live status feed (that's the
-<a href="/status.html">status page</a>). We update it whenever something notable
+<a href="/status">status page</a>). We update it whenever something notable
 happens, including things that went wrong; honesty about failures is the point.
 Routine day-to-day operations are not logged here.
 </p>
@@ -107,7 +113,7 @@ Routine day-to-day operations are not logged here.
   <time datetime="2026-08-16">2026-08-16</time>
   <h2>Delegation guide gets its own page; navigation unified<span class="tag routine">Routine</span></h2>
   <p>The delegation guide moved from a homepage section to a dedicated
-  <a href="/delegate.html">Delegate</a> page, including a widget that reads the
+  <a href="/delegate">Delegate</a> page, including a widget that reads the
   stake currently delegated to CashLab live from the WNat contract — so the
   number on the page is the chain's, not ours. At the same time the navigation
   bar was made identical across every page of the site, and the sitemap was
@@ -165,7 +171,7 @@ Routine day-to-day operations are not logged here.
   zero. FTSO accuracy came in at 74.85% against an 80% gate (roughly 89.8%
   outside the outage window — the outage alone flipped the gate). Validator
   uptime was unaffected (99.999%, separate machine). Full per-gate numbers are
-  in the <a href="/epochs.html">epoch report</a>.</p>
+  in the <a href="/epochs">epoch report</a>.</p>
   <div class="changed"><strong>What changed</strong>
   Our own node is now the primary RPC with automatic failover behind it; a
   liveness alarm watches actual on-chain submissions and keeps re-firing until
@@ -190,8 +196,8 @@ Routine day-to-day operations are not logged here.
 
 <footer>
   <a href="/">cashlab.network</a> ·
-  <a href="/epochs.html">epoch reports</a> ·
-  <a href="/stats.html">stats</a> ·
+  <a href="/epochs">epoch reports</a> ·
+  <a href="/stats">stats</a> ·
   <a href="https://x.com/CashLabNetwork" rel="noopener">@CashLabNetwork</a> ·
   <a href="mailto:hello@cashlab.network">hello@cashlab.network</a><br>
   Entries describe past events as we understood them at time of writing,

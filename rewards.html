@@ -3,6 +3,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CashLab — Your Rewards</title>
+<link rel="canonical" href="https://cashlab.network/rewards">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://cashlab.network/rewards">
+<meta property="og:title" content="CashLab — Your Rewards">
+<meta property="og:description" content="CashLab — Your Rewards">
+<meta property="og:image" content="https://cashlab.network/images/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CashLab — Your Rewards">
+<meta name="twitter:description" content="CashLab — Your Rewards">
+<meta name="twitter:image" content="https://cashlab.network/images/og-image.png">
+
 <style>
   :root { --gold:#A8842C; --goldtext:#8A6A23; --ink:#0E0E0D; --mut:#666; }
   @font-face { font-family:"Inter"; src:url("/fonts/inter-var.woff2") format("woff2");
@@ -61,16 +72,11 @@
   <div class="site-header__inner">
     <a href="/" class="brand" aria-label="CashLab home"><img src="images/cashlab-lockup-header.png" alt="CashLab" width="760" height="322"></a>
     <nav class="nav" id="site-nav" aria-label="Primary">
-      <a href="/">Home</a>
-      <a href="/delegate.html">Delegate</a>
-      <a href="/stake.html">Stake with us</a>
-      <a href="/autoclaim.html">Auto-claim</a>
-      <a href="/epochs.html">Epoch reports</a>
-      <a href="/rewards.html">Your rewards</a>
-      <a href="/stats.html">Stats</a>
-      <a href="/status.html">Status</a>
-      <a href="/#verify">Verify us</a>
-      <a href="/#contact" class="nav__cta">Contact</a>
+      <a href="/stake">Stake with us</a>
+      <a href="/autoclaim">Auto-claim</a>
+      <a href="/epochs">Track record</a>
+      <a href="/rewards">Your rewards</a>
+      <a href="/delegate" class="nav__cta">Delegate</a>
     </nav>
     <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
@@ -83,10 +89,10 @@
 <div class="sub">Any Flare wallet — see every FTSOv2 reward it has received, from every provider, and download the records. Built on the same verified data as <a href="/epochs" style="color:var(--goldtext)">our epoch reports</a>.</div>
 
 <div class="box">
-  <textarea id="addrs" placeholder="0x… (one or more addresses, separated by spaces, commas, or new lines)"></textarea><br>
+  <textarea id="addrs" aria-label="Flare wallet address or addresses" placeholder="0x… (one or more addresses, separated by spaces, commas, or new lines)"></textarea><br>
   <button id="go">Show my rewards</button>
   <button id="csv" class="csv">Download CSV (records)</button>
-  <div class="status" id="status"></div>
+  <div class="status" id="status" role="status" aria-live="polite"></div>
 </div>
 
 <div class="cards" id="cards" style="display:none">
@@ -114,9 +120,10 @@ professional adviser. Receipt times are derived from block anchors (accurate to 
 
 <footer style="margin-top:56px; font-size:13px; color:var(--mut); line-height:1.7">
   <a href="/">cashlab.network</a> ·
-  <a href="/stake.html">Stake with us</a> ·
-  <a href="/autoclaim.html">Auto-claim</a> ·
-  <a href="/status.html">Status</a> ·
+  <a href="/stake">Stake with us</a> ·
+  <a href="/autoclaim">Auto-claim</a> ·
+  <a href="/status">Status</a> ·
+  <a href="/ops-log">Ops log</a> ·
   <a href="https://x.com/CashLabNetwork" rel="noopener">@CashLabNetwork</a> ·
   <a href="mailto:hello@cashlab.network">hello@cashlab.network</a><br>
   <span style="display:block;margin-bottom:10px;font-size:12.5px;line-height:1.55">

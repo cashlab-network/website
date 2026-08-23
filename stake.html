@@ -4,6 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CashLab — Stake with us</title>
+<link rel="canonical" href="https://cashlab.network/stake">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://cashlab.network/stake">
+<meta property="og:title" content="CashLab — Stake with us">
+<meta property="og:description" content="Stake FLR to the CashLab validator or delegate WFLR to our FTSO. Both paths explained step by step, with our fee, NodeID and live on-chain numbers — nothing hidden.">
+<meta property="og:image" content="https://cashlab.network/images/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CashLab — Stake with us">
+<meta name="twitter:description" content="Stake FLR to the CashLab validator or delegate WFLR to our FTSO. Both paths explained step by step, with our fee, NodeID and live on-chain numbers — nothing hidden.">
+<meta name="twitter:image" content="https://cashlab.network/images/og-image.png">
+
 <meta name="description" content="Stake FLR to the CashLab validator or delegate WFLR to our FTSO. Both paths explained step by step, with our fee, NodeID and live on-chain numbers — nothing hidden.">
 <link rel="icon" href="images/favicon.ico">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
@@ -71,16 +82,11 @@ a{color:#0b5fbe}
   <div class="site-header__inner">
     <a href="/" class="brand" aria-label="CashLab home"><img src="images/cashlab-lockup-header.png" alt="CashLab" width="760" height="322"></a>
     <nav class="nav" id="site-nav" aria-label="Primary">
-      <a href="/">Home</a>
-      <a href="/delegate.html">Delegate</a>
-      <a href="/stake.html">Stake with us</a>
-      <a href="/autoclaim.html">Auto-claim</a>
-      <a href="/epochs.html">Epoch reports</a>
-      <a href="/rewards.html">Your rewards</a>
-      <a href="/stats.html">Stats</a>
-      <a href="/status.html">Status</a>
-      <a href="/#verify">Verify us</a>
-      <a href="/#contact" class="nav__cta">Contact</a>
+      <a href="/stake">Stake with us</a>
+      <a href="/autoclaim">Auto-claim</a>
+      <a href="/epochs">Track record</a>
+      <a href="/rewards">Your rewards</a>
+      <a href="/delegate" class="nav__cta">Delegate</a>
     </nav>
     <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
@@ -151,7 +157,7 @@ delegate or stake is yours.
 <div class="grid">
   <div class="card"><div class="label">Validator status</div><div class="value"><span class="pill" id="vstatus">checking…</span></div></div>
   <div class="card"><div class="label">Stake on our validator (mirrored on-chain)</div><div class="value" id="stake">…</div></div>
-  <div class="card"><div class="label">Current validation term ends</div><div class="value" style="font-size:16px">Oct 7, 2026 <span class="label">(renewed each term)</span></div></div>
+  <div class="card"><div class="label">Current validation term ends</div><div class="value" style="font-size:16px">Oct 7, 2026 <span class="label">(re-bond planned each term)</span></div></div>
 </div>
 <p style="font-size:13.5px;color:var(--muted)">
 Verify these independently: our validator on the
@@ -164,41 +170,10 @@ nothing you cannot check yourself.
 </p>
 
 <h2>Path 1 — Delegate WFLR to our FTSO (no minimum, no lock)</h2>
-<p style="font-size:14px;color:var(--muted);margin-top:0">The short version is
-below; the full guide — live delegated vote power, timing tips, and safety
-checks — is on the <a href="/delegate.html">Delegate page</a>.</p>
-<ol class="steps">
-  <li>Go to the <a href="https://portal.flare.network" rel="noopener">Flare Portal</a> and connect your wallet.</li>
-  <li><strong>Wrap</strong> the FLR you want to delegate (FLR &rarr; WFLR). Keep a little FLR unwrapped for gas.</li>
-  <li>Choose <strong>Delegate</strong>, and delegate to the CashLab delegation address:<br>
-      <span class="mono">0x46F75Ac75a9E389809b965A876303681D32bCf2e</span><br>
-      You can split your vote power across up to two providers.</li>
-  <li>Rewards accrue every ~3.5-day reward epoch and are claimable in the Portal.
-      <strong>Claim at least every 90 days</strong> — Flare burns rewards left
-      unclaimed longer than that.</li>
-</ol>
-
-<div class="note">
-<strong>Automatic claiming &mdash; live in soft launch.</strong> Our opt-in
-executor is registered on-chain and delivering rewards to enrolled wallets
-each epoch as WFLR, for the 0.1&nbsp;FLR protocol-minimum fee. We haven't
-announced it publicly yet &mdash; we're proving it against real epochs first
-&mdash; but you can enroll now if you like. How it works, including the
-honest fine print: <a href="/autoclaim.html">auto-claim page</a>.
-</div>
-<p style="font-size:14px;color:var(--muted)">Your WFLR stays in your wallet the
-entire time. Delegation is a vote-power assignment, not a transfer. You can
-undelegate or re-delegate at any moment.</p>
-
-<div class="note">
-<strong>Timing tip almost nobody explains:</strong> each reward epoch measures
-your delegation at a <em>snapshot block drawn at random from the days before
-the epoch starts</em> — not at the moment the epoch begins. If you delegate at
-the last minute, the snapshot has probably already passed and your first
-rewards start one epoch later. Delegating a few days ahead of an epoch
-boundary makes the next epoch certain. (Epoch boundaries are every ~3.5 days —
-see the countdown on our <a href="/status.html">status page</a>.)
-</div>
+<p>No minimum, no lock-up, tokens stay in your wallet the entire time.
+The full guide — live numbers, snapshot-timing tips, auto-claim, and safety —
+lives on one page so it can never go stale in two places:
+<a href="/delegate"><strong>Delegate &rarr;</strong></a></p>
 
 <h2>Path 2 — Stake FLR to our validator (P-chain)</h2>
 <ol class="steps">
@@ -223,7 +198,7 @@ see the countdown on our <a href="/status.html">status page</a>.)
 has a fixed on-chain end date — when it passes, your FLR unlocks and simply
 stops earning until you stake it again. Nothing on Flare auto-renews. CashLab
 will offer an opt-in email reminder before your stake ends as part of our
-upcoming <a href="/autoclaim.html">auto-claim service</a> (not live yet).
+upcoming <a href="/autoclaim">auto-claim service</a> (not live yet).
 </div>
 
 <div class="note note--safety">
@@ -240,7 +215,7 @@ are the ones printed on this page and verifiable on-chain.
   <tr><td>Validator isolation</td><td>The validator runs on its own dedicated machine, isolated from every other workload.</td></tr>
   <tr><td>Self-bond</td><td>3,000,000 FLR of our own capital is staked to the same validator, on the same terms, before anyone else's.</td></tr>
   <tr><td>Monitoring</td><td>Independent watchdog systems on both machines, with escalation to a human around the clock. An independent read-only auditor reviews the infrastructure; its findings outrank our own claims.</td></tr>
-  <tr><td>Track record</td><td>New validator (live August 2026). We publish live numbers rather than promises — judge us on the <a href="/status.html">status page</a> as the history accrues.</td></tr>
+  <tr><td>Track record</td><td>New validator (live August 2026). We publish live numbers rather than promises — judge us on the <a href="/status">status page</a> as the history accrues.</td></tr>
 </table>
 
 <h2>Risks — stated plainly</h2>
@@ -273,8 +248,9 @@ your FLR unlocks and simply stops earning until you act.
 
 <footer>
   <a href="/">cashlab.network</a> ·
-  <a href="/autoclaim.html">Auto-claim</a> ·
-  <a href="/status.html">Status</a> ·
+  <a href="/autoclaim">Auto-claim</a> ·
+  <a href="/status">Status</a> ·
+  <a href="/ops-log">Ops log</a> ·
   <a href="https://x.com/CashLabNetwork" rel="noopener">@CashLabNetwork</a> ·
   <a href="mailto:hello@cashlab.network">hello@cashlab.network</a><br>
   <span style="display:block;margin-bottom:10px;font-size:12.5px;line-height:1.55">
