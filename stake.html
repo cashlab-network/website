@@ -83,11 +83,12 @@ a{color:#0b5fbe}
     <a href="/" class="brand" aria-label="CashLab home"><img src="images/cashlab-lockup-header.png" alt="CashLab" width="760" height="322"></a>
     <nav class="nav" id="site-nav" aria-label="Primary">
       <a href="/">Home</a>
+      <a href="/delegate">Delegate</a>
       <a href="/stake">Stake with us</a>
       <a href="/autoclaim">Auto-claim</a>
       <a href="/epochs">Track record</a>
       <a href="/rewards">Your rewards</a>
-      <a href="/delegate" class="nav__cta">Delegate</a>
+      <a href="/earn" class="nav__cta">Earn</a>
     </nav>
     <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
@@ -111,45 +112,12 @@ This page explains both, with every number stated plainly. Live figures are read
 from Flare mainnet <strong>by your browser</strong> — not from our servers.
 </p>
 
-<h2>Which path is right for you?</h2>
-<div class="grid">
-  <div class="card card--path">
-    <h3>Delegate WFLR <span class="label">· C-chain · FTSO</span></h3>
-    <table>
-      <tr><td>Minimum</td><td>None</td></tr>
-      <tr><td>Lock-up</td><td>None — undelegate anytime</td></tr>
-      <tr><td>Custody</td><td>Tokens never leave your wallet</td></tr>
-      <tr><td>Rewards</td><td>Every reward epoch (~3.5 days)</td></tr>
-      <tr><td>Best for</td><td>Most holders. Simple and flexible.</td></tr>
-    </table>
-    <p style="margin-top:12px"><a href="/delegate" style="display:inline-block;background:#0E0E0D;color:#fff;font-weight:600;padding:10px 20px;border-radius:6px;text-decoration:none;border:0">Delegate now &rarr;</a></p>
-  </div>
-  <div class="card card--path">
-    <h3>Stake to our validator <span class="label">· P-chain</span></h3>
-    <table>
-      <tr><td>Minimum</td><td>50,000 FLR</td></tr>
-      <tr><td>Lock-up</td><td>14 days minimum, fixed end date</td></tr>
-      <tr><td>Custody</td><td>Locked on-chain, but only your keys can ever move it</td></tr>
-      <tr><td>Rewards</td><td>Settled about every two weeks</td></tr>
-      <tr><td>Best for</td><td>Larger, longer-horizon positions</td></tr>
-    </table>
-    <p style="margin-top:12px"><a href="#path-2" style="display:inline-block;background:#0E0E0D;color:#fff;font-weight:600;padding:10px 20px;border-radius:6px;text-decoration:none;border:0">Stake now &rarr;</a></p>
-  </div>
-</div>
+<p><strong>Choosing between delegating and staking?</strong> The side-by-side
+comparison with both paths lives on the <a href="/earn">earn page</a>. This page
+is the full staking guide.</p>
 
 
-<div class="note" style="margin-top:26px">
-<strong>Why you can check us before trusting us.</strong> You never send tokens
-to CashLab on either path &mdash; delegation and staking are on-chain
-assignments controlled only by your keys, and no legitimate provider will ever
-ask you to transfer FLR. Beyond that, don't take our word for anything:
-every settled epoch &mdash; including <a href="/epochs">the one that paid
-zero</a> &mdash; is published with numbers derived from Flare's official
-settlement data; our validator, entity, and delegation address are
-<a href="/#verify">verifiable on-chain</a>; our failures are logged publicly in
-the <a href="/ops-log">operations log</a>; and this site reads live figures
-from the chain in your own browser, not from our servers.
-</div>
+
 <h2>Our fee — stated plainly</h2>
 <p style="font-size:15px">
 <strong>20%, on both paths.</strong> It applies to <em>reward</em> flows only —

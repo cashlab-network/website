@@ -3,17 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CashLab — Your Rewards</title>
-<meta name="description" content="See every FTSOv2 reward any Flare wallet has received, from every provider, and download the records as CSV. Verified on-chain data, no wallet connection needed.">
-<link rel="canonical" href="https://cashlab.network/rewards">
+<title>CashLab — Earn with your FLR</title>
+<meta name="description" content="Two ways to put FLR to work with CashLab: no-minimum delegation on the C-chain, or staking to our validator on the P-chain. Every number stated plainly, live figures read by your browser from the chain.">
+<link rel="canonical" href="https://cashlab.network/earn">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://cashlab.network/rewards">
-<meta property="og:title" content="CashLab — Your Rewards">
-<meta property="og:description" content="Every FTSOv2 reward your wallet has received, from every provider — verified on-chain, downloadable as records.">
+<meta property="og:url" content="https://cashlab.network/earn">
+<meta property="og:title" content="CashLab — Earn with your FLR">
+<meta property="og:description" content="Delegate (no minimum, no lock) or stake to our validator. Plain numbers, verifiable on-chain.">
 <meta property="og:image" content="https://cashlab.network/images/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="CashLab — Your Rewards">
-<meta name="twitter:description" content="Every FTSOv2 reward your wallet has received, from every provider — verified on-chain, downloadable as records.">
+<meta name="twitter:title" content="CashLab — Earn with your FLR">
+<meta name="twitter:description" content="Delegate (no minimum, no lock) or stake to our validator. Plain numbers, verifiable on-chain.">
 <meta name="twitter:image" content="https://cashlab.network/images/og-image.png">
 <style>
 :root{--bg:#fff;--fg:#111;--muted:#666;--line:#e5e5e5;--gold:#cf9d43;--ok:#1a7f37;--wait:#9a6700}
@@ -90,51 +90,58 @@ a{color:#0b5fbe}
 
 <div class="wrap">
 
-<h1>Your rewards</h1>
+<h1>Earn with your FLR</h1>
 <p>
-Any Flare wallet — see every FTSOv2 reward it has received, from every
-provider, and download the records. Built on the same verified data as our
-<a href="/epochs">epoch reports</a>.
+There are <strong>two different ways</strong> to put FLR to work with CashLab.
+They live on different chains, have different rules, and suit different people.
+Pick your path below — each button takes you to the full plain-language guide,
+with live figures read from Flare mainnet <strong>by your browser</strong>,
+not from our servers.
 </p>
 
-<div class="field">
-  <label for="addrs">Wallet address(es) — one or more, separated by spaces, commas, or new lines</label>
-  <textarea id="addrs" aria-label="Flare wallet address or addresses" rows="3" style="width:100%;padding:10px 12px;font:inherit;font-size:14.5px;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:8px;resize:vertical" placeholder="0x&hellip;"></textarea>
+<h2>Which path is right for you?</h2>
+<div class="grid">
+  <div class="card card--path">
+    <h3>Delegate WFLR <span class="label">· C-chain · FTSO</span></h3>
+    <table>
+      <tr><td>Minimum</td><td>None</td></tr>
+      <tr><td>Lock-up</td><td>None — undelegate anytime</td></tr>
+      <tr><td>Custody</td><td>Tokens never leave your wallet</td></tr>
+      <tr><td>Rewards</td><td>Every reward epoch (~3.5 days)</td></tr>
+      <tr><td>Best for</td><td>Most holders. Simple and flexible.</td></tr>
+    </table>
+    <p style="margin-top:12px"><a href="/delegate" style="display:inline-block;background:#0E0E0D;color:#fff;font-weight:600;padding:10px 20px;border-radius:6px;text-decoration:none;border:0">Delegate now &rarr;</a></p>
+  </div>
+  <div class="card card--path">
+    <h3>Stake to our validator <span class="label">· P-chain</span></h3>
+    <table>
+      <tr><td>Minimum</td><td>50,000 FLR</td></tr>
+      <tr><td>Lock-up</td><td>14 days minimum, fixed end date</td></tr>
+      <tr><td>Custody</td><td>Locked on-chain, but only your keys can ever move it</td></tr>
+      <tr><td>Rewards</td><td>Settled about every two weeks</td></tr>
+      <tr><td>Best for</td><td>Larger, longer-horizon positions</td></tr>
+    </table>
+    <p style="margin-top:12px"><a href="#path-2" style="display:inline-block;background:#0E0E0D;color:#fff;font-weight:600;padding:10px 20px;border-radius:6px;text-decoration:none;border:0">Stake now &rarr;</a></p>
+  </div>
 </div>
-<p>
-  <button id="go" type="button" style="background:var(--fg);color:var(--bg);border-color:var(--fg)">Show my rewards</button>
-  <button id="csv" type="button" style="display:none">Download CSV (records)</button>
-</p>
-<p class="status" id="status" role="status" aria-live="polite" style="font-size:13.5px;color:var(--muted)"></p>
 
-<div class="grid" id="cards" style="display:none">
-  <div class="card"><div class="label">All-time rewards</div><div class="value" id="c_total">&mdash;</div></div>
-  <div class="card"><div class="label">From CashLab</div><div class="value" id="c_cash">&mdash;</div></div>
-  <div class="card"><div class="label">Delegation rewards</div><div class="value" id="c_del">&mdash;</div></div>
-  <div class="card"><div class="label">Staking rewards</div><div class="value" id="c_stk">&mdash;</div></div>
-  <div class="card"><div class="label">Delegated to CashLab</div><div class="value" id="c_dpct">&mdash;</div></div>
-  <div class="card"><div class="label">Autoclaim</div><div class="value" id="c_auto">&mdash;</div></div>
+<div class="note" style="margin-top:26px">
+<strong>Why you can check us before trusting us.</strong> You never send tokens
+to CashLab on either path &mdash; delegation and staking are on-chain
+assignments controlled only by your keys, and no legitimate provider will ever
+ask you to transfer FLR. Beyond that, don't take our word for anything:
+every settled epoch &mdash; including <a href="/epochs">the one that paid
+zero</a> &mdash; is published with numbers derived from Flare's official
+settlement data; our validator, entity, and delegation address are
+<a href="/#verify">verifiable on-chain</a>; our failures are logged publicly in
+the <a href="/ops-log">operations log</a>; and this site reads live figures
+from the chain in your own browser, not from our servers.
 </div>
 
-<div class="note" id="zero" style="display:none">No FTSOv2 reward receipts recorded
-for this address since 2026-07-28. Rewards appear after the first epoch settles
-following delegation.</div>
-
-<table id="tbl" style="display:none">
-  <thead><tr><th>Date (UTC)</th><th>Wallet</th><th>Epoch</th><th>Stream</th>
-  <th>FLR</th><th>USD at receipt</th><th>Tx</th></tr></thead>
-  <tbody id="tbody"></tbody>
-</table>
-
-<div class="note" style="margin-top:28px"><strong>Records, not advice.</strong> This page shows
-on-chain FTSOv2 reward receipts for any Flare wallet (receipts since 2026-07-28; FSP
-claims expire after ~91 days, so this covers effectively all live claiming): amounts,
-dates, and transactions, with USD values from CoinGecko&rsquo;s FLR/USD daily close
-(UTC). It contains no tax, investment, or financial advice and does not characterize
-any amount &mdash; how these records are treated is a question for your own
-professional adviser. Receipt times are derived from block anchors (accurate to within
-minutes) and used only to select the daily price. Live delegation and autoclaim status
-are read directly from the Flare network at lookup time. Data refreshes daily.</div>
+<p style="margin-top:22px;font-size:14.5px">Already earning with us? See exactly what
+your wallet has received — every receipt, any wallet: <a href="/rewards"><strong>your
+rewards &rarr;</strong></a> &middot; And every settled epoch, wins and losses alike:
+<a href="/epochs"><strong>track record &rarr;</strong></a></p>
 
 <footer>
   <a href="/">cashlab.network</a> ·
@@ -155,7 +162,7 @@ are read directly from the Flare network at lookup time. Data refreshes daily.</
   own research.</span>
   Not affiliated with, endorsed by, or authorized by the Flare Foundation.
 </footer>
+
 </div>
-<script src="rewards.js"></script>
 <script src="/js/nav.js"></script>
 </body></html>
