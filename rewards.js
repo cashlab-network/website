@@ -58,7 +58,7 @@ document.getElementById("go").onclick = async () => {
   const dpcts = await Promise.all(addrs.map(delegationPct));
   const autos = await Promise.all(addrs.map(autoclaimOn));
   const dp = dpcts.filter(x=>x!==null);
-  document.getElementById("cards").style.display="flex";
+  document.getElementById("cards").style.display="";
   document.getElementById("c_total").textContent = fmt(tot)+" FLR";
   document.getElementById("c_cash").textContent = fmt(cash)+" FLR";
   document.getElementById("c_del").textContent = fmt(del)+" FLR";
