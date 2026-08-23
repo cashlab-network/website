@@ -38,6 +38,13 @@
      Sparse accent usage. Clean, minimal, professional. NOT crypto-hype.
      ========================================================================== -->
 <style>
+  @font-face {
+    font-family: "Inter";
+    src: url("/fonts/inter-var.woff2") format("woff2");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+  }
   :root {
     /* Palette */
     --white: #ffffff;
@@ -863,12 +870,13 @@
     <div class="wrap hero__inner">
       <div>
         <span class="eyebrow">Flare Network infrastructure</span>
-        <h1>Multi-protocol Flare infrastructure. Reliability-first.</h1>
+        <h1>Delegate to a provider that publishes its numbers.</h1>
         <p class="hero__sub">
-          CashLab is an independent, solo-operated Flare infrastructure entity
-          running FTSO price submissions, FDC attestations, and Fast Updates on
-          dedicated hardware. Non-custodial by design &mdash; you keep control of
-          your FLR.
+          CashLab is an independent Flare operator running the full protocol stack
+          &mdash; FTSO, FDC, Fast Updates, and our own validator &mdash; on
+          dedicated hardware. Every result we publish is machine-verified
+          against on-chain data first, and delegation is non-custodial: your
+          FLR never leaves your wallet.
         </p>
 
         <!-- Delegation status callout -->
@@ -904,6 +912,31 @@
       <div class="hero__mark">
         <!-- Mark-only, transparent -->
         <img src="images/cashlab-mark-web.png" alt="" width="600" height="600" aria-hidden="true" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ LIVE NUMBERS (auto: band.js <- epochs.json) ============================ -->
+  <section class="section" id="live-numbers" style="padding-top:2.5rem; padding-bottom:2.5rem">
+    <div class="wrap">
+      <div id="ln-root" style="display:none">
+        <span class="eyebrow" id="ln-title">Last settled epoch</span>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px; margin-top:14px">
+          <div class="note" style="margin:0"><div style="font-size:12px; letter-spacing:.06em; text-transform:uppercase; opacity:.7">Delegation APR, net of fee</div>
+            <div style="font-size:26px; font-weight:700" id="ln-del">&mdash;</div>
+            <div style="font-size:13px; opacity:.7" id="ln-del-med"></div></div>
+          <div class="note" style="margin:0"><div style="font-size:12px; letter-spacing:.06em; text-transform:uppercase; opacity:.7">Staking APR, net of fee</div>
+            <div style="font-size:26px; font-weight:700" id="ln-stk">&mdash;</div>
+            <div style="font-size:13px; opacity:.7" id="ln-stk-med"></div></div>
+          <div class="note" style="margin:0"><div style="font-size:12px; letter-spacing:.06em; text-transform:uppercase; opacity:.7">FIP.10 gates</div>
+            <div style="font-size:26px; font-weight:700" id="ln-gates">&mdash;</div>
+            <div style="font-size:13px; opacity:.7" id="ln-paid"></div></div>
+        </div>
+        <p style="font-size:13px; opacity:.75; margin-top:10px">
+          Realized results for one epoch, not a projection &mdash; every number
+          from Flare's official settlement data.
+          <a class="inline-link" href="/epochs">See every epoch, including the one that paid zero &rarr;</a>
+        </p>
       </div>
     </div>
   </section>
@@ -1207,5 +1240,6 @@
 
 <!-- ============================ MINIMAL JS ============================ -->
 <script src="js/site.js"></script>
+<script src="/band.js"></script>
 </body>
 </html>
