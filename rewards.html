@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CashLab — Your Rewards</title>
+<style>
+  :root { --green:#0d8a3e; --ink:#111; --mut:#666; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:"DejaVu Sans", system-ui, sans-serif; background:#fff; color:var(--ink);
+         max-width:1000px; margin:0 auto; padding:48px 24px 96px; }
+  h1 { font-size:34px; letter-spacing:1px; }
+  .sub { color:var(--mut); margin-top:8px; font-size:16px; }
+  .box { margin-top:28px; }
+  textarea { width:100%; min-height:74px; font:inherit; font-size:15px; padding:14px;
+             border:2px solid #ddd; border-radius:12px; resize:vertical; }
+  button { margin-top:14px; background:#0b0b0b; color:#fff; border:0; border-radius:12px;
+           padding:14px 26px; font-size:16px; font-weight:bold; cursor:pointer; }
+  button.csv { background:var(--green); margin-left:10px; display:none; }
+  .cards { display:flex; gap:16px; flex-wrap:wrap; margin-top:30px; }
+  .card { flex:1 1 200px; border:1px solid #e5e5e5; border-radius:14px; padding:18px 20px; }
+  .card .k { color:var(--mut); font-size:13px; text-transform:uppercase; letter-spacing:1px; }
+  .card .v { font-size:26px; font-weight:bold; margin-top:6px; font-variant-numeric:tabular-nums; }
+  .card .v.green { color:var(--green); }
+  table { width:100%; border-collapse:collapse; margin-top:26px; font-size:14px; }
+  th { text-align:left; color:var(--mut); font-size:12px; text-transform:uppercase;
+       letter-spacing:1px; padding:10px 8px; border-bottom:2px solid #eee; }
+  td { padding:10px 8px; border-bottom:1px solid #f2f2f2; font-variant-numeric:tabular-nums; }
+  td a { color:var(--green); text-decoration:none; }
+  .status { margin-top:10px; color:var(--mut); font-size:14px; }
+  .note { margin-top:40px; padding:16px 20px; background:#f7f7f7; border-radius:12px;
+          color:var(--mut); font-size:13px; line-height:1.6; }
+  .zero { margin-top:26px; padding:20px; border:1px dashed #ccc; border-radius:12px;
+          color:var(--mut); display:none; }
+</style></head><body>
+
+<h1>YOUR FLARE REWARDS</h1>
+<div class="sub">Any Flare wallet — see every FTSOv2 reward it has received, from every provider, and download the records. Built on the same verified data as <a href="/epochs" style="color:var(--green)">our epoch reports</a>.</div>
+
+<div class="box">
+  <textarea id="addrs" placeholder="0x… (one or more addresses, separated by spaces, commas, or new lines)"></textarea><br>
+  <button id="go">Show my rewards</button>
+  <button id="csv" class="csv">Download CSV (records)</button>
+  <div class="status" id="status"></div>
+</div>
+
+<div class="cards" id="cards" style="display:none">
+  <div class="card"><div class="k">All-time rewards</div><div class="v" id="c_total">—</div></div>
+  <div class="card"><div class="k">From CashLab</div><div class="v green" id="c_cash">—</div></div>
+  <div class="card"><div class="k">Delegation rewards</div><div class="v" id="c_del">—</div></div>
+  <div class="card"><div class="k">Staking rewards</div><div class="v" id="c_stk">—</div></div>
+  <div class="card"><div class="k">Delegated to CashLab</div><div class="v" id="c_dpct">—</div></div>
+  <div class="card"><div class="k">Autoclaim</div><div class="v" id="c_auto">—</div></div>
+</div>
+
+<div class="zero" id="zero">No FTSOv2 reward receipts recorded for this address since 2026-07-28. Rewards appear after the first epoch settles following delegation.</div>
+
+<table id="tbl" style="display:none">
+  <thead><tr><th>Date (UTC)</th><th>Wallet</th><th>Epoch</th><th>Stream</th>
+  <th>FLR</th><th>USD at receipt</th><th>Tx</th></tr></thead>
+  <tbody id="tbody"></tbody>
+</table>
+
+<div class="note"><b>Records, not advice.</b> This page shows on-chain FTSOv2 reward receipts for any Flare wallet (receipts since 2026-07-28; FSP claims expire after ~91 days, so this covers effectively all live claiming): amounts, dates, and transactions, with USD values from CoinGecko's
+FLR/USD daily close (UTC). It contains no tax, investment, or financial advice and does not
+characterize any amount — how these records are treated is a question for your own
+professional adviser. Receipt times are derived from block anchors (accurate to within minutes) and used only to select the daily price. Live delegation and autoclaim status are read directly from the Flare network at lookup time. Data refreshes daily.</div>
+
+<script>
+const RPC = "https://flare-api.flare.network/ext/C/rpc";
+const WNAT = "0x1D80c49BbBCd1C0911346656B529DF9E5c2F783d";
+const CSM  = "0xD56c0Ea37B848939B59e6F5Cda119b3fA473b5eB";
+const CASHLAB_DELEGATION = "46f75ac75a9e389809b965a876303681d32bcf2e";
+const PUBLIC_EXECUTOR    = "4b7905d5cbd4f2ee02aff3c20bbf728ec69e33d4";
+const SEL_DELEGATESOF = "0x7de5b8ed", SEL_ISCLAIMEXEC = "0x87962abe";
+const pad = a => "0".repeat(24) + a.toLowerCase().replace("0x","");
+let META=null, PRICES=null, ROWS=[]; const SHARDS={};
+
+async function ethCall(to, data) {
+  const r = await fetch(RPC, {method:"POST", headers:{"Content-Type":"application/json"},
+    body: JSON.stringify({jsonrpc:"2.0", id:1, method:"eth_call",
+                          params:[{to, data}, "latest"]})});
+  return (await r.json()).result || "0x";
+}
+async function delegationPct(addr) {  // share of WNat delegated to CashLab, in %
+  const res = await ethCall(WNAT, SEL_DELEGATESOF + pad(addr));
+  if (res.length < 260) return null;
+  const w = i => res.slice(2 + i*64, 2 + (i+1)*64);
+  const offA = parseInt(w(0),16)/32, offB = parseInt(w(1),16)/32;
+  const n = parseInt(w(offA),16);
+  for (let i=0;i<n;i++)
+    if (w(offA+1+i).slice(24) === CASHLAB_DELEGATION)
+      return parseInt(w(offB+1+i),16)/100;
+  return 0;
+}
+async function autoclaimOn(addr) {
+  const res = await ethCall(CSM, SEL_ISCLAIMEXEC + pad(addr) + pad(PUBLIC_EXECUTOR));
+  return res.endsWith("1");
+}
+const fmt = (x,d=2) => x.toLocaleString("en-US",{minimumFractionDigits:d,maximumFractionDigits:d});
+const day = t => new Date(t*1000).toISOString().slice(0,10);
+
+document.getElementById("go").onclick = async () => {
+  const st = document.getElementById("status");
+  const addrs = [...new Set((document.getElementById("addrs").value.match(/0x[0-9a-fA-F]{40}/g)||[])
+                 .map(a=>a.toLowerCase()))];
+  if (!addrs.length) { st.textContent = "Enter at least one valid 0x… address."; return; }
+  st.textContent = "Reading the chain…";
+  if (!META)  META  = await (await fetch("rewards-data/meta.json")).json();
+  if (!PRICES) PRICES = await (await fetch("rewards-data/prices.json")).json();
+  ROWS = [];
+  let tot=0, del=0, stk=0, cash=0;
+  for (const a of addrs) {
+    const pre = a.slice(2,4);
+    if (!SHARDS[pre]) SHARDS[pre] = await (await fetch("rewards-data/shards/"+pre+".json")).json();
+    for (const e of (SHARDS[pre][a]||[])) {
+      const p = PRICES.prices[day(e.t)];
+      ROWS.push({date:new Date(e.t*1000).toISOString().replace("T"," ").slice(0,16),
+                 wallet:a, epoch:e.e, stream:e.s, flr:e.f,
+                 usd:p?e.f*p:null, tx:e.x, cash:!!e.c});
+      tot+=e.f; if(e.s==="delegation")del+=e.f;
+      if(e.s==="staking")stk+=e.f; if(e.c)cash+=e.f;
+    }
+  }
+  ROWS.sort((x,y)=>x.date<y.date?-1:1);
+  const dpcts = await Promise.all(addrs.map(delegationPct));
+  const autos = await Promise.all(addrs.map(autoclaimOn));
+  const dp = dpcts.filter(x=>x!==null);
+  document.getElementById("cards").style.display="flex";
+  document.getElementById("c_total").textContent = fmt(tot)+" FLR";
+  document.getElementById("c_cash").textContent = fmt(cash)+" FLR";
+  document.getElementById("c_del").textContent = fmt(del)+" FLR";
+  document.getElementById("c_stk").textContent = fmt(stk)+" FLR";
+  document.getElementById("c_dpct").textContent =
+      dp.length ? (addrs.length>1 ? dp.map(x=>fmt(x,0)+"%").join(" / ") : fmt(dp[0],0)+"%") : "—";
+  document.getElementById("c_auto").textContent =
+      autos.every(Boolean) ? "enabled ✓" : autos.some(Boolean) ? "partial" : "not enabled";
+  document.getElementById("zero").style.display = ROWS.length ? "none" : "block";
+  const tb = document.getElementById("tbody"); tb.innerHTML = "";
+  for (const r of ROWS) {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${r.date}</td><td>${r.wallet.slice(0,8)}…</td><td>${r.epoch}</td>
+      <td>${r.stream}</td><td>${fmt(r.flr)}</td><td>${r.usd!=null?"$"+fmt(r.usd):"—"}</td>
+      <td><a href="https://flare-explorer.flare.network/tx/${r.tx}" target="_blank" rel="noopener">${r.tx.slice(0,10)}…</a></td>`;
+    tb.appendChild(tr);
+  }
+  document.getElementById("tbl").style.display = ROWS.length ? "table" : "none";
+  document.getElementById("csv").style.display = ROWS.length ? "inline-block" : "none";
+  st.textContent = `${ROWS.length} reward receipt(s) · receipts since ${META.history_starts} · data to block ${META.scanned_to_block} · generated ${META.generated_utc}`;
+};
+
+document.getElementById("csv").onclick = () => {
+  const head = "date_utc,wallet,reward_epoch,stream,amount_flr,flr_usd_price_at_receipt,usd_value_at_receipt,tx\n";
+  const lines = ROWS.map(r => {
+    const p = r.usd!=null ? (r.usd/r.flr) : "";
+    return [r.date,r.wallet,r.epoch,r.stream,r.flr,p&&p.toFixed(8),r.usd!=null?r.usd.toFixed(2):"",r.tx].join(",");
+  }).join("\n");
+  const blob = new Blob([head+lines+"\n"], {type:"text/csv"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "cashlab-rewards-records.csv";
+  a.click();
+};
+</script>
+</body></html>
