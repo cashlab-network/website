@@ -20,3 +20,20 @@ async function load(){
 }
 load();
 setInterval(load, 60000);
+
+// F2: last settled epoch's realized delegation return, from the same
+// pipeline-verified epochs.json the Track Record page renders
+async function loadEpoch(){
+  try{
+    const r = await fetch("/epochs.json", {cache:"no-store"});
+    const j = await r.json();
+    const e = j.epochs.reduce((a,b)=>a.epoch>b.epoch?a:b);
+    const apr = e.returns.delegationAprPct;
+    const med = e.returns.medians.delegationAprPct;
+    set("lastret", apr.toFixed(2) + "% APR");
+    set("lastret-sub", "epoch " + e.epoch + " · net of fee · network median " + med.toFixed(2) + "%");
+  }catch(_){
+    set("lastret","—");
+  }
+}
+loadEpoch();

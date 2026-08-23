@@ -349,6 +349,21 @@
     max-width: 52ch;
   }
 
+  .hero__cta {
+    display: inline-block;
+    margin-top: var(--space-6);
+    background: var(--ink);
+    color: var(--white);
+    font-weight: 600;
+    padding: 0.8rem 1.35rem;
+    border-radius: 8px;
+  }
+
+  .hero__cta:hover {
+    background: var(--ink-soft);
+    color: var(--white);
+  }
+
   .hero__mark {
     justify-self: center;
   }
@@ -877,6 +892,8 @@
           FLR never leaves your wallet.
         </p>
 
+        <a class="hero__cta" href="/delegate">How to delegate &rarr;</a>
+
         <!-- Delegation status callout -->
         <div class="status-card" role="status">
           <span class="status-card__dot" aria-hidden="true"></span>
@@ -1208,11 +1225,13 @@
         <a href="/delegate">Delegate</a>
         <a href="/stake">Stake With Us</a>
         <a href="/autoclaim">Auto-Claim</a>
-        <a href="/epochs">Epoch reports</a>
+        <a href="/epochs">Track Record</a>
       <a href="/rewards">Your Rewards</a>
+        <a href="/earn">Earn</a>
         <a href="/stats">Stats</a>
         <a href="/status">Status</a>
-        <a href="#verify">Verify us</a>
+        <a href="/ops-log">Ops Log</a>
+        <a href="#verify">Verify Us</a>
         <a href="https://github.com/cashlab-network" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a href="https://x.com/CashLabNetwork" rel="noopener">@CashLabNetwork</a>
         <a href="mailto:hello@cashlab.network">Email</a>

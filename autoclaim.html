@@ -19,7 +19,7 @@
 <link rel="icon" href="images/favicon.ico">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <style>
-:root{--bg:#fff;--fg:#111;--muted:#666;--line:#e5e5e5;--gold:#cf9d43;--ok:#1a7f37;--wait:#9a6700;--warn:#b42318}
+:root{--bg:#fff;--fg:#111;--muted:#666;--line:#e5e5e5;--gold:#c89f3b;--ok:#1a7f37;--wait:#9a6700;--warn:#b42318}
 *{box-sizing:border-box}
 body{margin:0;font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;font-size:clamp(1rem,.97rem + .2vw,1.0625rem);line-height:1.6;color:var(--fg);background:var(--bg)}
 .wrap{max-width:860px;margin:0 auto;padding:32px 20px 64px}
@@ -53,7 +53,8 @@ button:hover{border-color:var(--gold)}
 .result--wait{background:#fff4d6;color:var(--wait)}
 .result--err{background:#fdf3f2;color:var(--warn)}
 footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
-a{color:#0b5fbe}
+a{color:#8a6a23;text-decoration:underline}
+a:hover{color:#a8842c}
 /* dark palette DISABLED for site cohesion 2026-08-16 -- the homepage is fixed light, sub-pages match on every click. Vars kept below for a future whole-site dark pass:
 @media(prefers-color-scheme:dark){
 :root{--bg:#0f0f10;--fg:#f0f0f0;--muted:#9a9a9a;--line:#2a2a2c;--ok:#4ac26b;--wait:#d9a441;--warn:#f28b82}
@@ -126,8 +127,8 @@ fee per claim. We never hold your funds.
 </div>
 
 <div class="note note--safety note--big">
-<strong>Soft launch — not announced yet.</strong> The CashLab executor is
-registered on-chain — the address below is real, and you can (and should)
+<strong>The CashLab executor is registered on-chain.</strong> The address
+below is real, and you can (and should)
 verify it in the &ldquo;How to verify it's really us&rdquo; section. We are
 still in a limited soft-launch phase, proving the service against real reward
 epochs before announcing it publicly. Enrollment is genuinely live if you
