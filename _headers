@@ -3,6 +3,7 @@
 
 # Security + sensible defaults for all routes
 /*
+  Cache-Control: public, max-age=0, must-revalidate
   X-Content-Type-Options: nosniff
   X-Frame-Options: SAMEORIGIN
   Referrer-Policy: strict-origin-when-cross-origin
@@ -17,3 +18,11 @@
   Cache-Control: public, max-age=0, must-revalidate
 /index.html
   Cache-Control: public, max-age=0, must-revalidate
+
+# Fonts never change once shipped
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Rewards data refreshes daily; 5-minute edge cache is plenty
+/rewards-data/*
+  Cache-Control: public, max-age=300
