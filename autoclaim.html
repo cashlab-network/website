@@ -8,14 +8,14 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://cashlab.network/autoclaim">
 <meta property="og:title" content="CashLab — Auto-Claim">
-<meta property="og:description" content="CashLab's auto-claim executor pushes your Flare delegation and staking rewards to your own wallet as WFLR for the 0.1 FLR protocol-minimum fee. Non-custodial, enforced by Flare's own contracts. In soft launch — not announced yet.">
+<meta property="og:description" content="CashLab's auto-claim executor pushes your Flare delegation and staking rewards to your own wallet as WFLR for a flat 0.25 FLR fee per claim (0.1 FLR until reward epoch 429). Non-custodial, enforced by Flare's own contracts. In soft launch — not announced yet.">
 <meta property="og:image" content="https://cashlab.network/images/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="CashLab — Auto-Claim">
-<meta name="twitter:description" content="CashLab's auto-claim executor pushes your Flare delegation and staking rewards to your own wallet as WFLR for the 0.1 FLR protocol-minimum fee. Non-custodial, enforced by Flare's own contracts. In soft launch — not announced yet.">
+<meta name="twitter:description" content="CashLab's auto-claim executor pushes your Flare delegation and staking rewards to your own wallet as WFLR for a flat 0.25 FLR fee per claim (0.1 FLR until reward epoch 429). Non-custodial, enforced by Flare's own contracts. In soft launch — not announced yet.">
 <meta name="twitter:image" content="https://cashlab.network/images/og-image.png">
 
-<meta name="description" content="CashLab's auto-claim executor pushes your Flare delegation and staking rewards to your own wallet as WFLR for the 0.1 FLR protocol-minimum fee. Non-custodial, enforced by Flare's own contracts. In soft launch — not announced yet.">
+<meta name="description" content="CashLab's auto-claim executor pushes your Flare delegation and staking rewards to your own wallet as WFLR for a flat 0.25 FLR fee per claim (0.1 FLR until reward epoch 429). Non-custodial, enforced by Flare's own contracts. In soft launch — not announced yet.">
 <link rel="icon" href="images/favicon.ico">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <style>
@@ -121,8 +121,8 @@ a:hover{color:#a8842c}
 Delegate or stake with CashLab and stop clicking &ldquo;claim&rdquo; every 3.5 days.
 Authorize the CashLab executor once in the Flare portal, and each reward epoch we
 deliver your delegation and staking rewards <strong>straight to your own wallet as
-WFLR</strong> — automatically, on-chain, minus the 0.1&nbsp;FLR protocol-minimum
-fee per claim. We never hold your funds.
+WFLR</strong> — automatically, on-chain, minus a flat fee per
+claim (0.1&nbsp;FLR today; 0.25&nbsp;FLR from reward epoch 429, scheduled on-chain). We never hold your funds.
 </p>
 </div>
 
@@ -154,18 +154,20 @@ whenever you like.
   <tr><td>Where rewards go</td><td><strong>Your own wallet</strong> (or your Flare delegation account, if you
       enabled one), wrapped as WFLR. The payout address comes from Flare's
       ClaimSetupManager contract — the executor has no way to redirect it.</td></tr>
-  <tr><td>Fee per claim</td><td><strong>0.1 FLR</strong>, deducted from the claimed rewards. This is
-      <span class="mono">minFeeValueWei</span> — the lowest fee the
+  <tr><td>Fee per claim</td><td><strong>0.1 FLR today; 0.25 FLR from reward epoch 429</strong> (~Aug 31, 2026),
+      deducted from the claimed rewards. The increase was scheduled on-chain on
+      2026-08-24 and is visible in advance on the
       <a href="https://flare-explorer.flare.network/address/0xD56c0Ea37B848939B59e6F5Cda119b3fA473b5eB" rel="noopener">ClaimSetupManager
-      contract</a> allows any executor to charge. One claim covers <em>all</em> your
-      accumulated unclaimed epochs at once, so the fee is at most 0.1&nbsp;FLR per
-      epoch and less if rewards accumulate across epochs.</td></tr>
+      contract</a>. One claim covers <em>all</em> your accumulated unclaimed
+      epochs at once, so the fee is at most one per-claim fee per epoch and
+      less if rewards accumulate across epochs.</td></tr>
   <tr><td>One-time enrollment cost</td><td><strong>0.1 FLR</strong>, attached automatically by the portal when you add
       the executor. Flare's contract pays it to a newly added registered executor
       from that transaction — it is set by the protocol, not by us.</td></tr>
   <tr><td>Fee changes</td><td>Capped by the protocol (0.1–100&nbsp;FLR range), and any change an executor
       makes is delayed 3 reward epochs (~10.5 days) by the contract — no surprise
-      pricing.</td></tr>
+      pricing. Ours worked exactly that way: 0.1&nbsp;→&nbsp;0.25 was scheduled
+      2026-08-24, effective epoch 429.</td></tr>
   <tr><td>Custody</td><td>None. No token approvals, no deposits, no smart-contract allowances. The
       executor can only trigger claims that pay <em>you</em>.</td></tr>
   <tr><td>Leaving</td><td>Any time, from the Flare portal, without asking us. Manual claiming always
@@ -174,13 +176,15 @@ whenever you like.
 </table>
 
 <div class="note">
-<strong>Fee honesty.</strong> 0.1&nbsp;FLR is the <em>protocol minimum</em>, and we
-are not the only ones at it: as of 2026-08-15 (read from the chain), Flare has
-18 registered executors — CashLab now included — charging between 0.1 and
-5&nbsp;FLR per claim (median 0.15), and <strong>nine of the 18 charge the same
-0.1 minimum</strong>. Other
-executors can change their fees over time, so this count is a dated snapshot. We match
-the floor; we don't claim to beat it. Registering as a public executor also
+<strong>Fee honesty.</strong> From reward epoch 429 our fee is
+0.25&nbsp;FLR per claim, and here is the arithmetic behind it: a live claim
+run costs us ≈0.23&nbsp;FLR of gas per wallet (0.7008&nbsp;FLR across a
+3-wallet run, measured 2026-08-21). The 0.1&nbsp;FLR protocol minimum we
+launched at — and charge until epoch 429 — was below our own cost.
+0.25 is cost recovery, not profit. For context, as of 2026-08-15 (read from
+the chain) Flare had 18 registered executors charging between 0.1 and
+5&nbsp;FLR per claim (median 0.15); fees change over time, so that count is a
+dated snapshot. Registering as a public executor also
 burns a one-time 1,000&nbsp;FLR protocol fee — that is CashLab's cost, never
 yours.
 </div>
