@@ -1,20 +1,21 @@
 
 const RPC = "https://flare-api.flare.network/ext/C/rpc";
+const withTimeout = (p,ms=8000)=>Promise.race([p,new Promise((_,rej)=>setTimeout(()=>rej(new Error("timeout")),ms))]);
 const EM  = "0x134b3311C6BdeD895556807a30C7f047D99DfdC2";
 const FSM = "0x89e50dc0380e597ece79c8494baafd84537ad0d4";
 const ID  = "dde5d41c0b79c25da05ee4e02aececf6eb7e67de";
 const pad = a => a.toLowerCase().replace("0x","").padStart(64,"0");
 
 async function call(to, data){
-  const r = await fetch(RPC,{method:"POST",headers:{"content-type":"application/json"},
-    body:JSON.stringify({jsonrpc:"2.0",id:1,method:"eth_call",params:[{to,data},"latest"]})});
+  const r = await withTimeout(fetch(RPC,{method:"POST",headers:{"content-type":"application/json"},
+    body:JSON.stringify({jsonrpc:"2.0",id:1,method:"eth_call",params:[{to,data},"latest"]})}));
   const j = await r.json();
   if(j.error) throw new Error(j.error.message);
   return j.result;
 }
 async function blockNumber(){
-  const r = await fetch(RPC,{method:"POST",headers:{"content-type":"application/json"},
-    body:JSON.stringify({jsonrpc:"2.0",id:1,method:"eth_blockNumber",params:[]})});
+  const r = await withTimeout(fetch(RPC,{method:"POST",headers:{"content-type":"application/json"},
+    body:JSON.stringify({jsonrpc:"2.0",id:1,method:"eth_blockNumber",params:[]})}));
   return parseInt((await r.json()).result,16);
 }
 const set = (id,v) => { const e=document.getElementById(id); if(e) e.textContent=v; };

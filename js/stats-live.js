@@ -178,7 +178,10 @@ function renderSnapshot(doc){
     $("tile-feeds-sub").textContent = "snapshot missing from epochs.json";
     return;
   }
-  const asOf = s.asOf || doc.generated_at || "";
+  const human = (iso) => { const d = new Date(iso);
+    return isNaN(d) ? iso : d.toLocaleString("en-US", {month:"short", day:"numeric",
+      hour:"2-digit", minute:"2-digit", hour12:false, timeZone:"UTC"}) + " UTC"; };
+  const asOf = human(s.asOf || doc.generated_at || "");
   $("tile-stake").textContent = fmtI(s.activeStake.flr) + " FLR";
   $("tile-stake-sub").textContent = "as of " + asOf + " · chain read";
   $("tile-stake").closest(".card").setAttribute("data-source", s.activeStake.source || "");

@@ -124,6 +124,7 @@
     /* Site is white-only by design; skip dark mode inversion. */
   }
 
+.skip-link{position:absolute;left:-9999px;top:0;z-index:100;background:#0e0e0d;color:#fff;padding:10px 16px;border-radius:0 0 6px 0;text-decoration:none}.skip-link:focus{left:0}
 @font-face{font-family:"Inter";src:url("/fonts/inter-var.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
 /* ---- site-wide sticky nav (copied from index.html's header; fixed light,
    matching the homepage -- site-cohesion 2026-08-16) ---- */
@@ -148,6 +149,7 @@
 </style>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 <!-- ===== site-wide nav (matches index.html) ===== -->
 <header class="site-header">
   <div class="site-header__inner">
@@ -166,7 +168,7 @@
     </button>
   </div>
 </header>
-<main>
+<main id="main">
   <header class="doc-header">
     <a class="home" href="/">&larr; Back to CashLab</a>
     <span class="eyebrow" style="display:flex">Legal</span>

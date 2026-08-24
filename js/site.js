@@ -7,18 +7,26 @@ document.documentElement.classList.add("js");
     var btn = document.getElementById("nav-toggle");
     var nav = document.getElementById("primary-nav");
     if (!btn || !nav) return;
-    btn.addEventListener("click", function () {
-      var open = nav.classList.toggle("nav--open");
-      btn.setAttribute("aria-expanded", open ? "true" : "false");
-      btn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    // F14 parity with nav.js: Escape, outside-tap, scroll lock.
+    function setOpen(o) {
+      nav.classList.toggle("nav--open", o);
+      btn.setAttribute("aria-expanded", o ? "true" : "false");
+      btn.setAttribute("aria-label", o ? "Close menu" : "Open menu");
+      document.body.style.overflow = o ? "hidden" : "";
+    }
+    btn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      setOpen(!nav.classList.contains("nav--open"));
     });
-    // Close on link click (mobile)
     nav.addEventListener("click", function (e) {
-      if (e.target.tagName === "A" && nav.classList.contains("nav--open")) {
-        nav.classList.remove("nav--open");
-        btn.setAttribute("aria-expanded", "false");
-        btn.setAttribute("aria-label", "Open menu");
-      }
+      if (e.target.tagName === "A") setOpen(false);
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && nav.classList.contains("nav--open")) setOpen(false);
+    });
+    document.addEventListener("click", function (e) {
+      if (nav.classList.contains("nav--open") && !nav.contains(e.target)
+          && e.target !== btn && !btn.contains(e.target)) setOpen(false);
     });
   })();
 
