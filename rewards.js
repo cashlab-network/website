@@ -102,7 +102,7 @@ document.getElementById("go").onclick = async () => {
   } else if (dsum > 0 && autos.length && !autos.every(Boolean)) {
     follow.innerHTML = "You\u2019re delegating to CashLab \u2014 thank you. Claiming manually? " +
       "Our executor can deliver rewards to your wallet automatically each epoch " +
-      "(protocol-minimum fee): <a href=\"/autoclaim\"><b>auto-claim \u2192</b></a>";
+      "(flat fee at our gas cost): <a href=\"/autoclaim\"><b>auto-claim \u2192</b></a>";
   } else { follow.innerHTML = ""; }
   st.textContent = `${ROWS.length} reward receipt(s) · receipts since ${(ARCH_META && ARCH_META.history_starts) || META.history_starts} · data to block ${META.scanned_to_block} · generated ${META.generated_utc}`;
 };
@@ -119,3 +119,17 @@ document.getElementById("csv").onclick = () => {
   a.download = "cashlab-rewards-records.csv";
   a.click();
 };
+
+// Auditor 2026-08-24 item 4: the empty state proves the tool is live —
+// latest settled epoch's realized delegation return, from the same verified
+// epochs.json Track Record renders. Element-tolerant; silent if absent.
+(async () => {
+  const el = document.getElementById("latest-line");
+  if (!el) return;
+  try {
+    const j = await (await fetch("epochs.json")).json();
+    const e = j.epochs.reduce((a,b)=>a.epoch>b.epoch?a:b);
+    const apr = e.returns.delegationAprPct, med = e.returns.medians.delegationAprPct;
+    el.textContent = `Latest settled epoch: ${e.epoch} · CashLab delegators earned ${apr.toFixed(2)}% APR net of fee (network median ${med.toFixed(2)}%).`;
+  } catch (_) { /* leave empty — the line is a bonus, never a blocker */ }
+})();

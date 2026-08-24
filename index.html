@@ -350,9 +350,14 @@
     max-width: 52ch;
   }
 
+  .hero__ctas { display: flex; gap: .75rem; flex-wrap: wrap; margin-top: var(--space-6); }
+  .hero__cta.hero__cta--alt { background: var(--white); color: var(--ink); box-shadow: inset 0 0 0 1px var(--hairline-strong); }
+  .hero__cta.hero__cta--alt:hover { background: var(--surface); color: var(--ink); }
+  .hero__ctas-note { margin-top: var(--space-3); font-size: var(--text-sm); color: var(--ink-soft); }
+  @media (max-width: 480px) { .hero__ctas a { flex: 1 1 100%; text-align: center; } }
   .hero__cta {
     display: inline-block;
-    margin-top: var(--space-6);
+    margin-top: 0;
     background: var(--ink);
     color: var(--white);
     font-weight: 600;
@@ -894,10 +899,11 @@
           FLR never leaves your wallet.
         </p>
 
-        <a class="hero__cta" href="/delegate">How to delegate &rarr;</a>
-        <p style="margin-top:0.65rem;font-size:var(--text-sm);color:var(--muted)">Or
-          <a href="/stake" style="color:var(--gold-text);text-decoration:underline">stake to our validator &rarr;</a>
-          &mdash; 50,000 FLR minimum, fixed term.</p>
+        <div class="hero__ctas">
+          <a href="/delegate" class="hero__cta">How to delegate &rarr;</a>
+          <a href="/stake" class="hero__cta hero__cta--alt">How to stake &rarr;</a>
+        </div>
+        <p class="hero__ctas-note">Delegating has no minimum. Staking needs 50,000 FLR and a fixed term.</p>
 
         <!-- Delegation status callout -->
         <div class="status-card" role="status">

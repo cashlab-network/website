@@ -194,6 +194,17 @@ function renderTiles(eps){
   const latest = eps[eps.length - 1], g = latest.gates;
   $("tile-uptime").textContent = g.staking.uptimePct + "%";
   $("tile-uptime-sub").textContent = `read at epoch-${latest.epoch} report publication`;
+  // Pass buffer (auditor 2026-08-24 item 3): renders ONLY when the pipeline
+  // emits conditions — never hand-typed, hidden until the data exists.
+  if (latest.conditions && typeof latest.conditions.passBalanceAfter === "number") {
+    const card = document.getElementById("tile-pass-card");
+    if (card) {
+      $("tile-pass").textContent = String(latest.conditions.passBalanceAfter) + " banked";
+      $("tile-pass-sub").textContent =
+        `settled through epoch ${latest.epoch} · a banked pass absorbs one failed epoch under FIP.10; at zero, a failed epoch pays nothing`;
+      card.style.display = "";
+    }
+  }
   const passed = [g.ftso.pass, g.fdc.pass, g.staking.pass, g.fastUpdates.pass]
                  .filter(Boolean).length;
   $("tile-epoch").innerHTML = `${latest.epoch} · ` + (latest.paid

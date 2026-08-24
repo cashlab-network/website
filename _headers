@@ -29,3 +29,14 @@
 
 /rewards-archive/*
   Cache-Control: public, max-age=86400, immutable
+
+# JS must never outlive the HTML that references it (auditor 2026-08-24
+# item 2: JS was 4h-cached while HTML revalidates -> up to 4h of new-page/
+# old-code after every deploy; the stake tile stuck on its placeholder was
+# this). Files are 1-3KB; the cost is a 304 per load.
+/js/*
+  Cache-Control: public, max-age=0, must-revalidate
+/rewards.js
+  Cache-Control: public, max-age=0, must-revalidate
+/band.js
+  Cache-Control: public, max-age=0, must-revalidate
