@@ -352,6 +352,8 @@
 
   .hero__ctas { display: flex; gap: .75rem; flex-wrap: wrap; margin-top: var(--space-6); }
   .hero__ctas-note { margin-top: var(--space-3); font-size: var(--text-sm); color: var(--ink-soft); }
+  .hero__skin { margin-top: var(--space-4); font-size: var(--text-base); color: var(--ink); max-width: 56ch; }
+  .hero__skin a { border-bottom: 1px solid var(--gold); }
   @media (max-width: 480px) { .hero__ctas a { flex: 1 1 100%; text-align: center; } }
   .hero__cta {
     display: inline-block;
@@ -915,6 +917,9 @@
           <a href="/stake" class="hero__cta">How to stake &rarr;</a>
         </div>
         <p class="hero__ctas-note">Delegating has no minimum. Staking needs 50,000 FLR and a fixed term.</p>
+        <p class="hero__skin"><strong>Our own 3,000,000 FLR is staked on the same
+        validator you'd be staking on &mdash; when <a href="/epochs#e422">epoch 422
+        paid zero</a>, it paid us zero too.</strong></p>
 
         <!-- Delegation status callout -->
         <div class="status-card" role="status">
@@ -1085,19 +1090,6 @@
         <li class="rel-item">
           <span class="rel-item__check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
           <div>
-            <h3>3M FLR self-bond &mdash; staked</h3>
-            <p>
-              Our own 3,000,000 FLR is staked to the same validator our delegators
-              rely on &mdash; the FIP.10 pass-tier self-bond, aligning
-              CashLab's incentives directly with sustained, performant
-              uptime.
-            </p>
-          </div>
-        </li>
-
-        <li class="rel-item">
-          <span class="rel-item__check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
-          <div>
             <h3>Dedicated hardware</h3>
             <p>
               A single dedicated Hetzner AX-line server &mdash; AMD EPYC 7502P,
@@ -1120,18 +1112,6 @@
           </div>
         </li>
 
-        <li class="rel-item">
-          <span class="rel-item__check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
-          <div>
-            <h3>Rehearsed on Coston2 before mainnet</h3>
-            <p>
-              The full stack &mdash; FTSO, FDC, and Fast Updates &mdash; was
-              rehearsed end-to-end on Flare's Coston2 testnet, including
-              restart drills and reward-claim testing, before our first
-              mainnet epoch.
-            </p>
-          </div>
-        </li>
       </ul>
 
       <div class="note" data-reveal>
@@ -1262,7 +1242,6 @@
         <a href="/epochs">Results</a>
       <a href="/rewards">Reward Lookup</a>
         <a href="/earn">Earn</a>
-        <a href="/stats">Stats</a>
         <a href="/status">Status</a>
         <a href="/ops-log">Ops Log</a>
         <a href="#verify">Verify Us</a>

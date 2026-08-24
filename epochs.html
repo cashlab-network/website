@@ -85,6 +85,13 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);font-si
 .fig{border:1px solid var(--line);border-radius:10px;padding:14px 10px 8px;position:relative}
 .fig svg{display:block;width:100%;height:auto}
 .fig .placeholder{color:var(--muted);font-size:13.5px;padding:32px 12px;text-align:center}
+/* history table (folded in from /stats, capstone §8) — scoped by id so the
+   gate tables' 34% first-column rule doesn't apply to it */
+.tablewrap{overflow-x:auto}
+#history{min-width:660px;font-size:13.5px}
+#history th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600;padding:6px 10px 6px 0;border-bottom:1px solid var(--line);white-space:nowrap}
+#history td{padding:9px 10px 9px 0;border-bottom:1px solid var(--line);vertical-align:top;white-space:nowrap}
+#history td:first-child{width:auto}
 .legend{display:flex;gap:18px;font-size:12.5px;color:var(--muted);margin:0 0 8px 8px;flex-wrap:wrap}
 .legend .sw{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
 .axis{font-size:11px;fill:var(--muted)}
@@ -142,8 +149,8 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);font-si
 One report per reward epoch, published when Flare settles it — wins and losses in the
 same format, including <strong>what each epoch actually returned</strong> to delegators and stakers. Every number comes from the network's official settlement data
 (<a href="https://github.com/flare-foundation/fsp-rewards" rel="noopener">flare-foundation/fsp-rewards</a>),
-never from our own claims. Charts and the machine-readable history are on the
-<a href="/stats">stats page</a>; live entity status is on the
+never from our own claims. Charts and the machine-readable history table are
+below; live entity status is on the
 <a href="/status">status page</a>.
 </p>
 </div>
@@ -173,7 +180,7 @@ never from our own claims. Charts and the machine-readable history are on the
   <div class="card" id="tile-pass-card" style="display:none">
     <div class="label">Pass buffer</div>
     <div class="value" id="tile-pass">…</div>
-    <div class="sub" id="tile-pass-sub">A banked pass absorbs one failed epoch under FIP.10. At zero, a failed epoch pays nothing.</div>
+    <div class="sub" id="tile-pass-sub">Each failed condition burns one banked pass instead of zeroing the epoch. At zero, a single failure pays nothing.</div>
   </div>
 </div>
 <p style="font-size:12.5px;color:var(--muted);margin-top:10px">
@@ -192,7 +199,7 @@ publish from files the chain hasn't confirmed yet.<span id="gen"></span>
 </p>
 
 <h2>At a glance <span class="badge settled">settled data</span></h2>
-<p style="font-size:14px;color:var(--muted)">Charted from the same machine-readable <a href="/epochs.json">epochs.json</a> anyone can fetch. Full history table: <a href="/stats">stats page &rarr;</a> &middot; live entity status: <a href="/status">status &rarr;</a></p>
+<p style="font-size:14px;color:var(--muted)">Charted from the same machine-readable <a href="/epochs.json">epochs.json</a> anyone can fetch. Full history table below &middot; live entity status: <a href="/status">status &rarr;</a></p>
 <h2>FTSO accuracy per epoch <span class="badge settled">settled data</span></h2>
 <div class="fig" id="fig-acc"><div class="placeholder">Loading epochs.json…</div></div>
 <p style="font-size:12.5px;color:var(--muted);margin-top:8px">
@@ -213,6 +220,30 @@ reward ÷ weight, annualized simply over 104.36 epochs/yr, no compounding — no
 projection. A zeroed epoch really pays 0.00%. Tooltips include that epoch's
 network medians for comparison.
 </p>
+
+<h2>Epoch history <span class="badge settled">settled data</span></h2>
+<div class="tablewrap">
+<table id="history">
+  <thead>
+    <tr><th>Epoch</th><th>Delegation</th><th>Staking</th><th>Verdict</th><th>Dates</th>
+        <th>FTSO</th><th>FDC</th><th>Uptime*</th><th>Fast&nbsp;updates</th></tr>
+  </thead>
+  <tbody id="history-body">
+    <tr><td colspan="9" style="color:var(--muted)">Loading epochs.json…</td></tr>
+  </tbody>
+</table>
+</div>
+<p style="font-size:12.5px;color:var(--muted);margin-top:8px">
+*Uptime is a point-in-time read of the validator at settlement, not an epoch
+average — the official record only attests the ≥80% pass/fail. Every other
+column is Flare's settled data, shown with numerator / denominator.
+</p>
+
+<div class="note">
+Machine-readable: <code>curl https://cashlab.network/epochs.json</code> — epochs
+ascending, every gate with numerator and denominator, plus links to the official
+source files and the chain-verified merkle root per epoch.
+</div>
 
 
 <!-- ================= EPOCH 425 ================= -->
@@ -425,9 +456,10 @@ claimable window). Unclaimed rewards are lost — claim before then.
   </tr>
 </table>
 
-<p style="margin-top:12px">Two gates failed with <a href="https://github.com/flare-foundation/fsp-rewards/blob/main/flare/422/passes.json" rel="noopener">no passes banked</a>, which under
-<a href="https://proposals.flare.network/FIP/FIP_10.html" rel="noopener">FIP.10</a> zeroes the
-entire epoch — including the staking side, despite the validator running clean throughout.</p>
+<p style="margin-top:12px">Two gates failed with <a href="https://github.com/flare-foundation/fsp-rewards/blob/main/flare/422/passes.json" rel="noopener">no passes banked</a> — under
+<a href="https://proposals.flare.network/FIP/FIP_10.html" rel="noopener">FIP.10</a> each failed
+condition needs a banked pass to absorb it, so the epoch zeroed entirely — including the
+staking side, despite the validator running clean throughout.</p>
 
 <h3>What it returned</h3>
 <table>
@@ -489,7 +521,6 @@ this same format, as promised.
   and are provided as-is, without warranty. Do your own research.
   </p>
   <a href="/">cashlab.network</a> ·
-  <a href="/stats">stats</a> ·
   <a href="/status">status</a> ·
   <a href="https://x.com/CashLabNetwork" rel="noopener">@CashLabNetwork</a> ·
   <a href="mailto:hello@cashlab.network">hello@cashlab.network</a><br>
@@ -497,7 +528,7 @@ this same format, as promised.
 </footer>
 
 </div>
-<script src="js/stats-live.js?v=0f0c0e9e"></script>
+<script src="js/stats-live.js?v=3d4c0918"></script>
 <script src="js/nav.js?v=cc03f358"></script>
 </body>
 </html>

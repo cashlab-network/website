@@ -201,13 +201,24 @@ function renderTiles(eps){
     if (card) {
       // "of 3" is the FIP.10 pass cap (protocol constant, not our data).
       $("tile-pass").textContent = latest.conditions.passBalanceAfter + " of 3";
-      // Trajectory (auditor 2026-08-24): derived, never typed — the most
-      // recent unpaid epoch is the one that zeroed the buffer.
+      // Corrected rule (auditor spec 2026-08-24, verified against 793
+      // provider-epoch records): one pass burns per failed CONDITION, not
+      // per failed epoch. The wiped-epoch clause is derived, never typed.
       const wiped = eps.filter(e => !e.paid).pop();
+      let wipedClause = "";
+      if (wiped) {
+        const wg = wiped.gates;
+        const nf = [wg.ftso.pass, wg.fdc.pass, wg.staking.pass,
+                    wg.fastUpdates.pass].filter(p => !p).length;
+        wipedClause = ` — that's what happened in epoch ${wiped.epoch}, ` +
+          `which failed ${nf} condition${nf === 1 ? "" : "s"}` +
+          (wiped.conditions && wiped.conditions.passesHeld === 0
+            ? ` with no passes banked` : ``);
+      }
       $("tile-pass-sub").textContent =
-        `settled through epoch ${latest.epoch}` +
-        (wiped ? ` · rebuilt from zero after epoch ${wiped.epoch}` : "") +
-        ` · a banked pass absorbs one failed epoch under FIP.10; at zero, a failed epoch pays nothing`;
+        `settled through epoch ${latest.epoch} · each failed condition ` +
+        `burns one banked pass instead of zeroing the epoch — delegators ` +
+        `still get paid; at zero, a single failure pays nothing` + wipedClause;
       card.style.display = "";
     }
   }
