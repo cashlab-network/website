@@ -129,14 +129,11 @@ claim (0.1&nbsp;FLR today; 0.25&nbsp;FLR from reward epoch 429, scheduled on-cha
 </div>
 
 <div class="note note--safety note--big">
-<strong>The CashLab executor is registered on-chain.</strong> The address
-below is real, and you can (and should)
-verify it in the &ldquo;How to verify it's really us&rdquo; section. We are
-still in a limited soft-launch phase, proving the service against real reward
-epochs before announcing it publicly. Enrollment is genuinely live if you
-choose to use it now, but the same rule as always applies: best-effort, not
-guaranteed — check your claims yourself. Treat any address that does not match
-the one published here and on-chain as a scam.
+<strong>The executor is registered on-chain and enrollment works today.</strong>
+We're proving it against real reward epochs before announcing it publicly.
+Same rule as always: best-effort, not guaranteed — check your claims
+yourself, and treat any address that doesn't match the one published here
+and on-chain as a scam.
 </div>
 
 <h2>Please read this first</h2>
@@ -237,8 +234,7 @@ here is why the stakes are smaller than they look.
 contract always sends claimed rewards to <strong>your own wallet</strong> (or
 your delegation account, if you enabled one), minus only the executor's fee.
 The executor has no way to choose a destination — the payout address comes from
-the ClaimSetupManager contract, not from the executor. Even a malicious
-executor cannot touch your principal or redirect your rewards.
+the ClaimSetupManager contract, not from the executor.
 <strong>The worst a fake address can do is overcharge you a fee — it can never
 take your rewards.</strong>
 </div>

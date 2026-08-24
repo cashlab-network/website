@@ -31,3 +31,20 @@ async function load(){
 }
 load();
 setInterval(load, 60000);
+
+// Staking-at-a-glance: last settled epoch's realized staking return, from
+// the same pipeline-verified epochs.json the Track Record page renders.
+async function loadEpoch(){
+  try{
+    const r = await withTimeout(fetch("/epochs.json", {cache:"no-store"}));
+    const j = await r.json();
+    const e = j.epochs.reduce((a,b)=>a.epoch>b.epoch?a:b);
+    const apr = e.returns.stakingAprPct;
+    const med = e.returns.medians.stakingAprPct;
+    set("lastret-stk", apr.toFixed(2) + "% APR");
+    set("lastret-stk-sub", "epoch " + e.epoch + " · net of fee · network median " + med.toFixed(2) + "%");
+  }catch(_){
+    set("lastret-stk","—");
+  }
+}
+loadEpoch();

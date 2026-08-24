@@ -152,13 +152,12 @@ visible on-chain in every epoch we participate in via the
 </ol>
 
 <div class="note">
-<strong>Timing tip almost nobody explains:</strong> each reward epoch measures
-your delegation at a <em>snapshot block drawn at random from the days before
-the epoch starts</em> — not at the moment the epoch begins. If you delegate at
-the last minute, the snapshot has probably already passed and your first
-rewards start one epoch later. Delegating at least four days ahead of an epoch
-boundary makes the next epoch certain. (Epoch boundaries are every ~3.5 days —
-see the countdown on our <a href="/status">status page</a>.)
+<strong>Timing tip almost nobody explains.</strong> Each epoch measures your
+delegation at a snapshot block drawn at random from the days <em>before</em>
+the epoch starts. Delegate at the last minute and the snapshot has likely
+passed — your rewards begin one epoch later. Delegating ~4 days before an
+epoch boundary makes the next epoch certain.
+(<a href="/status">Countdown on the status page</a>.)
 </div>
 
 <h2>Our fee — stated plainly</h2>
@@ -191,16 +190,11 @@ honest fine print: <a href="/autoclaim">auto-claim page</a>.
 
 
 <div class="note" style="margin-top:26px">
-<strong>Why you can check us before trusting us.</strong> You never send tokens
-to CashLab on either path &mdash; delegation and staking are on-chain
-assignments controlled only by your keys, and no legitimate provider will ever
-ask you to transfer FLR. Beyond that, don't take our word for anything:
-every settled epoch &mdash; including <a href="/epochs">the one that paid
-zero</a> &mdash; is published with numbers derived from Flare's official
-settlement data; our validator, entity, and delegation address are
-<a href="/#verify">verifiable on-chain</a>; our failures are logged publicly in
-the <a href="/ops-log">operations log</a>; and this site reads live figures
-from the chain in your own browser, not from our servers.
+<strong>Check us before you trust us.</strong><br>
+&middot; You never send tokens to CashLab &mdash; delegation is an on-chain assignment only your keys control.<br>
+&middot; Every settled epoch is published, <a href="/epochs">including the one that paid zero</a>.<br>
+&middot; Our failures are logged in the <a href="/ops-log">operations log</a>.<br>
+&middot; This page reads its live figures from the chain in your browser, not our servers.
 </div>
 <div class="note note--safety">
 <strong>Safety, once and clearly:</strong> delegation never involves sending

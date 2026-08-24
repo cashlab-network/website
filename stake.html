@@ -107,61 +107,26 @@ a:hover{color:#a8842c}
 <h1>Stake With Us</h1>
 
 <p class="lede">
-There are <strong>two different ways</strong> to put FLR to work with CashLab.
-They live on different chains, have different rules, and suit different people.
-This page explains both, with every number stated plainly. Live figures are read
-from Flare mainnet <strong>by your browser</strong> — not from our servers.
+Staking locks FLR on the P-chain to our validator for a fixed term and earns
+the validator's staking rewards, net of our fee. This page is the full staking
+guide, with every number stated plainly. Live figures are read from Flare
+mainnet <strong>by your browser</strong> — not from our servers.
 </p>
 </div>
 
-<p><strong>Choosing between delegating and staking?</strong> The side-by-side
-comparison with both paths lives on the <a href="/earn">earn page</a>. This page
-is the full staking guide.</p>
+<p><strong>Looking to delegate instead?</strong> No minimum, no lock-up —
+<a href="/delegate"><strong>full delegation guide &rarr;</strong></a>.
+Side-by-side comparison of both paths: <a href="/earn">earn page</a>.</p>
 
-
-
-<h2>Our fee — stated plainly</h2>
-<p style="font-size:15px">
-<strong>20%, on both paths.</strong> It applies to <em>reward</em> flows only —
-your principal is never touched, and 80% of the rewards earned on what you
-delegate or stake is yours.
-</p>
-<table>
-  <tr><td>WFLR delegation</td><td><strong>20%</strong> — the network-wide minimum set by Flare governance in
-      <a href="https://proposals.flare.network/FIP/FIP_16.html" rel="noopener">FIP.16</a>
-      (April&nbsp;2026) and enforced on-chain: the fee contract's
-      <span class="mono">minFeeBIPS</span> reads <span class="mono">2000</span>
-      (= 20.00%) for every provider. Ours is exactly the floor — verifiable, not a promise.</td></tr>
-  <tr><td>Validator staking</td><td><strong>20%</strong> — our posted rate, matching the same governance
-      minimum from day one. You may find validators displaying lower rates:
-      fees set before the FIP.16 rule, or before its enforcement completes
-      across the staking layer, remain in force for the remainder of those
-      validators' current terms.</td></tr>
-</table>
-
-<h2>Live on-chain numbers</h2>
+<h2>Staking at a glance</h2>
 <div class="grid">
-  <div class="card"><div class="label">Validator status</div><div class="value"><span class="pill" id="vstatus">checking…</span></div></div>
-  <div class="card"><div class="label">Stake on our validator (mirrored on-chain)</div><div class="value" id="stake">…</div></div>
-  <div class="card"><div class="label">Current validation term ends</div><div class="value" style="font-size:16px">Oct 7, 2026 <span class="label">(re-bond planned each term)</span></div></div>
+  <div class="card"><div class="label">Last epoch returned</div><div class="value" id="lastret-stk">…</div><div style="font-size:12px;color:var(--muted);margin-top:4px" id="lastret-stk-sub"></div></div>
+  <div class="card"><div class="label">Minimum</div><div class="value">50,000 FLR</div></div>
+  <div class="card"><div class="label">Lock-up</div><div class="value" style="font-size:16px">14 days minimum &middot; fixed end date</div></div>
+  <div class="card"><div class="label">Custody</div><div class="value" style="font-size:16px">Locked on-chain &mdash; only your keys move it</div></div>
 </div>
-<p style="font-size:13.5px;color:var(--muted)">
-Verify these independently: our validator on the
-<a href="https://www.flare.builders/validators" rel="noopener">flare.builders validator dashboard</a>,
-our entity on the
-<a href="https://flare-systems-explorer.flare.network" rel="noopener">Flare Systems Explorer</a>,
-or query Flare's own public API for
-<span class="mono">NodeID-8Tp4GLFefnrLzzD7YU6qvEzDRRT1L6Zec</span> — we publish
-nothing you cannot check yourself.
-</p>
 
-<h2>Path 1 — Delegate WFLR to our FTSO (no minimum, no lock)</h2>
-<p>No minimum, no lock-up, tokens stay in your wallet the entire time.
-The full guide — live numbers, snapshot-timing tips, auto-claim, and safety —
-lives on one page so it can never go stale in two places:
-<a href="/delegate"><strong>Delegate &rarr;</strong></a></p>
-
-<h2 id="path-2">Path 2 — Stake FLR to our validator (P-chain)</h2>
+<h2 id="path-2">How to stake — the steps in the Portal</h2>
 <ol class="steps">
   <li>In the <a href="https://portal.flare.network" rel="noopener">Flare Portal</a>, open the <strong>Staking</strong> section and connect your wallet.</li>
   <li>First time only: the Portal will ask you to <strong>register your address</strong> (binding your C-chain and P-chain addresses — one signature, no funds move).</li>
@@ -194,6 +159,25 @@ transfer funds, share a seed phrase, or "validate" your wallet. If anyone
 claiming to be CashLab asks for any of that, it is a scam — our only addresses
 are the ones printed on this page and verifiable on-chain.
 </div>
+
+<h2>Our fee — stated plainly</h2>
+<p style="font-size:15px">
+<strong>20%, on both paths.</strong> It applies to <em>reward</em> flows only —
+your principal is never touched, and 80% of the rewards earned on what you
+delegate or stake is yours.
+</p>
+<table>
+  <tr><td>WFLR delegation</td><td><strong>20%</strong> — the network-wide minimum set by Flare governance in
+      <a href="https://proposals.flare.network/FIP/FIP_16.html" rel="noopener">FIP.16</a>
+      (April&nbsp;2026) and enforced on-chain: the fee contract's
+      <span class="mono">minFeeBIPS</span> reads <span class="mono">2000</span>
+      (= 20.00%) for every provider. Ours is exactly the floor — verifiable, not a promise.</td></tr>
+  <tr><td>Validator staking</td><td><strong>20%</strong> — our posted rate, matching the same governance
+      minimum from day one. You may find validators displaying lower rates:
+      fees set before the FIP.16 rule, or before its enforcement completes
+      across the staking layer, remain in force for the remainder of those
+      validators' current terms.</td></tr>
+</table>
 
 <h2>What you're staking on</h2>
 <table>
@@ -230,6 +214,22 @@ are the ones printed on this page and verifiable on-chain.
 <p style="font-size:14px;color:var(--muted)">
 And as covered above: stakes never renew themselves. When your end date passes,
 your FLR unlocks and simply stops earning until you act.
+</p>
+
+<h2>Live on-chain numbers</h2>
+<div class="grid">
+  <div class="card"><div class="label">Validator status</div><div class="value"><span class="pill" id="vstatus">checking…</span></div></div>
+  <div class="card"><div class="label">Stake on our validator (mirrored on-chain)</div><div class="value" id="stake">…</div></div>
+  <div class="card"><div class="label">Current validation term ends</div><div class="value" style="font-size:16px">Oct 7, 2026 <span class="label">(re-bond planned each term)</span></div></div>
+</div>
+<p style="font-size:13.5px;color:var(--muted)">
+Verify these independently: our validator on the
+<a href="https://www.flare.builders/validators" rel="noopener">flare.builders validator dashboard</a>,
+our entity on the
+<a href="https://flare-systems-explorer.flare.network" rel="noopener">Flare Systems Explorer</a>,
+or query Flare's own public API for
+<span class="mono">NodeID-8Tp4GLFefnrLzzD7YU6qvEzDRRT1L6Zec</span> — we publish
+nothing you cannot check yourself.
 </p>
 
 <footer>
