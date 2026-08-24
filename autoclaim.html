@@ -163,7 +163,7 @@ whenever you like.
       contract</a>. One claim covers <em>all</em> your accumulated unclaimed
       epochs at once, so the fee is at most one per-claim fee per epoch and
       less if rewards accumulate across epochs.</td></tr>
-  <tr><td>One-time enrollment cost</td><td><strong>0.1 FLR</strong>, attached automatically by the portal when you add
+  <tr><td>One-time enrollment cost</td><td><strong>The per-claim fee at the time you enroll</strong> (see &ldquo;What it costs you, in full&rdquo;), attached automatically by the portal when you add
       the executor. Flare's contract pays it to a newly added registered executor
       from that transaction — it is set by the protocol, not by us.</td></tr>
   <tr><td>Fee changes</td><td>Capped by the protocol (0.1–100&nbsp;FLR range), and any change an executor
@@ -178,25 +178,19 @@ whenever you like.
 </table>
 
 <div class="note">
-<strong>Fee honesty.</strong> From reward epoch 429 our fee is
-0.25&nbsp;FLR per claim, and here is the arithmetic behind it: a live claim
-run costs us ≈0.23&nbsp;FLR of gas per wallet (0.7008&nbsp;FLR across a
-3-wallet run, measured 2026-08-21). The 0.1&nbsp;FLR protocol minimum we
-launched at — and charge until epoch 429 — was below our own cost.
-0.25 is cost recovery, not profit. For context, as of 2026-08-15 (read from
-the chain) Flare had 18 registered executors charging between 0.1 and
-5&nbsp;FLR per claim (median 0.15); fees change over time, so that count is a
-dated snapshot. Registering as a public executor also
-burns a one-time 1,000&nbsp;FLR protocol fee — that is CashLab's cost, never
-yours.
+<strong>Why 0.25, not the 0.1 floor.</strong> One claim run costs us
+≈0.23&nbsp;FLR of gas per wallet (measured 2026-08-21), so the
+0.1&nbsp;protocol minimum we launched at was below our own cost. 0.25 is
+cost recovery, not margin.
 </div>
 
 <h2>What it costs you, in full</h2>
 <div class="grid">
-  <div class="card"><div class="label">Once, at enrollment</div><div class="value">0.1 FLR</div>
-    <div style="font-size:13px;color:var(--muted)">Attached by the portal; paid to the executor by the protocol.</div></div>
-  <div class="card"><div class="label">Per claim</div><div class="value">0.1 FLR</div>
+  <div class="card"><div class="label">Per claim</div><div class="value">0.1 FLR <span style="font-size:14px;color:var(--muted)">now</span></div>
+    <div style="font-size:13px;font-weight:600">0.25 FLR from reward epoch 429 (~Aug 31) — scheduled on-chain</div>
     <div style="font-size:13px;color:var(--muted)">Deducted from the rewards being claimed. One claim covers every unclaimed epoch you have.</div></div>
+  <div class="card"><div class="label">Once, at enrollment</div><div class="value" style="font-size:16px">Same as the per-claim fee</div>
+    <div style="font-size:13px;color:var(--muted)">Whatever the per-claim fee is on the day you enroll — attached by the portal; paid to the executor by the protocol.</div></div>
   <div class="card"><div class="label">Ever sent to us directly</div><div class="value">0 FLR</div>
     <div style="font-size:13px;color:var(--muted)">You never transfer funds to CashLab. Anyone asking you to is a scammer.</div></div>
 </div>
@@ -204,7 +198,7 @@ yours.
 <h2>Small balances — the contract's rule, stated plainly</h2>
 <p style="font-size:15px">
 Flare's contract only permits an executor claim when your accumulated rewards are
-at least the 0.1&nbsp;FLR fee. <strong>Below that, we cannot auto-claim for you</strong> —
+at least the current per-claim fee (the contract enforces this against whatever the fee is at claim time). <strong>Below that, we cannot auto-claim for you</strong> —
 your rewards simply keep accumulating until they cross the threshold, and
 <strong>you can always claim any amount yourself, fee-free</strong>, in the
 portal. Remember Flare's claim window: rewards left unclaimed expire after about
@@ -217,9 +211,9 @@ portal. Remember Flare's claim window: rewards left unclaimed expire after about
   <li>Go to the claim-setup / <strong>Set Executor</strong> section and paste the executor address:<br>
       <span class="mono">0x4b7905d5CBd4f2Ee02Aff3c20bBf728Ec69E33d4</span> <span class="pill wait">verify this address independently — see below</span><br>
       The portal shows executors by address, not by name — it will confirm the
-      address is a registered executor and display its 0.1&nbsp;FLR fee (see
+      address is a registered executor and display its fee &mdash; it must match &ldquo;What it costs you, in full&rdquo; above (see
       &ldquo;How to verify it's really us&rdquo;).</li>
-  <li>Confirm the transaction. The portal attaches the one-time 0.1&nbsp;FLR authorization fee described above.</li>
+  <li>Confirm the transaction. The portal attaches the one-time authorization fee &mdash; equal to the current per-claim fee &mdash; described above.</li>
   <li>Done. Rewards arrive as WFLR in your wallet each epoch after Flare publishes settlement data.</li>
 </ol>
 
@@ -253,11 +247,11 @@ take your rewards.</strong>
 <strong>So the one thing to check at enrollment is the fee.</strong> When your
 wallet asks you to confirm the enrollment transaction, it shows the amount
 attached — that amount is the executor's current fee, paid once at enrollment,
-and the same fee is what each later claim deducts. <strong>Ours is exactly
-0.1&nbsp;FLR.</strong> The protocol lets an executor charge up to
+and the same fee is what each later claim deducts. <strong>It must match the
+fee stated at the top of this page &mdash; 0.1&nbsp;FLR now, 0.25&nbsp;FLR
+from reward epoch 429.</strong> The protocol lets an executor charge up to
 100&nbsp;FLR, so a scam executor's game is a high fee — the confirmation shows
-it before you sign. <strong>If it says anything other than 0.1&nbsp;FLR, stop
-and don't sign.</strong>
+it before you sign. <strong>Anything else: stop and don't sign.</strong>
 </p>
 
 <p style="font-size:15px">
@@ -284,12 +278,13 @@ enrolling, cross-check the executor address in independent places:
       address into its Set Executor field, <strong>the portal itself reads
       Flare's ClaimSetupManager contract live</strong> and tells you whether
       the address is a registered executor and what fee it charges — for ours
-      it must say registered, with a <strong>0.1&nbsp;FLR</strong> fee. That
+      it must say registered, with <strong>exactly the fee stated at the top
+      of this page</strong>. That
       confirmation comes from the chain, not from this website, so it works
       even if you trust nothing we publish. (The portal shows all executors
       this way — by address, not by name.) If the portal does not confirm the
-      address as a registered executor, or shows any fee other than
-      0.1&nbsp;FLR, stop.</td></tr>
+      address as a registered executor, or shows a fee that does not match the
+      one stated at the top of this page, stop.</td></tr>
 </table>
 <p style="font-size:14px;color:var(--muted)">
 And re-read the red caution above this section: however you enroll,
@@ -383,7 +378,7 @@ and removable at any time by emailing
   Auto-claiming is an on-chain convenience service executed through Flare's own
   ClaimSetupManager and RewardManager contracts: CashLab never takes custody of your
   funds, and reward payouts can only be delivered to your own address as enforced by
-  those contracts. The per-claim fee is 0.1 FLR; claims require accumulated rewards of
+  those contracts. The per-claim fee is as stated in &ldquo;What it costs you, in full&rdquo; above; claims require accumulated rewards of
   at least the fee, as required by the protocol. The service is provided on a
   best-effort basis and may be delayed or interrupted — please check your claims
   yourself to verify; we do not guarantee them. Unclaimed rewards remain claimable by
