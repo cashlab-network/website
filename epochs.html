@@ -91,6 +91,26 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);font-si
 .value{font-size:22px;font-weight:600;margin-top:4px;font-variant-numeric:tabular-nums}
 .card .sub{font-size:12px;color:var(--muted);margin-top:4px}
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "CashLab per-reward-epoch results on Flare mainnet",
+  "description": "Per-reward-epoch performance of the CashLab FTSO provider on Flare mainnet: the four FIP.10 reward gates with numerators and denominators, realized delegation and staking APR, FLR amounts paid, pass/strike balance, and links to the official flare-foundation/fsp-rewards settlement files every number derives from. Regenerated automatically each time an epoch settles on chain; the reward Merkle root is verified against FlareSystemsManager.rewardsHash before publication.",
+  "url": "https://cashlab.network/epochs",
+  "isAccessibleForFree": true,
+  "creator": {
+    "@type": "Organization",
+    "name": "CashLab",
+    "url": "https://cashlab.network/"
+  },
+  "distribution": [{
+    "@type": "DataDownload",
+    "encodingFormat": "application/json",
+    "contentUrl": "https://cashlab.network/epochs.json"
+  }]
+}
+</script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -166,6 +186,9 @@ are <strong>settled per-epoch data</strong> from <code>epochs.json</code>.
 The pipeline regenerates the whole file each epoch, so this page updates
 itself as epochs settle; each tile's exact source is in its
 <code>data-source</code> attribute and in <code>epochs.json</code> itself.
+A new report publishes automatically once Flare sets the epoch's reward
+Merkle root on chain — the pipeline checks every two hours, and won't
+publish from files the chain hasn't confirmed yet.<span id="gen"></span>
 </p>
 
 <h2>At a glance <span class="badge settled">settled data</span></h2>

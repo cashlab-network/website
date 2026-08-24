@@ -17,15 +17,19 @@ for page in sorted(root.glob('*.html')):
     def sub(m):
         global stamped
         src = m.group(2)
-        f = root / src.split('?')[0]
+        rel = src.split('?')[0]
+        # lstrip: a leading-slash src ("/band.js") must not replace root —
+        # pathlib treats "root / '/x'" as absolute "/x" (capstone item 2:
+        # exactly these refs escaped stamping and stayed 4h-cacheable).
+        f = root / rel.lstrip('/')
         if not f.exists():
             return m.group(0)
         h = hashlib.sha256(f.read_bytes()).hexdigest()[:8]
-        new = f'{m.group(1)}{src.split("?")[0]}?v={h}{m.group(3)}'
+        new = f'{m.group(1)}{rel}?v={h}{m.group(3)}'
         if new != m.group(0):
             stamped += 1
         return new
-    out = re.sub(r'(<script src=")((?:js/)?[A-Za-z0-9_.-]+\.js(?:\?v=[0-9a-f]+)?)(")', sub, s)
+    out = re.sub(r'(<script src=")(/?(?:js/)?[A-Za-z0-9_.-]+\.js(?:\?v=[0-9a-f]+)?)(")', sub, s)
     if out != s:
         page.write_text(out)
         print(f'{page.name}: stamped')

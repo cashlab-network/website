@@ -91,6 +91,54 @@ a:hover{color:#a8842c}
  .site-header .nav-toggle{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border:1px solid #d9d8d3;border-radius:6px;color:#0e0e0d}
 }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What does auto-claim do?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It claims your delegation (WFLR / FTSO) and staking (P-chain mirror) rewards — the reward types Flare's autoClaim supports. Rewards go to your own wallet (or your Flare delegation account, if you enabled one), wrapped as WFLR. The payout address comes from Flare's ClaimSetupManager contract — the executor has no way to redirect it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does it cost, in full?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "0.1 FLR per claim today, 0.25 FLR from reward epoch 429 (~Aug 31, 2026) — scheduled on-chain and visible in advance on the ClaimSetupManager contract. The fee is deducted from the rewards being claimed, and one claim covers every unclaimed epoch you have. At enrollment you pay the per-claim fee once. 0 FLR is ever sent to CashLab directly — you never transfer funds to CashLab, and anyone asking you to is a scammer."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens with small balances?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Flare's contract only permits an executor claim when your accumulated rewards are at least the current per-claim fee. Below that, we cannot auto-claim for you — your rewards keep accumulating until they cross the threshold, and you can always claim any amount yourself, fee-free, in the portal. Rewards left unclaimed expire after about 90 days, whether or not an executor is set."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I leave?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Open the same Set Executor section in the portal and set a new executor list without us (or an empty one). That's it — no notice period, no permission from CashLab needed. Your rewards and your ability to claim them yourself are never affected by enrolling or leaving."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I check my enrollment?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The check on this page runs in your browser against Flare's public RPC — your address is not sent to CashLab's servers. It asks the ClaimSetupManager contract whether the CashLab executor is authorized for your wallet."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
