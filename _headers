@@ -26,3 +26,6 @@
 # Rewards data refreshes daily; 5-minute edge cache is plenty
 /rewards-data/*
   Cache-Control: public, max-age=300
+
+/rewards-archive/*
+  Cache-Control: public, max-age=86400, immutable

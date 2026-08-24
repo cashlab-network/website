@@ -5,7 +5,14 @@ const CASHLAB_DELEGATION = "46f75ac75a9e389809b965a876303681d32bcf2e";
 const PUBLIC_EXECUTOR    = "4b7905d5cbd4f2ee02aff3c20bbf728ec69e33d4";
 const SEL_DELEGATESOF = "0x7de5b8ed", SEL_ISCLAIMEXEC = "0x87962abe";
 const pad = a => "0".repeat(24) + a.toLowerCase().replace("0x","");
-let META=null, PRICES=null, ROWS=[]; const SHARDS={};
+// Two datasets, merged per wallet at lookup time:
+//  rewards-data/     — the LIVE window (node history floor 2026-07-28 →
+//                      now), regenerated daily by the VM refresh.
+//  rewards-archive/  — IMMUTABLE backfill (2026-01-01 → 2026-07-28, blocks
+//                      53,125,993..66,125,823, from free archival RPC).
+//                      Block ranges are disjoint by construction, so simple
+//                      concatenation cannot double-count.
+let META=null, PRICES=null, ARCH_META=null, ROWS=[]; const SHARDS={}, ARCH={};
 
 function withTimeout(p, ms) { return Promise.race([p, new Promise((_,rej)=>setTimeout(()=>rej(new Error("timeout")), ms))]); }
 async function ethCall(to, data) {
@@ -40,12 +47,17 @@ document.getElementById("go").onclick = async () => {
   st.textContent = "Reading the chain…";
   if (!META)  META  = await (await fetch("rewards-data/meta.json")).json();
   if (!PRICES) PRICES = await (await fetch("rewards-data/prices.json")).json();
+  if (!ARCH_META) { try { ARCH_META = await (await fetch("rewards-archive/meta.json")).json(); } catch(e) { ARCH_META = null; } }
   ROWS = [];
   let tot=0, del=0, stk=0, cash=0;
   for (const a of addrs) {
     const pre = a.slice(2,4);
     if (!SHARDS[pre]) SHARDS[pre] = await (await fetch("rewards-data/shards/"+pre+".json")).json();
-    for (const e of (SHARDS[pre][a]||[])) {
+    if (ARCH_META && !ARCH[pre]) {
+      try { ARCH[pre] = await (await fetch("rewards-archive/shards/"+pre+".json")).json(); }
+      catch(e) { ARCH[pre] = {}; }
+    }
+    for (const e of ((ARCH[pre] && ARCH[pre][a]) || []).concat(SHARDS[pre][a]||[])) {
       const p = PRICES.prices[day(e.t)];
       ROWS.push({date:new Date(e.t*1000).toISOString().replace("T"," ").slice(0,16),
                  wallet:a, epoch:e.e, stream:e.s, flr:e.f,
@@ -92,7 +104,7 @@ document.getElementById("go").onclick = async () => {
       "Our executor can deliver rewards to your wallet automatically each epoch " +
       "(protocol-minimum fee): <a href=\"/autoclaim\"><b>auto-claim \u2192</b></a>";
   } else { follow.innerHTML = ""; }
-  st.textContent = `${ROWS.length} reward receipt(s) · receipts since ${META.history_starts} · data to block ${META.scanned_to_block} · generated ${META.generated_utc}`;
+  st.textContent = `${ROWS.length} reward receipt(s) · receipts since ${(ARCH_META && ARCH_META.history_starts) || META.history_starts} · data to block ${META.scanned_to_block} · generated ${META.generated_utc}`;
 };
 
 document.getElementById("csv").onclick = () => {

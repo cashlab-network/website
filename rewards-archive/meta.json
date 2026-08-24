@@ -1,0 +1,1 @@
+{"history_starts":"2026-01-01","from_block":53125993,"to_block":66125823,"events":5684636,"wallets":66445,"generated_utc":"2026-08-24T04:08:41Z","immutable":true,"source":"free archival RPC backfill (RewardClaimed on FSP RewardManager); disjoint from rewards-data (live window starts block 66,125,824)"}
