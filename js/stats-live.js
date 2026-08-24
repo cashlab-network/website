@@ -199,9 +199,15 @@ function renderTiles(eps){
   if (latest.conditions && typeof latest.conditions.passBalanceAfter === "number") {
     const card = document.getElementById("tile-pass-card");
     if (card) {
-      $("tile-pass").textContent = String(latest.conditions.passBalanceAfter) + " banked";
+      // "of 3" is the FIP.10 pass cap (protocol constant, not our data).
+      $("tile-pass").textContent = latest.conditions.passBalanceAfter + " of 3";
+      // Trajectory (auditor 2026-08-24): derived, never typed — the most
+      // recent unpaid epoch is the one that zeroed the buffer.
+      const wiped = eps.filter(e => !e.paid).pop();
       $("tile-pass-sub").textContent =
-        `settled through epoch ${latest.epoch} · a banked pass absorbs one failed epoch under FIP.10; at zero, a failed epoch pays nothing`;
+        `settled through epoch ${latest.epoch}` +
+        (wiped ? ` · rebuilt from zero after epoch ${wiped.epoch}` : "") +
+        ` · a banked pass absorbs one failed epoch under FIP.10; at zero, a failed epoch pays nothing`;
       card.style.display = "";
     }
   }

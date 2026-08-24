@@ -101,7 +101,7 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);font-si
     <nav class="nav" id="site-nav" aria-label="Primary">
       <a href="/">Home</a>
       <a href="/delegate">Delegate</a>
-      <a href="/stake">Stake With Us</a>
+      <a href="/stake">Stake</a>
       <a href="/autoclaim">Auto-Claim</a>
       <a href="/epochs">Track Record</a>
       <a href="/rewards">Your Rewards</a>
@@ -195,7 +195,7 @@ network medians for comparison.
 <!-- ================= EPOCH 425 ================= -->
 <h2 id="e425">Epoch 425<span class="when">Aug 17 – Aug 20, 2026 · ended Aug 20</span><span class="verdict paid">PAID</span></h2>
 
-<p>All four gates passed, zero strikes. A pass was banked.</p>
+<p>All four gates passed, zero strikes. Pass banked — buffer now 1.</p>
 
 <h3>The four gates</h3>
 <table>
@@ -402,7 +402,7 @@ claimable window). Unclaimed rewards are lost — claim before then.
   </tr>
 </table>
 
-<p style="margin-top:12px">Two gates failed with no passes banked, which under
+<p style="margin-top:12px">Two gates failed with <a href="https://github.com/flare-foundation/fsp-rewards/blob/main/flare/422/passes.json" rel="noopener">no passes banked</a>, which under
 <a href="https://proposals.flare.network/FIP/FIP_10.html" rel="noopener">FIP.10</a> zeroes the
 entire epoch — including the staking side, despite the validator running clean throughout.</p>
 
@@ -474,7 +474,7 @@ this same format, as promised.
 </footer>
 
 </div>
-<script src="js/stats-live.js?v=5a0b9d2e"></script>
+<script src="js/stats-live.js?v=0f0c0e9e"></script>
 <script src="js/nav.js?v=cc03f358"></script>
 </body>
 </html>
