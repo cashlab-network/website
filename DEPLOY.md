@@ -189,3 +189,16 @@ them freely:
    whether it's served from the domain root (Cloudflare Pages) or from a
    subdirectory (preview hosts). Open Graph and canonical tags intentionally keep
    the absolute `https://cashlab.network/...` form, which social crawlers require.
+
+
+## JS cache-busting (MANDATORY before any push touching a .js file)
+A Cloudflare layer serves /js/* with a 4-hour browser cache regardless of
+_headers (measured 2026-08-24), so new HTML + old JS is possible for 4h
+after a deploy. Run:
+
+    python3 stamp-js-versions.py
+
+It re-stamps every <script src> with a content-hash query (?v=xxxxxxxx).
+Idempotent. After deploying, verify with a WARM cache: load a changed page
+without a hard refresh and confirm no widget is left on its placeholder
+(a placeholder-forever is this bug; an em-dash means code ran and failed).
