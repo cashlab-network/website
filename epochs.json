@@ -1,9 +1,9 @@
 {
  "$comment": "CashLab (cashlab.network) per-reward-epoch history on Flare mainnet. Schema (see schema_version): snapshot (point-in-time values DERIVED at generation time -- activeStake.flr read live from PChainStakeMirror.votePowerOf(bytes20 nodeId) on the public Flare RPC, feeds.configured from CashLab's control plane cross-checked against its gate denominator; asOf = generated_at, nothing is hand-written); epochs[] sorted ascending by epoch; per epoch: dates (UTC ISO-8601 start/end of the reward epoch, derived from the official voting-round ids -- the canonical per-epoch date is dates.end, the reward-epoch END; no settlement timestamp exists in the official files, and the settledUtc field of schema 1 was a pipeline RUN time, not data, so it was removed), paid (eligibleForReward from Flare's official minimal-conditions.json), gates.ftso/.fdc (pct = 100*num/den from the official settlement record; num and den are published so you can check the division), gates.staking (uptimePct is a POINT-IN-TIME read of the validator's uptime when the epoch's report was published, not an epoch average -- the official record only attests the >=80% boolean 'pass'; selfBond in whole FLR), gates.fastUpdates (actual vs expected submissions), returns (realized APR %, net of fee, annualized simply over 104.36 epochs/yr, no compounding; medians = network median across providers that paid that epoch), flr (whole-FLR amounts paid to delegators+stakers, and our fee), sources (the official flare-foundation/fsp-rewards files every number derives from; merkleRoot was verified on chain against FlareSystemsManager.rewardsHash(epoch) before this file was built). Realized historical results, not advice and not a projection.",
  "schema_version": "2.0.0",
- "generated_at": "2026-08-24T16:23:33Z",
+ "generated_at": "2026-08-24T16:26:51Z",
  "snapshot": {
-  "asOf": "2026-08-24T16:23:33Z",
+  "asOf": "2026-08-24T16:26:51Z",
   "activeStake": {
    "flr": 17288000,
    "nodeId": "NodeID-8Tp4GLFefnrLzzD7YU6qvEzDRRT1L6Zec",
@@ -23,6 +23,12 @@
     "human": "Aug 6 \u2013 Aug 10, 2026"
    },
    "paid": false,
+   "conditions": {
+    "passesHeld": 0,
+    "banked": false,
+    "strikes": 2,
+    "passBalanceAfter": 0
+   },
    "gates": {
     "ftso": {
      "pct": 74.85,
@@ -37,7 +43,7 @@
      "pass": false
     },
     "staking": {
-     "uptimePct": 99.9997,
+     "uptimePct": 99.9952,
      "selfBond": 3000000,
      "pass": true
     },
@@ -46,6 +52,12 @@
      "expected": 136,
      "pass": true
     }
+   },
+   "peers": {
+    "providers": 100,
+    "rank": 99,
+    "medianPct": 99.8,
+    "passedFloor": 97
    },
    "returns": {
     "delegationAprPct": 0.0,
@@ -73,6 +85,12 @@
     "human": "Aug 10 \u2013 Aug 13, 2026"
    },
    "paid": true,
+   "conditions": {
+    "passesHeld": 0,
+    "banked": false,
+    "strikes": 0,
+    "passBalanceAfter": 0
+   },
    "gates": {
     "ftso": {
      "pct": 94.03,
@@ -87,7 +105,7 @@
      "pass": true
     },
     "staking": {
-     "uptimePct": 99.9997,
+     "uptimePct": 99.9952,
      "selfBond": 3000000,
      "pass": true
     },
@@ -96,6 +114,12 @@
      "expected": 141,
      "pass": true
     }
+   },
+   "peers": {
+    "providers": 99,
+    "rank": 93,
+    "medianPct": 99.83,
+    "passedFloor": 96
    },
    "returns": {
     "delegationAprPct": 4.35,
@@ -123,6 +147,12 @@
     "human": "Aug 13 \u2013 Aug 17, 2026"
    },
    "paid": true,
+   "conditions": {
+    "passesHeld": 0,
+    "banked": false,
+    "strikes": 0,
+    "passBalanceAfter": 0
+   },
    "gates": {
     "ftso": {
      "pct": 95.36,
@@ -137,7 +167,7 @@
      "pass": true
     },
     "staking": {
-     "uptimePct": 99.9998,
+     "uptimePct": 99.9952,
      "selfBond": 3000000,
      "pass": true
     },
@@ -179,6 +209,12 @@
     "human": "Aug 17 \u2013 Aug 20, 2026"
    },
    "paid": true,
+   "conditions": {
+    "passesHeld": 0,
+    "banked": true,
+    "strikes": 0,
+    "passBalanceAfter": 1
+   },
    "gates": {
     "ftso": {
      "pct": 96.36,
@@ -193,7 +229,7 @@
      "pass": true
     },
     "staking": {
-     "uptimePct": 99.9944,
+     "uptimePct": 99.9952,
      "selfBond": 3000000,
      "pass": true
     },
@@ -235,6 +271,12 @@
     "human": "Aug 20 \u2013 Aug 24, 2026"
    },
    "paid": true,
+   "conditions": {
+    "passesHeld": 1,
+    "banked": true,
+    "strikes": 0,
+    "passBalanceAfter": 2
+   },
    "gates": {
     "ftso": {
      "pct": 97.01,
