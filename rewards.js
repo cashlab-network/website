@@ -66,7 +66,10 @@ document.getElementById("go").onclick = async () => {
       if(e.s==="staking")stk+=e.f; if(e.c)cash+=e.f;
     }
   }
-  ROWS.sort((x,y)=>x.date<y.date?-1:1);
+  // Newest first: the row a visitor wants is the payout that just landed,
+  // not one from January. (The CSV export re-sorts ascending — records for
+  // an accountant read chronologically.)
+  ROWS.sort((x,y)=>x.date<y.date?1:-1);
   const dpcts = await Promise.all(addrs.map(delegationPct));
   const autos = await Promise.all(addrs.map(autoclaimOn));
   const dp = dpcts.filter(x=>x!==null);
@@ -109,7 +112,7 @@ document.getElementById("go").onclick = async () => {
 
 document.getElementById("csv").onclick = () => {
   const head = "date_utc,wallet,reward_epoch,stream,amount_flr,flr_usd_price_at_receipt,usd_value_at_receipt,tx\n";
-  const lines = ROWS.map(r => {
+  const lines = [...ROWS].sort((x,y)=>x.date<y.date?-1:1).map(r => {
     const p = r.usd!=null ? (r.usd/r.flr) : "";
     return [r.date,r.wallet,r.epoch,r.stream,r.flr,p&&p.toFixed(8),r.usd!=null?r.usd.toFixed(2):"",r.tx].join(",");
   }).join("\n");
