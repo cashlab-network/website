@@ -319,7 +319,9 @@
 
   /* ---------- Hero ---------- */
   .hero {
-    padding-block: clamp(var(--space-16), 10vw, 7rem);
+    /* 7rem cap dropped to 4.5rem (auditor 2026-08-24): with the 3-line h1
+       the CTAs landed exactly on the 725px fold of a 1284×725 laptop */
+    padding-block: clamp(3rem, 6vw, 4.5rem);
     position: relative;
     overflow: hidden;
   }
@@ -905,11 +907,10 @@
         <span class="eyebrow">Flare Network infrastructure</span>
         <h1>Delegate to a provider that publishes its numbers.</h1>
         <p class="hero__sub">
-          CashLab is an independent Flare operator running the full protocol stack
-          &mdash; FTSO, FDC, Fast Updates, and our own validator &mdash; on
-          dedicated hardware. Every result we publish is machine-verified
-          against on-chain data first, and delegation is non-custodial: your
-          FLR never leaves your wallet.
+          CashLab is an independent Flare operator running the full protocol
+          stack on dedicated hardware. Every number we publish is
+          machine-verified against on-chain data first &mdash; and your FLR
+          never leaves your wallet.
         </p>
 
         <div class="hero__ctas">
@@ -921,39 +922,44 @@
         validator you'd be staking on &mdash; when <a href="/epochs#e422">epoch 422
         paid zero</a>, it paid us zero too.</strong></p>
 
-        <!-- Delegation status callout -->
-        <div class="status-card" role="status">
-          <span class="status-card__dot" aria-hidden="true"></span>
-          <div>
-            <p class="status-card__label">Delegation status</p>
-            <p class="status-card__text">
-              Delegation is live on Flare mainnet. The entity is registered,
-              the validator is staked with a 3,000,000 FLR self-bond, and the
-              delegation address is:
-            </p>
-            <!-- REPLACE AT LAUNCH: delegation-address
-                 STAGED 2026-07-29: value below is the real Delegation address.
-                 Do not publish this branch until launch epoch is imminent.
-                 Original placeholder preserved above in git history. -->
-            <code class="status-card__addr" id="delegation-address">
-              0x46F75Ac75a9E389809b965A876303681D32bCf2e
-            </code>
-            <!-- END REPLACE AT LAUNCH: delegation-address -->
-            <!-- REPLACE AT LAUNCH: node-id
-                 STAGED 2026-07-29: real NodeID for the CashLab validator.
-                 Do not publish this branch until launch epoch is imminent. -->
-            <p class="status-card__label" style="margin-top:0.75rem">Validator NodeID</p>
-            <code class="status-card__addr" id="node-id">
-              NodeID-8Tp4GLFefnrLzzD7YU6qvEzDRRT1L6Zec
-            </code>
-            <!-- END REPLACE AT LAUNCH: node-id -->
-          </div>
-        </div>
       </div>
 
       <div class="hero__mark">
         <!-- Mark-only, transparent -->
         <img src="images/cashlab-mark-web.png" alt="" width="600" height="600" aria-hidden="true" />
+      </div>
+    </div>
+
+    <!-- Delegation status callout — reference data, deliberately OUTSIDE the
+         hero grid (auditor 2026-08-24: its height dragged the centring axis
+         211px below the headline and pushed the CTAs onto the fold) -->
+    <div class="wrap">
+      <div class="status-card" role="status">
+        <span class="status-card__dot" aria-hidden="true"></span>
+        <div>
+          <p class="status-card__label">Delegation status</p>
+          <p class="status-card__text">
+            Delegation is live on Flare mainnet. The entity is registered,
+            the validator is staked with a 3,000,000 FLR self-bond, and the
+            delegation address is:
+          </p>
+          <!-- REPLACE AT LAUNCH: delegation-address
+               STAGED 2026-07-29: value below is the real Delegation address.
+               Do not publish this branch until launch epoch is imminent.
+               Original placeholder preserved above in git history. -->
+          <code class="status-card__addr" id="delegation-address">
+            0x46F75Ac75a9E389809b965A876303681D32bCf2e
+          </code>
+          <!-- END REPLACE AT LAUNCH: delegation-address -->
+          <!-- REPLACE AT LAUNCH: node-id
+               STAGED 2026-07-29: real NodeID for the CashLab validator.
+               Do not publish this branch until launch epoch is imminent. -->
+          <p class="status-card__label" style="margin-top:0.75rem">Validator NodeID</p>
+          <code class="status-card__addr" id="node-id">
+            NodeID-8Tp4GLFefnrLzzD7YU6qvEzDRRT1L6Zec
+          </code>
+          <!-- END REPLACE AT LAUNCH: node-id -->
+        </div>
       </div>
     </div>
   </section>
