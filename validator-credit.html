@@ -180,14 +180,14 @@
     <div class="tag">2026-08-26 · v1.0</div>
   </div>
   <h1>Self-Repaying Validator Credit</h1>
-  <p class="thesis">Validators sell reward FLR to pay their bills — a sell flow working against the FIRE buyback. <strong>Flare has already shipped the primitives to replace that selling with credit.</strong> This is the design.</p>
-  <div class="status">EVERY CLAIM VERIFIED AGAINST CHAIN AND SOURCE · 2026-08-26</div>
+  <p class="thesis">Validators sell reward FLR to pay their bills — a sell flow working against the FIRE buyback. <strong>Flare has already shipped the building blocks to replace that selling with credit.</strong> This is the design.</p>
+  <div class="status">CLAIMS CHECKED AGAINST CHAIN AND SOURCE · 2026-08-26</div>
 </header>
 
 <section>
   <p class="kicker">01 · The problem</p>
   <h2>Operators sell to pay the bills</h2>
-  <p class="lede">Every validator has real costs — servers, bandwidth, time — and an operator without outside income has one obvious way to fund them: selling reward FLR on-market. FIP.16 — accepted by governance in April 2026 with 98.06% support — attacks sell pressure from the revenue side (FIRE buys back and burns; inflation drops 5%→3%). Operator selling works against it every epoch.</p>
+  <p class="lede">Every validator has real costs — servers, bandwidth, time — and an operator without outside income has one obvious way to fund them: selling reward FLR on-market. In April 2026, governance passed FIP.16 with 98.06% support: FIRE buys back and burns FLR, and inflation drops from 5% to 3%. Operator selling works against that every epoch.</p>
   <p>Telling operators "just don't sell" isn't a mechanism. Giving them something <em>cheaper than selling</em> is — and it can be assembled almost entirely from contracts already live on Flare mainnet.</p>
 </section>
 
@@ -195,7 +195,7 @@
   <p class="kicker">02 · The insight</p>
   <h2>The pieces already exist on Flare</h2>
   <figure>
-    <svg viewBox="0 0 640 300" role="img" aria-label="Four existing Flare primitives — reward streams, the pass ledger, claim routing, and FTSO pricing — stack into a validator credit market.">
+    <svg viewBox="0 0 640 300" role="img" aria-label="Four existing Flare building blocks — reward streams, the pass ledger, claim routing, and FTSO pricing — stack into a validator credit market.">
       <defs>
         <marker id="arrA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
           <path d="M0 0 L10 5 L0 10 z" fill="currentColor"/>
@@ -234,7 +234,7 @@
         <text x="540" y="174" text-anchor="middle" font-size="11.5" opacity=".62">and repaid on-chain</text>
       </g>
     </svg>
-    <figcaption><b>Four live primitives, one unbuilt product.</b> Steady income, a public track record, payment routing, and fair pricing all exist on Flare mainnet today. The missing piece is the vault that stacks them.</figcaption>
+    <figcaption><b>Four live building blocks, one unbuilt product.</b> Steady income, a public track record, payment routing, and fair pricing all exist on Flare mainnet today. The missing piece is the vault that stacks them.</figcaption>
   </figure>
   <p>A track record nobody can fake, published by the network itself. Built-in permission for a wallet to let a contract collect its rewards and pass them along. A price feed run by the validators themselves. Everything a lender needs — proof of income, a way to get repaid, and a fair price — already lives on-chain.</p>
 </section>
@@ -262,7 +262,7 @@
         <rect x="256" y="106" width="150" height="88" rx="3" fill="none" stroke="#c89f3b" stroke-width="2"/>
         <text x="331" y="136" text-anchor="middle" font-size="13.5" font-weight="700">Vault</text>
         <text x="331" y="154" text-anchor="middle" font-size="11" opacity=".62">meters the balance</text>
-        <text x="331" y="169" text-anchor="middle" font-size="11" opacity=".62">holds the margin</text>
+        <text x="331" y="169" text-anchor="middle" font-size="11" opacity=".62">holds the collateral</text>
 
         <!-- Borrower -->
         <rect x="486" y="118" width="150" height="64" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"/>
@@ -274,7 +274,7 @@
           <path d="M174 132 L 256 132" marker-end="url(#arrB)"/>
           <path d="M406 132 L 486 132" marker-end="url(#arrB)"/>
         </g>
-        <text x="215" y="122" text-anchor="middle" font-size="11" font-family="ui-monospace,monospace">USDT0</text>
+        <text x="215" y="122" text-anchor="middle" font-size="11" font-family="ui-monospace,monospace">stablecoins</text>
         <text x="446" y="122" text-anchor="middle" font-size="11" font-family="ui-monospace,monospace">draw</text>
 
         <!-- reward loop: borrower -> vault -> lenders (gold) -->
@@ -291,33 +291,33 @@
         <g stroke="currentColor" stroke-width="1" fill="none" opacity=".7">
           <path d="M331 268 L 331 200" stroke-dasharray="4 3" marker-end="url(#arrB)"/>
         </g>
-        <text x="406" y="292" font-size="10.5" opacity=".62">prices each tranche</text>
+        <text x="406" y="292" font-size="10.5" opacity=".62">prices each payment</text>
 
         <!-- margin note -->
         <g stroke="currentColor" stroke-width="1" fill="none" opacity=".7">
           <path d="M486 96 C 430 60, 380 70, 350 100" stroke-dasharray="4 3" marker-end="url(#arrB)"/>
         </g>
         <rect x="486" y="30" width="150" height="56" rx="3" fill="none" stroke="currentColor" stroke-width="1"/>
-        <text x="561" y="52" text-anchor="middle" font-size="12" font-weight="600">Margin</text>
+        <text x="561" y="52" text-anchor="middle" font-size="12" font-weight="600">Collateral</text>
         <text x="561" y="68" text-anchor="middle" font-size="10.5" opacity=".62">WFLR delegated back,</text>
         <text x="561" y="80" text-anchor="middle" font-size="10.5" opacity=".62">or stXRP (off-FLR)</text>
       </g>
     </svg>
-    <figcaption><b>The loop that replaces selling.</b> Stables flow left to right once; rewards flow back every 3.5 days, valued at FTSO price, until the balance clears. Lenders joined precisely to receive that FLR — so no token in the cycle ever crosses an order book. Margin secures the loan while continuing to work for its owner.</figcaption>
+    <figcaption><b>The loop that replaces selling.</b> Stablecoins (USDT0) flow left to right once; rewards flow back every 3.5 days, valued at FTSO price, until the balance clears. Lenders joined precisely to receive that FLR — so no token in the cycle ever crosses an order book. Margin secures the loan while continuing to work for its owner.</figcaption>
   </figure>
 
-  <h3>Sizing — the dual cap</h3>
-  <p><span class="mono">line = min( 70% × trailing stream × term , 50% × margin value )</span><br>
-  <span class="soft">In plain terms: borrow up to 70% of what your rewards are on track to earn during the loan — but never more than half the value of the collateral you put up. The first cushion covers bad weeks; the second covers price drops.</span></p>
+  <h3>How much can you borrow?</h3>
+  <p>Up to 70% of what your rewards are on track to earn during the loan — but never more than half the value of the collateral you put up. The first cushion covers bad weeks; the second covers price drops.<br>
+  <span class="soft mono" style="font-size:12.5px">line = min( 70% × trailing rewards × term , 50% × collateral value )</span></p>
 
   <h3>Underwriting — the pass ledger is a credit score</h3>
   <p>Flare publishes every validator's report card — passes, strikes, uptime, eligibility — every 3.5 days, where anyone can check it. Loan terms read straight from that report card:</p>
   <div class="tblwrap">
   <table>
     <tr><th>Tier</th><th>Chain-verifiable requirement</th><th>Terms</th></tr>
-    <tr><td>A</td><td>≥3M self-bond · ≥15M stake · 3/3 passes</td><td>Lowest rate, highest advance, thinnest margin</td></tr>
+    <tr><td>A</td><td>≥3M self-bond · ≥15M stake · 3/3 passes</td><td>Lowest rate, highest advance, smallest collateral</td></tr>
     <tr><td>B</td><td>Pass-eligible · 1–2 passes</td><td>Standard</td></tr>
-    <tr><td>C</td><td>≥1M self-bond · reward-eligible · 0 passes</td><td>Small line, heavy margin</td></tr>
+    <tr><td>C</td><td>≥1M self-bond · reward-eligible · 0 passes</td><td>Small line, heavy collateral</td></tr>
     <tr><td>—</td><td>Recent strikes</td><td>No loan until the record heals</td></tr>
   </table>
   </div>
@@ -327,7 +327,7 @@
     <p>Interest reprices <b>every epoch</b> from the borrower's live pass count — hold 3/3 passes and pay ~6%; take a strike and drift toward 9% until the record heals. In short: the better you run your validator, the cheaper your money — recalculated every 3.5 days from public records. It also hands validators a direct cash incentive to maintain exactly the discipline the network already wants.</p>
   </div>
 
-  <h3>No liquidation price — a state trigger</h3>
+  <h3>No liquidation price — only a dead validator defaults</h3>
   <figure>
     <svg viewBox="0 0 640 170" role="img" aria-label="Default timeline: a missed epoch does nothing; only four consecutive dead epochs plus non-payment, then a seven-day grace, leads to settlement from margin — with all excess returned to the borrower.">
       <defs>
@@ -359,7 +359,7 @@
         <text x="560" y="114" text-anchor="middle" font-size="11" opacity=".62">every excess token returns</text>
       </g>
     </svg>
-    <figcaption><b>No price wick can liquidate anyone.</b> The only path to losing collateral is a genuinely abandoned validator plus a refusal to pay — a state, not a price. In the spirit of Lodestar's "we replaced the liquidation price with a date."</figcaption>
+    <figcaption><b>No price wick can liquidate anyone.</b> The only path to losing collateral is a genuinely abandoned validator plus a refusal to pay — a state, not a price.</figcaption>
   </figure>
 
   <h3>What about the self-bond?</h3>
@@ -367,13 +367,13 @@
   <ul>
     <li><strong>As a qualification.</strong> The top tier requires ≥3M self-bond and ≥15M stake — the same bar Flare itself sets for earning passes.</li>
     <li><strong>As a promise with teeth (today).</strong> The loan requires keeping the self-bond and pass status intact for its whole life. Dropping either counts the same as a dead income stream — it starts the default clock.</li>
-    <li><strong>As true collateral (with one small protocol addition).</strong> Let a validator declare, at any point during the bond, where the stake pays out when it ends — releasable only by the named lender until the loan clears. That single change makes the most locked asset on the network usable as hard collateral, and loans backed by it need far less margin and cost less. Existing bonds could enroll mid-term, so nobody waits out a 365-day bond to qualify.</li>
+    <li><strong>As true collateral (with one small protocol addition).</strong> Let a validator declare, at any point during the bond, where the stake pays out when it ends — releasable only by the named lender until the loan clears. That single change makes the most locked asset on the network usable as hard collateral, and loans backed by it need far less collateral and cost less. Existing bonds could enroll mid-term, so nobody waits out a 365-day bond to qualify.</li>
   </ul>
   <p>Even then, a default takes only what's owed — the rest of the bond comes back to its owner. That rule is what keeps the whole system honest:</p>
 
   <div class="rule-card">
     <div class="rc-title">Default is a settlement, not a jackpot</div>
-    <p>On default the vault takes <b>exactly</b> the balance, accrued interest, and a fixed default fee. Every remaining token returns to the borrower. Lenders are assured <b>recovery up to margin, never enrichment</b> — so no party ever profits from causing a borrower to fail. This forecloses the loan-to-own attack class by construction, and it is why the credit prices cheap: near-certain recovery prices like secured lending, not venture debt.</p>
+    <p>On default the vault takes <b>exactly</b> the balance, accrued interest, and a fixed default fee. Every remaining token returns to the borrower. Lenders are assured <b>recovery up to the collateral's value, never enrichment</b> — so no party ever profits from causing a borrower to fail. This forecloses the loan-to-own attack class by construction, and it is why the credit prices cheap: near-certain recovery prices like secured lending, not venture debt.</p>
   </div>
 </section>
 
@@ -390,11 +390,11 @@
     <summary>Six known limitations, and what cures each</summary>
     <div class="inner">
       <ol>
-        <li><b>The income pledge isn't ironclad on normal wallets.</b> Owners can always self-claim around the vault, so v1 is honestly a <b>margin-backed loan whose normal path is self-repayment</b> — the innovation is the UX and the underwriting data. Cured in v2 by claim-binding accounts.</li>
-        <li><b>Everyone's rewards can change at once.</b> A network-wide reward change shrinks every stream at once — FIP.16's accepted restructuring is reshaping reward economics now, and future governance can again. Mitigated by short terms (the book reprices each roll), reserves, and conservative haircuts.</li>
-        <li><b>Rewards expire if nobody claims them (~90 days).</b> The keeper must claim on schedule; redundant keepers required. Structurally solved by v2 enrollment.</li>
+        <li><b>The income pledge isn't ironclad on normal wallets.</b> Owners can always self-claim around the vault, so v1 is honestly a <b>collateral-backed loan whose normal path is self-repayment</b> — the innovation is the UX and the underwriting data. Cured in v2 by claim-binding accounts.</li>
+        <li><b>Everyone's rewards can change at once.</b> A network-wide reward change shrinks every stream at once — FIP.16's accepted restructuring is reshaping reward economics now, and future governance can again. Mitigated by short loans that renew at current reward levels, a reserve fund, and cautious loan sizing.</li>
+        <li><b>Rewards expire if nobody claims them (~90 days).</b> An automated claimer must run on schedule, with a backup. Structurally solved by v2 enrollment.</li>
         <li><b>The market starts small.</b> Flare's validator set alone is a niche book — the cross-chain roadmap is where the market becomes large.</li>
-        <li><b>The insurance layer is new.</b> Cover terms must be pre-agreed with Firelight; open design item, not a solved one.</li>
+        <li><b>The insurance layer is new.</b> Cover terms must be pre-agreed with Firelight (the on-Flare insurance market this design would buy cover from); open design item, not a solved one.</li>
         <li><b>Lending has legal weight.</b> The operator needs real counsel — and CashLab is explicitly not volunteering to operate or custody.</li>
       </ol>
     </div>
@@ -422,7 +422,7 @@
         </g>
         <g>
           <circle cx="240" cy="52" r="5" fill="currentColor"/>
-          <text x="240" y="30" text-anchor="middle" font-size="12.5" font-weight="700">v2 · account abstraction</text>
+          <text x="240" y="30" text-anchor="middle" font-size="12.5" font-weight="700">v2 · smart accounts</text>
           <text x="240" y="76" text-anchor="middle" font-size="11" opacity=".72">claim-binding accounts:</text>
           <text x="240" y="90" text-anchor="middle" font-size="11" opacity=".72">stream binding, no expiry;</text>
           <text x="240" y="104" text-anchor="middle" font-size="11" opacity=".72">Firelight covers the vault</text>
@@ -448,7 +448,7 @@
         </g>
       </g>
     </svg>
-    <figcaption><b>The v3 ask is deliberately tiny:</b> a small addition letting a validator declare, at any point during the bond, where the stake pays out when it ends — and once a lender is named, only that lender can release it. It converts the most locked, most verifiable asset on the network into usable collateral, and it collapses margin requirements and rates when it lands.</figcaption>
+    <figcaption><b>The v3 ask is deliberately tiny:</b> the one-line change described in section 03 — and it collapses collateral requirements and rates when it lands.</figcaption>
   </figure>
 
   <h3>Why this serves Flare</h3>
@@ -457,7 +457,7 @@
     <li><strong>Pays validators to maintain pass discipline</strong> via the floating rate.</li>
     <li><strong>Creates organic premium demand</strong> for Firelight's cover market.</li>
     <li><strong>Gives FAssets and the FDC a concrete use case.</strong></li>
-    <li><strong>Retains small validators</strong> — the operators for whom opex-versus-selling is a monthly dilemma.</li>
+    <li><strong>Retains small validators</strong> — the operators for whom server-bills-versus-selling is a monthly dilemma.</li>
   </ul>
 </section>
 
