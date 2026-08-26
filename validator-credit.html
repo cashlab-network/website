@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A design for self-repaying validator credit on Flare: borrow stablecoins against the reward stream, let each epoch repay the loan, never sell on-market.">
+<meta property="og:title" content="Self-Repaying Validator Credit">
+<meta property="og:description" content="What if validators didn't have to sell rewards to pay their bills? A full design with the risks included.">
+<meta property="og:url" content="https://cashlab.network/validator-credit">
+<link rel="icon" href="/images/favicon.png">
+<title>Self-Repaying Validator Credit</title>
+<style>
+  @font-face{font-family:"Inter";src:url("/fonts/inter-var.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
+  :root{
+    --ink:#1c1a15;
+    --ink-soft:#57534a;
+    --ink-faint:#8a857a;
+    --ground:#fdfcfa;
+    --panel:#f6f4ef;
+    --line:#e4e0d6;
+    --gold:#c89f3b;
+    --gold-deep:#9a7724;
+    --good:#3d7a4a;
+    --bad:#a4432f;
+  }
+  :root:not([data-theme="light"]){}
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ink:#ece8df;
+      --ink-soft:#b3ada0;
+      --ink-faint:#7d786d;
+      --ground:#16140f;
+      --panel:#201d16;
+      --line:#37332a;
+      --gold:#d4ad4f;
+      --gold-deep:#e0bd68;
+      --good:#6cae7c;
+      --bad:#d07a66;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#ece8df;
+    --ink-soft:#b3ada0;
+    --ink-faint:#7d786d;
+    --ground:#16140f;
+    --panel:#201d16;
+    --line:#37332a;
+    --gold:#d4ad4f;
+    --gold-deep:#e0bd68;
+    --good:#6cae7c;
+    --bad:#d07a66;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:var(--ground);
+    color:var(--ink);
+    font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+    font-size:16px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px 96px}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+
+  /* ---------- masthead ---------- */
+  header{padding:64px 0 40px;border-bottom:2px solid var(--ink)}
+  .brand{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:40px}
+  .brand .name{font-weight:800;letter-spacing:.02em;font-size:15px}
+  .brand .name span{color:var(--gold)}
+  .brand .tag{font-family:ui-monospace,monospace;font-size:11.5px;color:var(--ink-faint);letter-spacing:.04em}
+  h1{
+    font-size:clamp(30px,5.4vw,44px);
+    line-height:1.12;
+    font-weight:800;
+    letter-spacing:-.015em;
+    margin:0 0 18px;
+    text-wrap:balance;
+  }
+  .thesis{font-size:18.5px;line-height:1.55;color:var(--ink-soft);max-width:60ch;margin:0}
+  .thesis strong{color:var(--ink);font-weight:600}
+  .status{
+    display:inline-flex;align-items:center;gap:8px;
+    margin-top:28px;padding:5px 12px;
+    border:1px solid var(--line);border-radius:3px;
+    font-family:ui-monospace,monospace;
+    font-size:11px;letter-spacing:.06em;color:var(--ink-faint);
+  }
+  .status::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gold)}
+
+  /* ---------- sections ---------- */
+  section{padding-top:52px}
+  .kicker{
+    font-family:ui-monospace,monospace;
+    font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--gold-deep);margin:0 0 10px;
+  }
+  h2{font-size:25px;font-weight:700;letter-spacing:-.01em;line-height:1.25;margin:0 0 16px;text-wrap:balance}
+  h3{font-size:16.5px;font-weight:600;margin:28px 0 8px}
+  p{margin:0 0 16px;max-width:66ch}
+  p.lede{font-size:17px}
+  li{margin-bottom:8px;max-width:62ch}
+  ul,ol{padding-left:22px;margin:0 0 16px}
+  em{font-style:italic}
+  .soft{color:var(--ink-soft)}
+
+  /* ---------- figures ---------- */
+  figure{margin:32px 0;padding:28px 20px 18px;background:var(--panel);border:1px solid var(--line);border-radius:4px;overflow-x:auto}
+  figure svg{display:block;max-width:100%;height:auto;margin:0 auto;color:var(--ink)}
+  figcaption{
+    margin-top:14px;font-size:13px;line-height:1.5;color:var(--ink-soft);
+    max-width:60ch;padding-top:12px;border-top:1px solid var(--line);
+  }
+  figcaption b{color:var(--ink)}
+
+  /* ---------- tables ---------- */
+  .tblwrap{overflow-x:auto;margin:20px 0 24px}
+  table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.45}
+  th{
+    text-align:left;font-family:ui-monospace,monospace;
+    font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--ink-faint);padding:8px 14px 8px 0;border-bottom:2px solid var(--ink);
+  }
+  td{padding:10px 14px 10px 0;border-bottom:1px solid var(--line);vertical-align:top}
+  td:first-child{font-weight:600;white-space:nowrap}
+  .num{font-family:ui-monospace,monospace;font-variant-numeric:tabular-nums;font-size:13px}
+
+  /* ---------- callouts ---------- */
+  .rule-card{
+    margin:24px 0;padding:20px 22px;border-left:3px solid var(--gold);
+    background:var(--panel);border-radius:0 4px 4px 0;
+  }
+  .rule-card .rc-title{font-weight:700;font-size:15px;margin-bottom:6px}
+  .rule-card p{margin:0;font-size:14.5px;color:var(--ink-soft)}
+  .rule-card p b{color:var(--ink)}
+
+  .limits{margin:24px 0;border:1px solid var(--line);border-radius:4px}
+  .limits summary{
+    cursor:pointer;padding:14px 18px;font-weight:600;font-size:15px;
+    list-style:none;display:flex;align-items:center;gap:10px;
+  }
+  .limits summary::before{content:"▸";color:var(--gold);transition:transform .15s}
+  .limits[open] summary::before{transform:rotate(90deg)}
+  .limits summary::-webkit-details-marker{display:none}
+  .limits .inner{padding:0 18px 16px;border-top:1px solid var(--line)}
+  .limits ol{margin-top:14px}
+  .limits li{font-size:14.5px;color:var(--ink-soft)}
+  .limits li b{color:var(--ink)}
+  @media (prefers-reduced-motion: reduce){
+    .limits summary::before{transition:none}
+  }
+
+  /* ---------- proof strip ---------- */
+  .proof{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+    gap:1px;background:var(--line);border:1px solid var(--line);border-radius:4px;
+    margin:24px 0;overflow:hidden;
+  }
+  .proof div{background:var(--panel);padding:16px 16px 14px}
+  .proof .v{font-family:ui-monospace,monospace;font-weight:600;font-size:17px;font-variant-numeric:tabular-nums}
+  .proof .k{font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-faint);margin-top:4px}
+
+  footer{
+    margin-top:72px;padding-top:24px;border-top:2px solid var(--ink);
+    display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+    font-size:13.5px;color:var(--ink-soft);
+  }
+  footer .mono{font-size:12px}
+  a{color:var(--gold-deep);text-decoration:none;border-bottom:1px solid var(--line)}
+  a:hover{border-bottom-color:var(--gold)}
+  a:focus-visible,summary:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+<header>
+  <div class="brand">
+    <div class="name">CASH<span>LAB</span> · Flare validator &amp; FTSO entity</div>
+</body>
+</html>
+    <div class="tag">2026-08-26 · v1.0</div>
+  </div>
+  <h1>Self-Repaying Validator Credit</h1>
+  <p class="thesis">Validators sell reward FLR to pay their bills — a sell flow working against the FIRE buyback. <strong>Flare has already shipped the primitives to replace that selling with credit.</strong> This is the design.</p>
+  <div class="status">EVERY CLAIM VERIFIED AGAINST CHAIN AND SOURCE · 2026-08-26</div>
+</header>
+
+<section>
+  <p class="kicker">01 · The problem</p>
+  <h2>Operator costs are real, and selling rewards is the obvious way to pay them</h2>
+  <p class="lede">Every validator has real costs — servers, bandwidth, time — and an operator without outside income has one obvious way to fund them: selling reward FLR on-market. FIP.16 — accepted by governance in April 2026 with 98.06% support — attacks sell pressure from the revenue side (FIRE buys back and burns; inflation drops 5%→3%). Operator selling works against it every epoch.</p>
+  <p>Telling operators "just don't sell" isn't a mechanism. Giving them something <em>cheaper than selling</em> is — and it can be assembled almost entirely from contracts already live on Flare mainnet.</p>
+</section>
+
+<section>
+  <p class="kicker">02 · The insight</p>
+  <h2>Flare has already shipped the pieces of a credit stack</h2>
+  <figure>
+    <svg viewBox="0 0 640 300" role="img" aria-label="Four existing Flare primitives — reward streams, the pass ledger, claim routing, and FTSO pricing — stack into a validator credit market.">
+      <defs>
+        <marker id="arrA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="currentColor"/>
+        </marker>
+      </defs>
+      <!-- four layers -->
+      <g font-family="Inter,system-ui,sans-serif" font-size="12.5">
+        <rect x="20" y="20"  width="300" height="52" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"/>
+        <text x="36" y="42" font-weight="600">Reward streams</text>
+        <text x="36" y="59" opacity=".62" font-size="11.5">steady income · paid every 3.5 days</text>
+
+        <rect x="20" y="88"  width="300" height="52" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"/>
+        <text x="36" y="110" font-weight="600">FIP.10 pass ledger</text>
+        <text x="36" y="127" opacity=".62" font-size="11.5">public track record · every 3.5 days</text>
+
+        <rect x="20" y="156" width="300" height="52" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"/>
+        <text x="36" y="178" font-weight="600">Claim executors + recipients</text>
+        <text x="36" y="195" opacity=".62" font-size="11.5">payment routing · built in</text>
+
+        <rect x="20" y="224" width="300" height="52" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"/>
+        <text x="36" y="246" font-weight="600">FTSO price feed</text>
+        <text x="36" y="263" opacity=".62" font-size="11.5">fair pricing · built in</text>
+      </g>
+      <!-- converging arrows -->
+      <g stroke="currentColor" stroke-width="1.2" fill="none" opacity=".8">
+        <path d="M320 46  C 390 46, 420 118, 452 138" marker-end="url(#arrA)"/>
+        <path d="M320 114 C 380 114, 410 132, 450 144" marker-end="url(#arrA)"/>
+        <path d="M320 182 C 380 182, 410 164, 450 152" marker-end="url(#arrA)"/>
+        <path d="M320 250 C 390 250, 420 178, 452 158" marker-end="url(#arrA)"/>
+      </g>
+      <!-- result -->
+      <g font-family="Inter,system-ui,sans-serif">
+        <rect x="458" y="112" width="164" height="72" rx="3" fill="none" stroke="#c89f3b" stroke-width="2"/>
+        <text x="540" y="142" text-anchor="middle" font-size="13.5" font-weight="700">Validator credit</text>
+        <text x="540" y="160" text-anchor="middle" font-size="11.5" opacity=".62">underwritten, priced,</text>
+        <text x="540" y="174" text-anchor="middle" font-size="11.5" opacity=".62">and repaid on-chain</text>
+      </g>
+    </svg>
+    <figcaption><b>Four live primitives, one unbuilt product.</b> Steady income, a public track record, payment routing, and fair pricing all exist on Flare mainnet today. The missing piece is the vault that stacks them.</figcaption>
+  </figure>
+  <p>A track record nobody can fake, published by the network itself. Built-in permission for a wallet to let a contract collect its rewards and pass them along. A price feed run by the validators themselves. Everything a lender needs — proof of income, a way to get repaid, and a fair price — already lives on-chain.</p>
+</section>
+
+<section>
+  <p class="kicker">03 · The mechanism</p>
+  <h2>Borrow stables against the stream. Rewards retire the loan. Nothing touches the order book.</h2>
+  <figure>
+    <svg viewBox="0 0 660 330" role="img" aria-label="Loan lifecycle: lenders fund the vault with USDT0, the borrower draws it, each epoch the vault claims the borrower's rewards priced by the FTSO and passes the FLR to lenders. Margin sits in the vault but stays delegated back to the borrower.">
+      <defs>
+        <marker id="arrB" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="currentColor"/>
+        </marker>
+        <marker id="arrG" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="#c89f3b"/>
+        </marker>
+      </defs>
+      <g font-family="Inter,system-ui,sans-serif">
+        <!-- Lenders -->
+        <rect x="24" y="118" width="150" height="64" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"/>
+        <text x="99" y="145" text-anchor="middle" font-size="13.5" font-weight="700">Lenders</text>
+        <text x="99" y="163" text-anchor="middle" font-size="11" opacity=".62">FLR accumulators</text>
+
+        <!-- Vault -->
+        <rect x="256" y="106" width="150" height="88" rx="3" fill="none" stroke="#c89f3b" stroke-width="2"/>
+        <text x="331" y="136" text-anchor="middle" font-size="13.5" font-weight="700">Vault</text>
+        <text x="331" y="154" text-anchor="middle" font-size="11" opacity=".62">meters the balance</text>
+        <text x="331" y="169" text-anchor="middle" font-size="11" opacity=".62">holds the margin</text>
+
+        <!-- Borrower -->
+        <rect x="486" y="118" width="150" height="64" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"/>
+        <text x="561" y="145" text-anchor="middle" font-size="13.5" font-weight="700">Validator</text>
+        <text x="561" y="163" text-anchor="middle" font-size="11" opacity=".62">borrower</text>
+
+        <!-- top flow: USDT0 -->
+        <g stroke="currentColor" stroke-width="1.2" fill="none">
+          <path d="M174 132 L 256 132" marker-end="url(#arrB)"/>
+          <path d="M406 132 L 486 132" marker-end="url(#arrB)"/>
+        </g>
+        <text x="215" y="122" text-anchor="middle" font-size="11" font-family="ui-monospace,monospace">USDT0</text>
+        <text x="446" y="122" text-anchor="middle" font-size="11" font-family="ui-monospace,monospace">draw</text>
+
+        <!-- reward loop: borrower -> vault -> lenders (gold) -->
+        <g stroke="#c89f3b" stroke-width="1.6" fill="none">
+          <path d="M545 182 C 520 232, 420 232, 392 194" marker-end="url(#arrG)"/>
+          <path d="M270 194 C 240 232, 150 232, 112 182" marker-end="url(#arrG)"/>
+        </g>
+        <text x="468" y="238" text-anchor="middle" font-size="11" fill="#c89f3b" font-family="ui-monospace,monospace">rewards, each epoch</text>
+        <text x="188" y="238" text-anchor="middle" font-size="11" fill="#c89f3b" font-family="ui-monospace,monospace">FLR at oracle price</text>
+
+        <!-- FTSO pricing -->
+        <rect x="266" y="268" width="130" height="40" rx="3" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="4 3"/>
+        <text x="331" y="292" text-anchor="middle" font-size="12" font-weight="600">FTSO</text>
+        <g stroke="currentColor" stroke-width="1" fill="none" opacity=".7">
+          <path d="M331 268 L 331 200" stroke-dasharray="4 3" marker-end="url(#arrB)"/>
+        </g>
+        <text x="406" y="292" font-size="10.5" opacity=".62">prices each tranche</text>
+
+        <!-- margin note -->
+        <g stroke="currentColor" stroke-width="1" fill="none" opacity=".7">
+          <path d="M486 96 C 430 60, 380 70, 350 100" stroke-dasharray="4 3" marker-end="url(#arrB)"/>
+        </g>
+        <rect x="486" y="30" width="150" height="56" rx="3" fill="none" stroke="currentColor" stroke-width="1"/>
+        <text x="561" y="52" text-anchor="middle" font-size="12" font-weight="600">Margin</text>
+        <text x="561" y="68" text-anchor="middle" font-size="10.5" opacity=".62">WFLR delegated back,</text>
+        <text x="561" y="80" text-anchor="middle" font-size="10.5" opacity=".62">or stXRP (off-FLR)</text>
+      </g>
+    </svg>
+    <figcaption><b>The loop that replaces selling.</b> Stables flow left to right once; rewards flow back every 3.5 days, valued at FTSO price, until the balance clears. Lenders joined precisely to receive that FLR — so no token in the cycle ever crosses an order book. Margin secures the loan while continuing to work for its owner.</figcaption>
+  </figure>
+
+  <h3>Sizing — the dual cap</h3>
+  <p><span class="mono">line = min( 70% × trailing stream × term , 50% × margin value )</span><br>
+  <span class="soft">In plain terms: borrow up to 70% of what your rewards are on track to earn during the loan — but never more than half the value of the collateral you put up. The first cushion covers bad weeks; the second covers price drops.</span></p>
+
+  <h3>Underwriting — the pass ledger is a credit score</h3>
+  <p>Flare publishes every validator's report card — passes, strikes, uptime, eligibility — every 3.5 days, where anyone can check it. Loan terms read straight from that report card:</p>
+  <div class="tblwrap">
+  <table>
+    <tr><th>Tier</th><th>Chain-verifiable requirement</th><th>Terms</th></tr>
+    <tr><td>A</td><td>≥3M self-bond · ≥15M stake · 3/3 passes</td><td>Lowest rate, highest advance, thinnest margin</td></tr>
+    <tr><td>B</td><td>Pass-eligible · 1–2 passes</td><td>Standard</td></tr>
+    <tr><td>C</td><td>≥1M self-bond · reward-eligible · 0 passes</td><td>Small line, heavy margin</td></tr>
+    <tr><td>—</td><td>Recent strikes</td><td>No loan until the record heals</td></tr>
+  </table>
+  </div>
+
+  <div class="rule-card">
+    <div class="rc-title">The floating pass-rate</div>
+    <p>Interest reprices <b>every epoch</b> from the borrower's live pass count — hold 3/3 passes and pay ~6%; take a strike and drift toward 9% until the record heals. In short: the better you run your validator, the cheaper your money — recalculated every 3.5 days from public records. It also hands validators a direct cash incentive to maintain exactly the discipline the network already wants.</p>
+  </div>
+
+  <h3>No liquidation price — a state trigger</h3>
+  <figure>
+    <svg viewBox="0 0 640 170" role="img" aria-label="Default timeline: a missed epoch does nothing; only four consecutive dead epochs plus non-payment, then a seven-day grace, leads to settlement from margin — with all excess returned to the borrower.">
+      <defs>
+        <marker id="arrC" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="currentColor"/>
+        </marker>
+      </defs>
+      <g font-family="Inter,system-ui,sans-serif">
+        <line x1="30" y1="70" x2="610" y2="70" stroke="currentColor" stroke-width="1.4" marker-end="url(#arrC)"/>
+        <!-- tick 1 -->
+        <circle cx="90" cy="70" r="5" fill="none" stroke="currentColor" stroke-width="1.4"/>
+        <text x="90" y="45" text-anchor="middle" font-size="12" font-weight="600">Missed epoch</text>
+        <text x="90" y="100" text-anchor="middle" font-size="11" opacity=".62">nothing happens —</text>
+        <text x="90" y="114" text-anchor="middle" font-size="11" opacity=".62">payoff date drifts</text>
+        <!-- tick 2 -->
+        <circle cx="255" cy="70" r="5" fill="none" stroke="currentColor" stroke-width="1.4"/>
+        <text x="255" y="45" text-anchor="middle" font-size="12" font-weight="600">4 dead epochs + no payment</text>
+        <text x="255" y="100" text-anchor="middle" font-size="11" opacity=".62">~2 weeks of a broken validator</text>
+        <text x="255" y="114" text-anchor="middle" font-size="11" opacity=".62">and a borrower who won't top up</text>
+        <!-- tick 3 -->
+        <circle cx="430" cy="70" r="5" fill="none" stroke="currentColor" stroke-width="1.4"/>
+        <text x="430" y="45" text-anchor="middle" font-size="12" font-weight="600">7-day grace</text>
+        <text x="430" y="100" text-anchor="middle" font-size="11" opacity=".62">repay or top up,</text>
+        <text x="430" y="114" text-anchor="middle" font-size="11" opacity=".62">any time</text>
+        <!-- tick 4 (gold) -->
+        <circle cx="560" cy="70" r="6" fill="#c89f3b"/>
+        <text x="560" y="45" text-anchor="middle" font-size="12" font-weight="700">Settlement</text>
+        <text x="560" y="100" text-anchor="middle" font-size="11" opacity=".62">debt + fee from margin;</text>
+        <text x="560" y="114" text-anchor="middle" font-size="11" opacity=".62">every excess token returns</text>
+      </g>
+    </svg>
+    <figcaption><b>No price wick can liquidate anyone.</b> The only path to losing collateral is a genuinely abandoned validator plus a refusal to pay — a state, not a price. In the spirit of Lodestar's "we replaced the liquidation price with a date."</figcaption>
+  </figure>
+
+  <div class="rule-card">
+    <div class="rc-title">Settlement-only seizure — the anti-predation rule</div>
+    <p>On default the vault takes <b>exactly</b> the balance, accrued interest, and a fixed default fee. Every remaining token returns to the borrower. Lenders are assured <b>recovery up to margin, never enrichment</b> — so no party ever profits from causing a borrower to fail. This forecloses the loan-to-own attack class by construction, and it is why the credit prices cheap: near-certain recovery prices like secured lending, not venture debt.</p>
+  </div>
+</section>
+
+<section>
+  <p class="kicker">04 · Lender economics</p>
+  <h2>A DCA machine that pays you to use it</h2>
+  <p>The lender this is built for is <strong>someone who wants to build up a FLR position anyway</strong>. Put in stablecoins; receive the borrowers' FLR rewards in small batches every 3.5 days, at the oracle's fair price — <em>building a position without moving the market or paying an exchange spread</em> — plus interest on top. If a borrower defaults, the collateral pays you back, up to its value. The risk you keep is FLR's price while you accumulate: the same risk anyone buying FLR takes, with ~6–9% yearly interest added. Positions can be sold to another lender mid-term.</p>
+</section>
+
+<section>
+  <p class="kicker">05 · Stated limitations</p>
+  <h2>We'd rather you hear these from us</h2>
+  <details class="limits" open>
+    <summary>Six known limitations, and what cures each</summary>
+    <div class="inner">
+      <ol>
+        <li><b>The income pledge isn't ironclad on normal wallets.</b> Owners can always self-claim around the vault, so v1 is honestly a <b>margin-backed loan whose normal path is self-repayment</b> — the innovation is the UX and the underwriting data. Cured in v2 by claim-binding accounts.</li>
+        <li><b>Everyone's rewards can change at once.</b> A network-wide reward change shrinks every stream at once — FIP.16's accepted restructuring is reshaping reward economics now, and future governance can again. Mitigated by short terms (the book reprices each roll), reserves, and conservative haircuts.</li>
+        <li><b>Rewards expire if nobody claims them (~90 days).</b> The keeper must claim on schedule; redundant keepers required. Structurally solved by v2 enrollment.</li>
+        <li><b>The market starts small.</b> Flare's validator set alone is a niche book — the cross-chain roadmap is where the market becomes large.</li>
+        <li><b>The insurance layer is new.</b> Cover terms must be pre-agreed with Firelight; open design item, not a solved one.</li>
+        <li><b>Lending has legal weight.</b> The operator needs real counsel — and CashLab is explicitly not volunteering to operate or custody.</li>
+      </ol>
+    </div>
+  </details>
+</section>
+
+<section>
+  <p class="kicker">06 · Roadmap</p>
+  <h2>Each phase names exactly what it builds on — and what it still needs</h2>
+  <figure>
+    <svg viewBox="0 0 660 210" role="img" aria-label="Roadmap: v1 margin-backed credit today; v2 smart accounts bind the stream and add Firelight cover; v3 a small P-chain FIP makes the self-bond hard collateral; v4 the FDC attests other chains' reward histories, making Flare the credit layer for all proof-of-stake.">
+      <defs>
+        <marker id="arrD" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="currentColor"/>
+        </marker>
+      </defs>
+      <g font-family="Inter,system-ui,sans-serif">
+        <line x1="24" y1="52" x2="636" y2="52" stroke="currentColor" stroke-width="1.4" marker-end="url(#arrD)"/>
+        <g>
+          <circle cx="70" cy="52" r="5" fill="currentColor"/>
+          <text x="70" y="30" text-anchor="middle" font-size="12.5" font-weight="700">v1 · today</text>
+          <text x="70" y="76" text-anchor="middle" font-size="11" opacity=".72">margin-backed,</text>
+          <text x="70" y="90" text-anchor="middle" font-size="11" opacity=".72">self-repaying,</text>
+          <text x="70" y="104" text-anchor="middle" font-size="11" opacity=".72">pass-priced</text>
+        </g>
+        <g>
+          <circle cx="240" cy="52" r="5" fill="currentColor"/>
+          <text x="240" y="30" text-anchor="middle" font-size="12.5" font-weight="700">v2 · account abstraction</text>
+          <text x="240" y="76" text-anchor="middle" font-size="11" opacity=".72">claim-binding accounts:</text>
+          <text x="240" y="90" text-anchor="middle" font-size="11" opacity=".72">stream binding, no expiry;</text>
+          <text x="240" y="104" text-anchor="middle" font-size="11" opacity=".72">Firelight covers the vault</text>
+        </g>
+        <g>
+          <circle cx="415" cy="52" r="5" fill="currentColor"/>
+          <text x="415" y="30" text-anchor="middle" font-size="12.5" font-weight="700">v3 · one small FIP</text>
+          <text x="415" y="76" text-anchor="middle" font-size="11" opacity=".72">SetStakeReturnBeneficiary:</text>
+          <text x="415" y="90" text-anchor="middle" font-size="11" opacity=".72">the self-bond becomes</text>
+          <text x="415" y="104" text-anchor="middle" font-size="11" opacity=".72">hard collateral, mid-bond</text>
+        </g>
+        <g>
+          <circle cx="580" cy="52" r="6" fill="#c89f3b"/>
+          <text x="580" y="30" text-anchor="middle" font-size="12.5" font-weight="700">v4 · FDC</text>
+          <text x="580" y="76" text-anchor="middle" font-size="11" opacity=".72">extend attestation to other</text>
+          <text x="580" y="90" text-anchor="middle" font-size="11" opacity=".72">chains' reward histories:</text>
+          <text x="580" y="104" text-anchor="middle" font-size="11" opacity=".72">Flare as PoS credit layer</text>
+        </g>
+        <!-- product callouts -->
+        <g font-size="10.5" opacity=".62">
+          <text x="24" y="150">Uses, in order: claim executors + FTSO + pass ledger → claim-binding accounts (extending live Smart Accounts) + Firelight →</text>
+          <text x="24" y="168">one P-chain transaction type → FDC attestation types extended beyond today's BTC/DOGE/XRP/EVM set. Four Flare products, one use case.</text>
+        </g>
+      </g>
+    </svg>
+    <figcaption><b>The v3 ask is deliberately tiny:</b> a small addition letting a validator declare, at any point during the bond, where the stake pays out when it ends — and once a lender is named, only that lender can release it. It converts the most locked, most verifiable asset on the network into usable collateral, and it collapses margin requirements and rates when it lands.</figcaption>
+  </figure>
+
+  <h3>Why this serves Flare</h3>
+  <ul>
+    <li><strong>Deletes operator sell pressure at the source</strong> — the complement to FIRE: revenue removes FLR; this keeps operator flow from ever reaching the market.</li>
+    <li><strong>Pays validators to maintain pass discipline</strong> via the floating rate.</li>
+    <li><strong>Creates organic premium demand</strong> for Firelight's cover market.</li>
+    <li><strong>Gives FAssets and the FDC a concrete use case.</strong></li>
+    <li><strong>Retains small validators</strong> — the operators for whom opex-versus-selling is a monthly dilemma.</li>
+  </ul>
+</section>
+
+<section>
+  <p class="kicker">07 · About</p>
+  <h2>Where this comes from</h2>
+  <p>CashLab runs a small Flare validator and FTSO entity (<span class="mono">NodeID-8Tp4GLFe…L6Zec</span>). We're early — a few settled epochs — but so far every reward we've claimed has stayed on-network, wrapped and delegated, and we'd like a mechanism that makes that choice practical for operators without outside income. This design came out of working Flare's claim and reward systems daily. It's offered as a conversation starter, not a product — tear it apart.</p>
+</section>
+
+<footer>
+  <div><strong>CashLab</strong> · <a href="https://cashlab.network">cashlab.network</a></div>
+  <div class="mono">hello@cashlab.network</div>
+</footer>
+</div>
