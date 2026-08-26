@@ -177,8 +177,6 @@
 <header>
   <div class="brand">
     <div class="name">CASH<span>LAB</span> · Flare validator &amp; FTSO entity</div>
-</body>
-</html>
     <div class="tag">2026-08-26 · v1.0</div>
   </div>
   <h1>Self-Repaying Validator Credit</h1>
@@ -188,14 +186,14 @@
 
 <section>
   <p class="kicker">01 · The problem</p>
-  <h2>Operator costs are real, and selling rewards is the obvious way to pay them</h2>
+  <h2>Operators sell to pay the bills</h2>
   <p class="lede">Every validator has real costs — servers, bandwidth, time — and an operator without outside income has one obvious way to fund them: selling reward FLR on-market. FIP.16 — accepted by governance in April 2026 with 98.06% support — attacks sell pressure from the revenue side (FIRE buys back and burns; inflation drops 5%→3%). Operator selling works against it every epoch.</p>
   <p>Telling operators "just don't sell" isn't a mechanism. Giving them something <em>cheaper than selling</em> is — and it can be assembled almost entirely from contracts already live on Flare mainnet.</p>
 </section>
 
 <section>
   <p class="kicker">02 · The insight</p>
-  <h2>Flare has already shipped the pieces of a credit stack</h2>
+  <h2>The pieces already exist on Flare</h2>
   <figure>
     <svg viewBox="0 0 640 300" role="img" aria-label="Four existing Flare primitives — reward streams, the pass ledger, claim routing, and FTSO pricing — stack into a validator credit market.">
       <defs>
@@ -243,7 +241,7 @@
 
 <section>
   <p class="kicker">03 · The mechanism</p>
-  <h2>Borrow stables against the stream. Rewards retire the loan. Nothing touches the order book.</h2>
+  <h2>The loan that repays itself</h2>
   <figure>
     <svg viewBox="0 0 660 330" role="img" aria-label="Loan lifecycle: lenders fund the vault with USDT0, the borrower draws it, each epoch the vault claims the borrower's rewards priced by the FTSO and passes the FLR to lenders. Margin sits in the vault but stays delegated back to the borrower.">
       <defs>
@@ -364,21 +362,30 @@
     <figcaption><b>No price wick can liquidate anyone.</b> The only path to losing collateral is a genuinely abandoned validator plus a refusal to pay — a state, not a price. In the spirit of Lodestar's "we replaced the liquidation price with a date."</figcaption>
   </figure>
 
+  <h3>What about the self-bond?</h3>
+  <p>The self-bond looks like perfect collateral — millions of FLR, provably locked, readable live from the chain. The catch: it sits on the P-chain, which has no smart contracts, and when the bond ends it returns automatically to its owner. A lender can see it but can never take it. So the design uses it three ways:</p>
+  <ul>
+    <li><strong>As a qualification.</strong> The top tier requires ≥3M self-bond and ≥15M stake — the same bar Flare itself sets for earning passes.</li>
+    <li><strong>As a promise with teeth (today).</strong> The loan requires keeping the self-bond and pass status intact for its whole life. Dropping either counts the same as a dead income stream — it starts the default clock.</li>
+    <li><strong>As true collateral (with one small protocol addition).</strong> Let a validator declare, at any point during the bond, where the stake pays out when it ends — releasable only by the named lender until the loan clears. That single change makes the most locked asset on the network usable as hard collateral, and loans backed by it need far less margin and cost less. Existing bonds could enroll mid-term, so nobody waits out a 365-day bond to qualify.</li>
+  </ul>
+  <p>Even then, a default takes only what's owed — the rest of the bond comes back to its owner. That rule is what keeps the whole system honest:</p>
+
   <div class="rule-card">
-    <div class="rc-title">Settlement-only seizure — the anti-predation rule</div>
+    <div class="rc-title">Default is a settlement, not a jackpot</div>
     <p>On default the vault takes <b>exactly</b> the balance, accrued interest, and a fixed default fee. Every remaining token returns to the borrower. Lenders are assured <b>recovery up to margin, never enrichment</b> — so no party ever profits from causing a borrower to fail. This forecloses the loan-to-own attack class by construction, and it is why the credit prices cheap: near-certain recovery prices like secured lending, not venture debt.</p>
   </div>
 </section>
 
 <section>
   <p class="kicker">04 · Lender economics</p>
-  <h2>A DCA machine that pays you to use it</h2>
+  <h2>Why lenders show up</h2>
   <p>The lender this is built for is <strong>someone who wants to build up a FLR position anyway</strong>. Put in stablecoins; receive the borrowers' FLR rewards in small batches every 3.5 days, at the oracle's fair price — <em>building a position without moving the market or paying an exchange spread</em> — plus interest on top. If a borrower defaults, the collateral pays you back, up to its value. The risk you keep is FLR's price while you accumulate: the same risk anyone buying FLR takes, with ~6–9% yearly interest added. Positions can be sold to another lender mid-term.</p>
 </section>
 
 <section>
   <p class="kicker">05 · Stated limitations</p>
-  <h2>We'd rather you hear these from us</h2>
+  <h2>What we haven't solved</h2>
   <details class="limits" open>
     <summary>Six known limitations, and what cures each</summary>
     <div class="inner">
@@ -396,7 +403,7 @@
 
 <section>
   <p class="kicker">06 · Roadmap</p>
-  <h2>Each phase names exactly what it builds on — and what it still needs</h2>
+  <h2>The road from here</h2>
   <figure>
     <svg viewBox="0 0 660 210" role="img" aria-label="Roadmap: v1 margin-backed credit today; v2 smart accounts bind the stream and add Firelight cover; v3 a small P-chain FIP makes the self-bond hard collateral; v4 the FDC attests other chains' reward histories, making Flare the credit layer for all proof-of-stake.">
       <defs>
@@ -465,3 +472,5 @@
   <div class="mono">hello@cashlab.network</div>
 </footer>
 </div>
+</body>
+</html>
