@@ -112,6 +112,7 @@
   /* ---------- figures ---------- */
   figure{margin:32px 0;padding:28px 20px 18px;background:var(--panel);border:1px solid var(--line);border-radius:4px;overflow-x:auto}
   figure svg{display:block;max-width:100%;height:auto;margin:0 auto;color:var(--ink)}
+  figure svg text:not([fill]){fill:currentColor}
   figcaption{
     margin-top:14px;font-size:13px;line-height:1.5;color:var(--ink-soft);
     max-width:60ch;padding-top:12px;border-top:1px solid var(--line);
@@ -181,7 +182,7 @@
 <div class="wrap">
 <header>
   <div class="brand">
-    <div class="name"><a href="https://cashlab.network/" style="border-bottom:none;display:inline-flex;align-items:center;gap:10px"><img src="/images/cashlab-lockup-header.png" alt="CashLab — home" style="height:40px;width:auto;display:block"></a></div>
+    <div class="name"><a href="https://cashlab.network/" style="border-bottom:none;display:inline-flex;align-items:center;gap:10px"><img src="/images/cashlab-lockup-header.png" alt="CashLab — home" style="height:40px;width:auto;display:block;background:#fff;padding:6px 12px;border-radius:6px;box-sizing:content-box"></a></div>
     <div class="tag">2026-08-26 · v1.0</div>
   </div>
   <h1>Self-Repaying Validator Credit</h1>
