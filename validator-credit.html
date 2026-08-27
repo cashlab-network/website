@@ -183,7 +183,7 @@
 <header>
   <div class="brand">
     <div class="name"><a href="https://cashlab.network/" style="border-bottom:none;display:inline-flex;align-items:center;gap:10px"><img src="/images/cashlab-lockup-header.png" alt="CashLab — home" style="height:40px;width:auto;display:block;background:#fff;padding:6px 12px;border-radius:6px;box-sizing:content-box"></a></div>
-    <div class="tag">2026-08-26 · v1.0</div>
+    <div class="tag">2026-08-26 · updated 08-27 · v1.1</div>
   </div>
   <h1>Self-Repaying Validator Credit</h1>
   <p class="thesis">Validators sell reward FLR to pay their bills — a sell flow working against the FIRE buyback. <strong>Flare has already shipped the building blocks to replace that selling with credit.</strong> This is the design.</p>
@@ -313,7 +313,7 @@
   </figure>
 
   <h3>How much can you borrow?</h3>
-  <p>Up to 70% of what your rewards are on track to earn during the loan — but never more than half the value of the collateral you put up. The first cushion covers bad weeks; the second covers price drops.<br>
+  <p>Up to 70% of what your rewards are on track to earn during the loan — but never more than half the value of the collateral you put up. The first cushion covers bad weeks; the second covers price drops. (On fixed-FLR loans, debt and collateral are both FLR — that ratio cannot be moved by price.)<br>
   <span class="soft mono" style="font-size:12.5px">line = min( 70% × trailing rewards × term , 50% × collateral value )</span></p>
 
   <h3>Underwriting — the pass ledger is a credit score</h3>
@@ -386,7 +386,16 @@
 <section>
   <p class="kicker">04 · Lender economics</p>
   <h2>Why lenders show up</h2>
-  <p>The lender this is built for is <strong>someone who wants to build up a FLR position anyway</strong>. Put in stablecoins; receive the borrowers' FLR rewards in small batches every 3.5 days, at the oracle's fair price — <em>building a position without moving the market or paying an exchange spread</em> — plus interest on top. If a borrower defaults, the collateral pays you back, up to its value. The risk you keep is FLR's price while you accumulate: the same risk anyone buying FLR takes, with ~6–9% yearly interest added. Positions can be sold to another lender mid-term.</p>
+  <div class="rule-card">
+    <div class="rc-title">Updated Aug 27 — after pushback, and the pushback was right</div>
+    <p>The first version of this section gave lenders a dollar-based claim, repaid in FLR at delivery prices — which quietly capped their upside: if FLR rose, the lender missed most of the ride. A reader called it out. The fix is better than a patch: <b>two loan flavors, and the lender picks their risk.</b></p>
+  </div>
+  <p>Every loan is written in one of two flavors, chosen when it opens:</p>
+  <h3>Fixed-FLR loans (the new default)</h3>
+  <p>The borrower owes a <strong>fixed number of FLR</strong>, set by the oracle price on day one. The lender's return: <strong>full FLR upside plus interest</strong> — strictly better than buying the same FLR on the market, since coins you hold pay nothing. Their risk: FLR's price, same as any holder. And because the borrower's income is also FLR, their repayment schedule is price-proof — the same number of epochs whatever the price does — and the coverage between FLR debt and FLR collateral can't be moved by price at all. The borrower's trade: they've effectively sold those coins forward at today's price — <em>off-market, so the network still sees zero sell pressure</em> — and they give up the upside on the repaid coins. In exchange: the cheapest rates in the system.</p>
+  <h3>Fixed-dollar loans</h3>
+  <p>The borrower owes a dollar amount, repaid in FLR valued at each epoch's oracle price. The borrower keeps all the upside — a rising price means fewer coins to repay — so lenders charge a higher rate for accepting the cap, and in return get real downside protection: falling prices deliver them more coins per dollar owed, and collateral settles any default, up to its value.</p>
+  <p>Bulls borrow in dollars and lend in FLR; cautious capital does the reverse. The rate gap between the two flavors is set by whoever shows up — a market discovering the price of upside, not a fixed product.</p>
 </section>
 
 <section>
