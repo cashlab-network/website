@@ -404,14 +404,15 @@
   <p class="kicker">05 · Stated limitations</p>
   <h2>What we haven't solved</h2>
   <details class="limits" open>
-    <summary>Six known limitations, and what cures each</summary>
+    <summary>Seven known limitations, and what cures each</summary>
     <div class="inner">
       <ol>
         <li><b>The income pledge isn't ironclad on normal wallets.</b> Owners can always self-claim around the vault, so v1 is honestly a <b>collateral-backed loan whose normal path is self-repayment</b> — the innovation is the UX and the underwriting data. Cured in v2 by claim-binding accounts.</li>
-        <li><b>Everyone's rewards can change at once.</b> A network-wide reward change shrinks every stream at once — FIP.16's accepted restructuring is reshaping reward economics now, and future governance can again. Mitigated by short loans that renew at current reward levels, a reserve fund, and cautious loan sizing.</li>
+        <li><b>Everyone's rewards can change at once.</b> A network-wide reward change shrinks every stream at once — FIP.16's accepted restructuring is reshaping reward economics now, and future governance can again. On fixed-dollar loans that stretches coverage; on fixed-FLR loans it stretches <em>time</em> — the same coins owed take more epochs to earn. Mitigated by short loans that renew at current reward levels, a reserve fund, and cautious loan sizing.</li>
         <li><b>Rewards expire if nobody claims them (~90 days).</b> An automated claimer must run on schedule, with a backup. Structurally solved by v2 enrollment.</li>
         <li><b>The market starts small.</b> Flare's validator set alone is a niche book — the cross-chain roadmap is where the market becomes large.</li>
         <li><b>The insurance layer is new.</b> Cover terms must be pre-agreed with Firelight (the on-Flare insurance market this design would buy cover from); open design item, not a solved one.</li>
+        <li><b>Two flavors need two crowds.</b> Rates here are discovered, not set — and a young market with few lenders and few borrowers may not discover them cleanly at first. Early loans will likely need hand-matched or anchor capital before the spread between the flavors settles.</li>
         <li><b>Lending has legal weight.</b> The operator needs real counsel — and CashLab is explicitly not volunteering to operate or custody.</li>
       </ol>
     </div>
