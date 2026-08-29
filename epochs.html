@@ -246,6 +246,64 @@ source files and the chain-verified merkle root per epoch.
 </div>
 
 
+<!-- ================= EPOCH 427 ================= -->
+<h2 id="e427">Epoch 427<span class="when">Aug 24 – Aug 27, 2026 · ended Aug 27</span><span class="verdict paid">PAID</span></h2>
+
+<p>All four gates passed, zero strikes. Pass banked — buffer now 3.</p>
+
+<h3>The four gates</h3>
+<table>
+  <tr>
+    <td>FTSO accuracy<div class="sub">votes within 0.5% of consensus median</div></td>
+    <td><span class="num">98.54%</span> <span class="frac">205,278 / 208,320 · needs 80% · rank 86 of 100 providers · network median 99.79% · 98 of 100 cleared the floor</span></td>
+    <td style="text-align:right"><span class="chip pass">✓ PASS</span></td>
+  </tr>
+  <tr>
+    <td>FDC participation<div class="sub">attestation rounds rewarded</div></td>
+    <td><span class="num">100.0%</span> <span class="frac">3,359 / 3,360 · needs 60%</span></td>
+    <td style="text-align:right"><span class="chip pass">✓ PASS</span></td>
+  </tr>
+  <tr>
+    <td>Validator uptime<div class="sub">3,000,000 FLR self-bond</div></td>
+    <td><span class="num">99.9961%</span> <span class="frac">needs 80%</span></td>
+    <td style="text-align:right"><span class="chip pass">✓ PASS</span></td>
+  </tr>
+  <tr>
+    <td>Fast updates<div class="sub">block-latency submissions</div></td>
+    <td><span class="num">704</span> <span class="frac">vs 491 expected · needs ≥491</span></td>
+    <td style="text-align:right"><span class="chip pass">✓ PASS</span></td>
+  </tr>
+</table>
+
+<h3>What it returned</h3>
+<table>
+  <tr>
+    <td>Delegation (wNat)<div class="sub">what a delegator earned, net of our 20% fee</div></td>
+    <td><span class="num">2.41%</span> <span class="frac">APR · network median 1.41%</span></td>
+    <td style="text-align:right"><span class="chip pass">PAID</span></td>
+  </tr>
+  <tr>
+    <td>Staking (mirror)<div class="sub">what a staker earned, net of our 20% fee</div></td>
+    <td><span class="num">12.05%</span> <span class="frac">APR · network median 7.04%</span></td>
+    <td style="text-align:right"><span class="chip pass">PAID</span></td>
+  </tr>
+</table>
+<p style="margin-top:10px;font-size:13px;color:var(--muted)">
+Rates are <strong>realized</strong>, not projected: derived from the epoch's actual payout file
+(<code>reward-distribution-data.json</code>) as reward ÷ weight, annualized simply over
+104.36 epochs per year — no compounding assumed, because rewards must be claimed and
+re-delegated to compound. The network median covers the 91 providers that paid out in
+this epoch. 20,446.50 FLR went to delegators and stakers this epoch; our fee was 5,111.63 FLR.
+Our method reproduces Flare's own published per-provider rates exactly.
+</p>
+
+<!-- OPERATOR: optional narrative for epoch 427 goes here (what changed, incidents, new feeds). Machine text above is complete without it. -->
+
+<div class="note">
+Delegators: epoch 427 rewards are claimable now and expire about 90 days after the epoch ends
+(~Nov 25, 2026; the exact cutoff is set on-chain as epochs leave the claimable window). Unclaimed rewards are lost — claim before then.
+</div>
+
 <!-- ================= EPOCH 426 ================= -->
 <h2 id="e426">Epoch 426<span class="when">Aug 20 – Aug 24, 2026 · ended Aug 24</span><span class="verdict paid">PAID</span></h2>
 
