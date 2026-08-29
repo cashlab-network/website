@@ -1,16 +1,16 @@
 {
  "$comment": "CashLab (cashlab.network) per-reward-epoch history on Flare mainnet. Schema (see schema_version): snapshot (point-in-time values DERIVED at generation time -- activeStake.flr read live from PChainStakeMirror.votePowerOf(bytes20 nodeId) on the public Flare RPC, feeds.configured from CashLab's control plane cross-checked against its gate denominator; asOf = generated_at, nothing is hand-written); epochs[] sorted ascending by epoch; per epoch: dates (UTC ISO-8601 start/end of the reward epoch, derived from the official voting-round ids -- the canonical per-epoch date is dates.end, the reward-epoch END; no settlement timestamp exists in the official files, and the settledUtc field of schema 1 was a pipeline RUN time, not data, so it was removed), paid (eligibleForReward from Flare's official minimal-conditions.json), gates.ftso/.fdc (pct = 100*num/den from the official settlement record; num and den are published so you can check the division), gates.staking (uptimePct is a POINT-IN-TIME read of the validator's uptime when the epoch's report was published, not an epoch average -- the official record only attests the >=80% boolean 'pass'; selfBond in whole FLR), gates.fastUpdates (actual vs expected submissions), returns (realized APR %, net of fee, annualized simply over 104.36 epochs/yr, no compounding; medians = network median across providers that paid that epoch), flr (whole-FLR amounts paid to delegators+stakers, and our fee), sources (the official flare-foundation/fsp-rewards files every number derives from; merkleRoot was verified on chain against FlareSystemsManager.rewardsHash(epoch) before this file was built). Realized historical results, not advice and not a projection.",
  "schema_version": "2.0.0",
- "generated_at": "2026-08-29T03:27:57Z",
+ "generated_at": "2026-08-29T15:08:06Z",
  "snapshot": {
-  "asOf": "2026-08-29T03:27:57Z",
+  "asOf": "2026-08-29T15:08:06Z",
   "activeStake": {
    "flr": 17288000,
    "nodeId": "NodeID-8Tp4GLFefnrLzzD7YU6qvEzDRRT1L6Zec",
    "source": "PChainStakeMirror(0x7b61f9f27153a4f2f57dc30bf08a8eb0ccb96c22).votePowerOf(0x51daf9e19d292505b4a259ebb334129ac09c4e4e) via https://flare-api.flare.network/ext/C/rpc, read at generation time"
   },
   "feeds": {
-   "configured": 63,
+   "configured": 62,
    "source": "repo/control/CONTROL.json configured_feeds_count, cross-checked == its gate feed denominator"
   }
  },
