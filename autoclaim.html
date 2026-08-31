@@ -8,14 +8,14 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://cashlab.network/autoclaim">
 <meta property="og:title" content="CashLab — Auto-Claim">
-<meta property="og:description" content="CashLab's auto-claim executor pushes your Flare delegation and staking rewards to your own wallet as WFLR for a flat 0.25 FLR fee per claim (0.1 FLR until reward epoch 429). Non-custodial, enforced by Flare's own contracts. In soft launch — not announced yet.">
+<meta property="og:description" content="CashLab's auto-claim executor pushes your Flare delegation and staking rewards to your own wallet as WFLR for a flat 0.25 FLR fee per claim. Non-custodial, enforced by Flare's own contracts. In soft launch — not announced yet.">
 <meta property="og:image" content="https://cashlab.network/images/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="CashLab — Auto-Claim">
-<meta name="twitter:description" content="CashLab's auto-claim executor pushes your Flare delegation and staking rewards to your own wallet as WFLR for a flat 0.25 FLR fee per claim (0.1 FLR until reward epoch 429). Non-custodial, enforced by Flare's own contracts. In soft launch — not announced yet.">
+<meta name="twitter:description" content="CashLab's auto-claim executor pushes your Flare delegation and staking rewards to your own wallet as WFLR for a flat 0.25 FLR fee per claim. Non-custodial, enforced by Flare's own contracts. In soft launch — not announced yet.">
 <meta name="twitter:image" content="https://cashlab.network/images/og-image.png">
 
-<meta name="description" content="CashLab's auto-claim executor pushes your Flare delegation and staking rewards to your own wallet as WFLR for a flat 0.25 FLR fee per claim (0.1 FLR until reward epoch 429). Non-custodial, enforced by Flare's own contracts. In soft launch — not announced yet.">
+<meta name="description" content="CashLab's auto-claim executor pushes your Flare delegation and staking rewards to your own wallet as WFLR for a flat 0.25 FLR fee per claim. Non-custodial, enforced by Flare's own contracts. In soft launch — not announced yet.">
 <link rel="icon" href="images/favicon.ico">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <style>
@@ -109,7 +109,7 @@ a:hover{color:#a8842c}
       "name": "What does it cost, in full?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "0.1 FLR per claim today, 0.25 FLR from reward epoch 429 (~Aug 31, 2026) — scheduled on-chain and visible in advance on the ClaimSetupManager contract. The fee is deducted from the rewards being claimed, and one claim covers every unclaimed epoch you have. At enrollment you pay the per-claim fee once. 0 FLR is ever sent to CashLab directly — you never transfer funds to CashLab, and anyone asking you to is a scammer."
+        "text": "0.25 FLR per claim — live since reward epoch 429 (Aug 31, 2026); the change from the launch fee of 0.1 FLR was scheduled on-chain and visible in advance on the ClaimSetupManager contract. The fee is deducted from the rewards being claimed, and one claim covers every unclaimed epoch you have. At enrollment you pay the per-claim fee once. 0 FLR is ever sent to CashLab directly — you never transfer funds to CashLab, and anyone asking you to is a scammer."
       }
     },
     {
@@ -172,7 +172,7 @@ Delegate or stake with CashLab and stop clicking &ldquo;claim&rdquo; every 3.5 d
 Authorize the CashLab executor once in the Flare portal, and each reward epoch we
 deliver your delegation and staking rewards <strong>straight to your own wallet as
 WFLR</strong> — automatically, on-chain, minus a flat fee per
-claim (0.1&nbsp;FLR today; 0.25&nbsp;FLR from reward epoch 429, scheduled on-chain). We never hold your funds.
+claim (0.25&nbsp;FLR, scheduled on-chain and live since reward epoch 429). We never hold your funds.
 </p>
 </div>
 
@@ -201,7 +201,7 @@ whenever you like.
   <tr><td>Where rewards go</td><td><strong>Your own wallet</strong> (or your Flare delegation account, if you
       enabled one), wrapped as WFLR. The payout address comes from Flare's
       ClaimSetupManager contract — the executor has no way to redirect it.</td></tr>
-  <tr><td>Fee per claim</td><td><strong>0.1 FLR today; 0.25 FLR from reward epoch 429</strong> (~Aug 31, 2026),
+  <tr><td>Fee per claim</td><td><strong>0.25 FLR</strong> — live since reward epoch 429 (Aug 31, 2026),
       deducted from the claimed rewards. The increase was scheduled on-chain on
       2026-08-24 and is visible in advance on the
       <a href="https://flare-explorer.flare.network/address/0xD56c0Ea37B848939B59e6F5Cda119b3fA473b5eB" rel="noopener">ClaimSetupManager
@@ -231,8 +231,8 @@ cost recovery, not margin.
 
 <h2>What it costs you, in full</h2>
 <div class="grid">
-  <div class="card"><div class="label">Per claim</div><div class="value">0.1 FLR <span style="font-size:14px;color:var(--muted)">now</span></div>
-    <div style="font-size:13px;font-weight:600">0.25 FLR from reward epoch 429 (~Aug 31) — scheduled on-chain</div>
+  <div class="card"><div class="label">Per claim</div><div class="value">0.25 FLR</div>
+    <div style="font-size:13px;font-weight:600">Live since reward epoch 429 (Aug 31, 2026) — the raise from the 0.1 FLR launch fee was scheduled on-chain in advance</div>
     <div style="font-size:13px;color:var(--muted)">Deducted from the rewards being claimed. One claim covers every unclaimed epoch you have.</div></div>
   <div class="card"><div class="label">Once, at enrollment</div><div class="value" style="font-size:16px">Same as the per-claim fee</div>
     <div style="font-size:13px;color:var(--muted)">Whatever the per-claim fee is on the day you enroll — attached by the portal; paid to the executor by the protocol.</div></div>
@@ -292,8 +292,7 @@ take your rewards.</strong>
 wallet asks you to confirm the enrollment transaction, it shows the amount
 attached — that amount is the executor's current fee, paid once at enrollment,
 and the same fee is what each later claim deducts. <strong>It must match the
-fee stated at the top of this page &mdash; 0.1&nbsp;FLR now, 0.25&nbsp;FLR
-from reward epoch 429.</strong> The protocol lets an executor charge up to
+fee stated at the top of this page &mdash; 0.25&nbsp;FLR.</strong> The protocol lets an executor charge up to
 100&nbsp;FLR, so a scam executor's game is a high fee — the confirmation shows
 it before you sign. <strong>Anything else: stop and don't sign.</strong>
 </p>
