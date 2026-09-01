@@ -183,11 +183,11 @@
 <header>
   <div class="brand">
     <div class="name"><a href="https://cashlab.network/" style="border-bottom:none;display:inline-flex;align-items:center;gap:10px"><img src="/images/cashlab-lockup-header.png" alt="CashLab — home" style="height:40px;width:auto;display:block;background:#fff;padding:6px 12px;border-radius:6px;box-sizing:content-box"></a></div>
-    <div class="tag">2026-08-26 · updated 08-28 · v1.2</div>
+    <div class="tag">2026-08-26 · updated 08-31 · v1.3</div>
   </div>
   <h1>Self-Repaying Credit for Flare</h1>
   <p class="thesis"><strong>What if validators and stakers never had to sell their rewards to pay the bills?</strong> Flare has already shipped every building block needed to make that real. This is the design — and now, a working prototype.</p>
-  <div class="status" style="background:#1f5130;color:#f2fbf4;border:none">UPDATE 2026-08-28 · WORKING PROTOTYPE LIVE ON COSTON2 — real loans completed in both loan types, rewards claimed through Flare's real executor path, both borrower doors (staked + escrow-locked delegation) built and tested, 114 automated tests, three adversarial AI red-team reviews. A formal audit is the next gate before any real value.</div>
+  <div class="status" style="background:#1f5130;color:#f2fbf4;border:none">UPDATE 2026-08-28 · WORKING PROTOTYPE LIVE ON COSTON2 — real loans completed in both loan types, rewards claimed through Flare's real executor path, both borrower doors (staked + escrow-locked delegation) built and tested, 133 automated tests (including a high-volume scenario + fuzz suite: ~80 deterministic loans and 10,000 randomized ones at full fuzz depth, all conserving to the wei), five adversarial AI red-team reviews. A formal audit is the next gate before any real value.</div>
   <div class="status">CLAIMS CHECKED AGAINST CHAIN AND SOURCE · 2026-08-28</div>
 </header>
 
@@ -197,7 +197,7 @@
   <p class="lede"><strong>Borrow against the rewards you haven't earned yet — and let them repay the loan for you.</strong> If you earn FLR rewards — as a validator or a staker — you can borrow stablecoins against them. Every epoch, your rewards go straight to the lender until the loan is paid off. Your bills get paid in dollars. Not one coin is sold on-market.</p>
   <p><strong>Two doors, one rule.</strong> Door one: <em>validators and P-chain stakers</em> — the chain itself shows their stake is locked, and the stake must outlive the debt. Door two: <em>everyday FLR holders</em> — their collateral is delegated inside an escrow, and its own earnings repay the loan; it can't be unplugged, and it all comes back at payoff. The rule both doors share: <strong>we only lend against streams that can't run away.</strong> Freely movable tokens don't qualify.</p>
   <p><strong>Your record is your rate.</strong> Flare grades every operator with its pass system (0–3 passes). A validator's own passes set their rate — and a staker inherits the passes of the validator they stake with, so choosing a reliable operator earns you cheaper money. There is <strong>no liquidation price</strong>: a market crash cannot liquidate anyone. Only a genuinely dead stream, or a loan still unpaid at its deadline, can default — and settlement takes exactly what's owed, returning everything else.</p>
-  <p><strong>Where it stands.</strong> A working prototype runs on Flare's Coston2 testnet: complete loans of both types, rewards claimed through Flare's real reward machinery, both borrower doors built and tested, 114 automated tests, and three adversarial AI red-team reviews — every HIGH and MEDIUM finding fixed, with the accepted low-severity residuals documented. The next gate is a formal audit — no real funds before it. Everything below is the full design, risks included.</p>
+  <p><strong>Where it stands.</strong> A working prototype runs on Flare's Coston2 testnet: complete loans of both types, rewards claimed through Flare's real reward machinery, both borrower doors built and tested, 133 automated tests (including a high-volume scenario + fuzz suite that runs ~80 deterministic loans and, at full fuzz depth, 10,000 randomized ones through the full lifecycle, each conserving to the wei), and five adversarial AI red-team reviews — every HIGH and MEDIUM finding fixed, with the accepted low-severity residuals documented. The next gate is a formal audit — no real funds before it. Everything below is the full design, risks included.</p>
 </section>
 
 <section>
@@ -384,7 +384,7 @@
     <li><strong>The collateral is the posted margin — the same for everyone, and it never sits idle.</strong> Every borrower, validator or staker, locks wrapped FLR in the loan's own escrow — and the escrow immediately delegates it, so <em>the collateral keeps earning every epoch it's pledged</em> (on Flare, wrapped-and-delegated is the earning form; naked FLR earns nothing). That margin is what settlement seizes on default — the lender's guaranteed recovery. A regular staker is <em>not</em> unsecured: their escrow-locked, still-earning stake <em>is</em> that margin.</li>
     <li><strong>The commitment is the stream that can't run away.</strong> Two ways to prove it: a validator's live <em>P-chain stake</em> (Flare's own stake mirror shows it on-chain — if it ever disappears while you owe, anyone can start the default clock), or an everyday holder's <em>escrow-locked delegation</em> (the escrow holds the stake, so you literally can't unplug the stream). This is what qualifies you to borrow; it is not what the lender takes. A stream you could freely switch off — plain tokens you haven't committed — doesn't qualify at all: <strong>this market only lends against income that can't run away.</strong></li>
   </ul>
-  <p><strong>So is the self-bond needed? No.</strong> It sits on the P-chain, which has no smart contracts, so a lender could always see it but never seize it — the margin does the securing instead. The self-bond stays useful only as a <em>strength signal</em> (a validator with millions locked is a safer borrower) and as an <em>optional future efficiency</em>: a small P-chain change (roadmap v3) could let a validator point their bond's payout at the lender, turning it into hard collateral so they'd need far less margin. Nice to have, never required — the product works fully without it.</p>
+  <p><strong>So is the self-bond needed? No.</strong> It sits on the P-chain, which has no smart contracts, so a lender could always see it but never seize it — the margin does the securing instead. The self-bond stays useful only as a <em>strength signal</em> (a validator with millions locked is a safer borrower) and as an <em>optional future efficiency</em>: an opt-in P-chain feature (roadmap v3) could let a staker mark a stake borrowable at creation, so its returned principal can back a loan trustlessly — turning the stake itself into hard collateral and cutting the margin they'd need. A real feature, not a one-liner, and never required — the product works fully today without it.</p>
   <p>On default, either way, only what's owed is taken — the rest returns to the borrower. That rule keeps the whole system honest:</p>
 
   <div class="rule-card">
@@ -434,7 +434,7 @@
   <p class="kicker">06 · Roadmap</p>
   <h2>The road from here</h2>
   <figure>
-    <svg viewBox="0 0 660 210" role="img" aria-label="Roadmap: v1 margin-backed credit today; v2 smart accounts bind the stream and add Firelight cover; v3 a small P-chain FIP makes the self-bond hard collateral; v4 the FDC attests other chains' reward histories, making Flare the credit layer for all proof-of-stake.">
+    <svg viewBox="0 0 660 210" role="img" aria-label="Roadmap: v1 margin-backed credit today; v2 smart accounts bind the stream and add Firelight cover; v3 an opt-in P-chain feature makes a committed stake trustless collateral on its own; v4 the FDC attests other chains' reward histories, making Flare the credit layer for all proof-of-stake.">
       <defs>
         <marker id="arrD" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
           <path d="M0 0 L10 5 L0 10 z" fill="currentColor"/>
@@ -458,10 +458,10 @@
         </g>
         <g>
           <circle cx="415" cy="52" r="5" fill="currentColor"/>
-          <text x="415" y="30" text-anchor="middle" font-size="12.5" font-weight="700">v3 · one small FIP</text>
-          <text x="415" y="76" text-anchor="middle" font-size="11" opacity=".72">SetStakeReturnBeneficiary:</text>
-          <text x="415" y="90" text-anchor="middle" font-size="11" opacity=".72">the self-bond becomes</text>
-          <text x="415" y="104" text-anchor="middle" font-size="11" opacity=".72">hard collateral, mid-bond</text>
+          <text x="415" y="30" text-anchor="middle" font-size="12.5" font-weight="700">v3 · borrowable stakes</text>
+          <text x="415" y="76" text-anchor="middle" font-size="11" opacity=".72">opt-in at stake time:</text>
+          <text x="415" y="90" text-anchor="middle" font-size="11" opacity=".72">the stake itself becomes</text>
+          <text x="415" y="104" text-anchor="middle" font-size="11" opacity=".72">trustless collateral</text>
         </g>
         <g>
           <circle cx="580" cy="52" r="6" fill="#c89f3b"/>
@@ -473,11 +473,11 @@
         <!-- product callouts -->
         <g font-size="10.5" opacity=".62">
           <text x="24" y="150">Uses, in order: claim executors + FTSO + pass ledger → claim-binding accounts (extending live Smart Accounts) + Firelight →</text>
-          <text x="24" y="168">one P-chain transaction type → FDC attestation types extended beyond today's BTC/DOGE/XRP/EVM set. Four Flare products, one use case.</text>
+          <text x="24" y="168">one opt-in P-chain feature → FDC attestation types extended beyond today's BTC/DOGE/XRP/EVM set. Four Flare products, one use case.</text>
         </g>
       </g>
     </svg>
-    <figcaption><b>The v3 ask is deliberately tiny — and optional:</b> the product works fully without it. When it lands, it shrinks collateral requirements and rates for large validators.</figcaption>
+    <figcaption><b>The v3 ask is a real opt-in feature, not a one-liner — and fully optional:</b> the product works today without it. When it lands, a committed stake can be trustless collateral on its own, cutting the margin (and the rate) for stakers and validators alike.</figcaption>
   </figure>
 
   <h3>Why this serves Flare</h3>
