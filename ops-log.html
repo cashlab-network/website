@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CashLab — Operations Log</title>
+<title>CashLab - Operations Log</title>
 <link rel="canonical" href="https://cashlab.network/ops-log">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://cashlab.network/ops-log">
-<meta property="og:title" content="CashLab — Operations Log">
-<meta property="og:description" content="A dated, human-written history of notable operational events at CashLab — incidents, what they cost, and what changed afterwards. Written after the fact, honestly.">
+<meta property="og:title" content="CashLab, Operations Log">
+<meta property="og:description" content="A dated, human-written history of notable operational events at CashLab, incidents, what they cost, and what changed afterwards. Written after the fact, honestly.">
 <meta property="og:image" content="https://cashlab.network/images/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="CashLab — Operations Log">
-<meta name="twitter:description" content="A dated, human-written history of notable operational events at CashLab — incidents, what they cost, and what changed afterwards. Written after the fact, honestly.">
+<meta name="twitter:title" content="CashLab, Operations Log">
+<meta name="twitter:description" content="A dated, human-written history of notable operational events at CashLab, incidents, what they cost, and what changed afterwards. Written after the fact, honestly.">
 <meta name="twitter:image" content="https://cashlab.network/images/og-image.png">
 
-<meta name="description" content="A dated, human-written history of notable operational events at CashLab — incidents, what they cost, and what changed afterwards. Written after the fact, honestly.">
+<meta name="description" content="A dated, human-written history of notable operational events at CashLab, incidents, what they cost, and what changed afterwards. Written after the fact, honestly.">
 <link rel="icon" href="images/favicon.ico">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <style>
@@ -106,7 +106,7 @@ a{color:#6ea8fe}
 This page is a dated, human-written history of notable operational events at
 CashLab: incidents, what they cost, and what changed afterwards. Entries are
 written <strong>after the fact</strong>, once an event is fully understood and
-resolved — this is a record, not a live status feed (that's the
+resolved, this is a record, not a live status feed (that's the
 <a href="/status">status page</a>). We update it whenever something notable
 happens, including things that went wrong; honesty about failures is the point.
 Routine day-to-day operations are not logged here.
@@ -118,12 +118,12 @@ Routine day-to-day operations are not logged here.
   <h2>Delegation guide gets its own page; navigation unified<span class="tag routine">Routine</span></h2>
   <p>The delegation guide moved from a homepage section to a dedicated
   <a href="/delegate">Delegate</a> page, including a widget that reads the
-  stake currently delegated to CashLab live from the WNat contract — so the
+  stake currently delegated to CashLab live from the WNat contract, so the
   number on the page is the chain's, not ours. At the same time the navigation
   bar was made identical across every page of the site, and the sitemap was
   completed.</p>
   <div class="changed"><strong>What changed</strong>
-  No operational impact — logged to show the working cadence: site changes ship
+  No operational impact, logged to show the working cadence: site changes ship
   in small, verified steps, and every number a page displays should be readable
   from the chain by your own browser.</div>
 </div>
@@ -135,7 +135,7 @@ Routine day-to-day operations are not logged here.
   header, set at our CDN rather than in the site's own code, was blocking the
   site's own scripts: the live-number widgets on several pages sat stuck at
   "checking…" and the mobile menu was dead on sub-pages. No wrong data was ever
-  shown — the widgets fail toward showing nothing rather than showing something
+  shown, the widgets fail toward showing nothing rather than showing something
   stale or invented.</p>
   <p>Fixed the same day in two steps: page scripts were moved into standalone
   files the policy permits, and the header itself was corrected so browsers may
@@ -143,7 +143,7 @@ Routine day-to-day operations are not logged here.
   <div class="changed"><strong>What changed</strong>
   Header configuration that lives outside the site's code is now documented
   alongside it, and deploy verification includes loading each page the way a
-  visitor's browser does — not just checking that files uploaded.</div>
+  visitor's browser does, not just checking that files uploaded.</div>
 </div>
 
 <div class="entry">
@@ -155,7 +155,7 @@ Routine day-to-day operations are not logged here.
   data sources and then rehearsed it live: deliberately pointed the system at a
   dead endpoint and watched it detect, rotate, and recover on both chains.</p>
   <div class="changed"><strong>What changed</strong>
-  No outage occurred — this was proactive. Detection of a dead BTC/DOGE data
+  No outage occurred, this was proactive. Detection of a dead BTC/DOGE data
   source went from roughly an hour and a half to a few minutes, and the
   recovery path is now something we have actually executed, not something we
   believe would work.</div>
@@ -165,15 +165,15 @@ Routine day-to-day operations are not logged here.
   <time datetime="2026-08-10">2026-08-09 → 10</time>
   <h2>Epoch 422 paid zero: a 14-hour submission outage nothing alerted on<span class="tag incident">Incident</span></h2>
   <p>Our paid RPC provider's endpoint shut down after our own indexer traffic
-  burned through the plan's request cap — a billing failure, and our fault for
+  burned through the plan's request cap, a billing failure, and our fault for
   putting a heavy workload on a metered service. Protocol submissions stopped
   for 14 straight hours on August 9. Worse than the outage was the silence: we
-  had no alarm on the one thing that matters — whether submissions are actually
-  landing on-chain — and the stall alarms we did have were built to fire once
+  had no alarm on the one thing that matters, whether submissions are actually
+  landing on-chain, and the stall alarms we did have were built to fire once
   and never again.</p>
   <p>The cost was real: epoch 422, our first reward-eligible epoch, settled at
   zero. FTSO accuracy came in at 74.85% against an 80% gate (roughly 89.8%
-  outside the outage window — the outage alone flipped the gate). Validator
+  outside the outage window, the outage alone flipped the gate). Validator
   uptime was unaffected (99.999%, separate machine). Full per-gate numbers are
   in the <a href="/epochs">epoch report</a>.</p>
   <div class="changed"><strong>What changed</strong>
@@ -189,11 +189,11 @@ Routine day-to-day operations are not logged here.
   <p>A routine security review in mid-August found that a background monitoring
   service on one of our servers had been dead since July 10: an automatic
   operating-system update had killed it mid-upgrade, and nothing noticed. There
-  was no reward or user-facing impact — but a detection gap of over a month is
+  was no reward or user-facing impact, but a detection gap of over a month is
   the real finding, and we'd rather log it than pretend it didn't happen.</p>
   <div class="changed"><strong>What changed</strong>
-  The service was restored on August 15, and it — like our other critical
-  background services — now has its own liveness check that restarts it and
+  The service was restored on August 15, and it, like our other critical
+  background services, now has its own liveness check that restarts it and
   alerts us if it dies. The general lesson we now apply everywhere: every
   watcher gets a watcher, because a service that dies silently stays dead.</div>
 </div>

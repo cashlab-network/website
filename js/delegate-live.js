@@ -16,7 +16,7 @@ async function load(){
     const wflr = Number(BigInt(j.result) / 10n**18n);
     set("votepower", wflr.toLocaleString() + " WFLR");
   }catch(e){
-    set("votepower","— (couldn\u2019t reach Flare RPC)");
+    set("votepower","- (couldn\u2019t reach Flare RPC)");
   }
 }
 load();
@@ -34,7 +34,7 @@ async function loadEpoch(){
     set("lastret", apr.toFixed(2) + "% APR");
     set("lastret-sub", "epoch " + e.epoch + " · net of fee · network median " + med.toFixed(2) + "%");
   }catch(_){
-    set("lastret","—");
+    set("lastret","-");
   }
 }
 loadEpoch();

@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CashLab — Stake</title>
+<title>CashLab - Stake</title>
 <link rel="canonical" href="https://cashlab.network/stake">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://cashlab.network/stake">
-<meta property="og:title" content="CashLab — Stake">
-<meta property="og:description" content="Stake FLR to the CashLab validator or delegate WFLR to our FTSO. Both paths explained step by step, with our fee, NodeID and live on-chain numbers — nothing hidden.">
+<meta property="og:title" content="CashLab, Stake">
+<meta property="og:description" content="Stake FLR to the CashLab validator or delegate WFLR to our FTSO. Both paths explained step by step, with our fee, NodeID and live on-chain numbers, nothing hidden.">
 <meta property="og:image" content="https://cashlab.network/images/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="CashLab — Stake">
-<meta name="twitter:description" content="Stake FLR to the CashLab validator or delegate WFLR to our FTSO. Both paths explained step by step, with our fee, NodeID and live on-chain numbers — nothing hidden.">
+<meta name="twitter:title" content="CashLab, Stake">
+<meta name="twitter:description" content="Stake FLR to the CashLab validator or delegate WFLR to our FTSO. Both paths explained step by step, with our fee, NodeID and live on-chain numbers, nothing hidden.">
 <meta name="twitter:image" content="https://cashlab.network/images/og-image.png">
 
-<meta name="description" content="Stake FLR to the CashLab validator or delegate WFLR to our FTSO. Both paths explained step by step, with our fee, NodeID and live on-chain numbers — nothing hidden.">
+<meta name="description" content="Stake FLR to the CashLab validator or delegate WFLR to our FTSO. Both paths explained step by step, with our fee, NodeID and live on-chain numbers, nothing hidden.">
 <link rel="icon" href="images/favicon.ico">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <style>
@@ -41,6 +41,12 @@ ol.steps{padding-left:20px;font-size:15px}
 ol.steps li{margin-bottom:10px}
 .note{border-left:3px solid var(--gold);padding:10px 14px;background:#faf6ee;font-size:14px;margin:16px 0;border-radius:0 8px 8px 0}
 .note--safety{border-left-color:#b42318;background:#fdf3f2}
+.quick{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:14px 0 6px}
+.quick .btn{display:inline-block;padding:11px 16px;border-radius:8px;font-weight:600;font-size:15px;text-decoration:none;cursor:pointer;border:1px solid var(--line);background:#fff;color:#1a1a1a;font-family:inherit}
+.quick .btn.primary{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
+.quick .btn:hover{opacity:.92}
+.quick .copied{font-size:13.5px;color:var(--muted)}
+@media (max-width:520px){.quick .btn{flex:1 1 100%;text-align:center}}
 footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
 a{color:#8a6a23;text-decoration:underline}
 a:hover{color:#a8842c}
@@ -110,14 +116,24 @@ a:hover{color:#a8842c}
 Staking locks FLR on the P-chain to our validator for a fixed term and earns
 the validator's staking rewards, net of our fee. This page is the full staking
 guide, with every number stated plainly. Live figures are read from Flare
-mainnet <strong>by your browser</strong> — not from our servers.
+mainnet <strong>by your browser</strong>, not from our servers.
 </p>
 </div>
 
-<p><strong>Looking to delegate instead?</strong> No minimum, no lock-up —
+<p><strong>Looking to delegate instead?</strong> No minimum, no lock-up, 
 <a href="/delegate"><strong>full delegation guide &rarr;</strong></a>.
 Side-by-side comparison of both paths: <a href="/earn">earn page</a>.</p>
 
+<div class="addr-box" id="quick-box">
+  <div class="label">CashLab validator node ID</div>
+  <div class="mono" style="font-size:14px;margin-top:4px;word-break:break-all"><strong>NodeID-8Tp4GLFefnrLzzD7YU6qvEzDRRT1L6Zec</strong></div>
+  <div class="quick">
+    <button class="btn primary" type="button" data-copy="NodeID-8Tp4GLFefnrLzzD7YU6qvEzDRRT1L6Zec" data-note="quick-note">Copy the node ID</button>
+    <a class="btn" href="https://portal.flare.network/staking" rel="noopener" target="_blank">Open the Flare Portal</a>
+    <span class="copied" id="quick-note" aria-live="polite"></span>
+  </div>
+  <p style="font-size:13.5px;color:var(--muted);margin:8px 0 0">Two taps: copy, then paste it in the Portal. Cross-check the value against the one printed lower on this page and on our X account before you confirm.</p>
+</div>
 <h2>Staking at a glance</h2>
 <div class="grid">
   <div class="card"><div class="label">Last epoch returned</div><div class="value" id="lastret-stk">…</div><div style="font-size:12px;color:var(--muted);margin-top:4px" id="lastret-stk-sub"></div></div>
@@ -126,19 +142,19 @@ Side-by-side comparison of both paths: <a href="/earn">earn page</a>.</p>
   <div class="card"><div class="label">Custody</div><div class="value" style="font-size:16px">Locked on-chain &mdash; only your keys move it</div></div>
 </div>
 
-<h2 id="path-2">How to stake — the steps in the Portal</h2>
+<h2 id="path-2">How to stake, the steps in the Portal</h2>
 <ol class="steps">
   <li>In the <a href="https://portal.flare.network" rel="noopener">Flare Portal</a>, open the <strong>Staking</strong> section and connect your wallet.</li>
-  <li>First time only: the Portal will ask you to <strong>register your address</strong> (binding your C-chain and P-chain addresses — one signature, no funds move).</li>
+  <li>First time only: the Portal will ask you to <strong>register your address</strong> (binding your C-chain and P-chain addresses, one signature, no funds move).</li>
   <li>Transfer the FLR you want to stake from the C-chain to the P-chain (the Portal does this in-flow).</li>
   <li>Pick a validator and search for ours:<br>
       <span class="mono">NodeID-8Tp4GLFefnrLzzD7YU6qvEzDRRT1L6Zec</span></li>
   <li>Enter an amount of <strong>50,000 FLR or more</strong> and a duration of
       <strong>14 days or more</strong>. Your stake's end date must fall within our
-      current validation term — the Portal's date picker enforces this
+      current validation term, the Portal's date picker enforces this
       automatically.</li>
   <li>Confirm in your wallet. Your FLR is now locked and earning until the end
-      date, when it unlocks automatically — there is nothing to "withdraw" and
+      date, when it unlocks automatically, there is nothing to "withdraw" and
       no action anyone else can take on it.</li>
   <li>Staking rewards are delivered on the C-chain side. The same
       <strong>90-day claim window</strong> applies.</li>
@@ -146,7 +162,7 @@ Side-by-side comparison of both paths: <a href="/earn">earn page</a>.</p>
 
 <div class="note">
 <strong>Stakes do not renew themselves.</strong> Every delegated stake on Flare
-has a fixed on-chain end date — when it passes, your FLR unlocks and simply
+has a fixed on-chain end date, when it passes, your FLR unlocks and simply
 stops earning until you stake it again. Nothing on Flare auto-renews. CashLab
 will offer an opt-in email reminder before your stake ends as part of our
 upcoming <a href="/autoclaim">auto-claim service</a> (not live yet).
@@ -156,23 +172,23 @@ upcoming <a href="/autoclaim">auto-claim service</a> (not live yet).
 <strong>Safety, once and clearly:</strong> staking and delegation never involve
 sending FLR to us or to anyone. No legitimate provider will ever ask you to
 transfer funds, share a seed phrase, or "validate" your wallet. If anyone
-claiming to be CashLab asks for any of that, it is a scam — our only addresses
+claiming to be CashLab asks for any of that, it is a scam, our only addresses
 are the ones printed on this page and verifiable on-chain.
 </div>
 
-<h2>Our fee — stated plainly</h2>
+<h2>Our fee, stated plainly</h2>
 <p style="font-size:15px">
-<strong>20%, on both paths.</strong> It applies to <em>reward</em> flows only —
+<strong>20%, on both paths.</strong> It applies to <em>reward</em> flows only, 
 your principal is never touched, and 80% of the rewards earned on what you
 delegate or stake is yours.
 </p>
 <table>
-  <tr><td>WFLR delegation</td><td><strong>20%</strong> — the network-wide minimum set by Flare governance in
+  <tr><td>WFLR delegation</td><td><strong>20%</strong>, the network-wide minimum set by Flare governance in
       <a href="https://proposals.flare.network/FIP/FIP_16.html" rel="noopener">FIP.16</a>
       (April&nbsp;2026) and enforced on-chain: the fee contract's
       <span class="mono">minFeeBIPS</span> reads <span class="mono">2000</span>
-      (= 20.00%) for every provider. Ours is exactly the floor — verifiable, not a promise.</td></tr>
-  <tr><td>Validator staking</td><td><strong>20%</strong> — our posted rate, matching the same governance
+      (= 20.00%) for every provider. Ours is exactly the floor, verifiable, not a promise.</td></tr>
+  <tr><td>Validator staking</td><td><strong>20%</strong>, our posted rate, matching the same governance
       minimum from day one. You may find validators displaying lower rates:
       fees set before the FIP.16 rule, or before its enforcement completes
       across the staking layer, remain in force for the remainder of those
@@ -181,32 +197,32 @@ delegate or stake is yours.
 
 <h2>What you're staking on</h2>
 <table>
-  <tr><td>Operation</td><td>Independent, solo-operated. The full Flare protocol stack — FTSO price feeds, Fast Updates, FDC attestations and our own validator — on dedicated hardware we own and operate.</td></tr>
+  <tr><td>Operation</td><td>Independent, solo-operated. The full Flare protocol stack, FTSO price feeds, Fast Updates, FDC attestations and our own validator, on dedicated hardware we own and operate.</td></tr>
   <tr><td>Validator isolation</td><td>The validator runs on its own dedicated machine, isolated from every other workload.</td></tr>
   <tr><td>Self-bond</td><td>3,000,000 FLR of our own capital is staked to the same validator, on the same terms, before anyone else's &mdash; when <a href="/epochs#e422">epoch 422 paid zero</a>, it paid us zero too.</td></tr>
   <tr><td>Monitoring</td><td>Independent watchdog systems on both machines, with escalation to a human around the clock. An independent read-only auditor reviews the infrastructure; its findings outrank our own claims.</td></tr>
-  <tr><td>Results</td><td>New validator (live August 2026). We publish live numbers rather than promises — judge us on the <a href="/status">status page</a> as the history accrues.</td></tr>
+  <tr><td>Results</td><td>New validator (live August 2026). We publish live numbers rather than promises, judge us on the <a href="/status">status page</a> as the history accrues.</td></tr>
 </table>
 
-<h2>Risks — stated plainly</h2>
+<h2>Risks, stated plainly</h2>
 <table>
   <tr><td>Your FLR is locked</td><td>There is no early exit. Once a stake is
-      confirmed, your FLR is locked until the end date you chose — Flare has no
+      confirmed, your FLR is locked until the end date you chose, Flare has no
       mechanism to unlock it sooner, for anyone. Only stake what you will not
       need before that date.</td></tr>
-  <tr><td>Worst case</td><td>Missed rewards — never lost principal. Flare's
+  <tr><td>Worst case</td><td>Missed rewards, never lost principal. Flare's
       P-chain has no slashing for stakers: if our validator underperforms or
       goes offline, you can earn nothing for that period, but your staked FLR
       cannot be taken or reduced. FTSO-side penalties fall on CashLab's own
       stake, not yours.</td></tr>
-  <tr><td>One validator</td><td>CashLab runs a single validator node today —
+  <tr><td>One validator</td><td>CashLab runs a single validator node today, 
       there is no second node to fail over to. It is monitored around the clock
       with escalation to a human, and an independent read-only auditor reviews
       the infrastructure, but we state the single point plainly rather than
       hide it.</td></tr>
   <tr><td>Term boundary</td><td>Our current bond period ends
       <strong>Oct&nbsp;7,&nbsp;2026</strong>. Stakes cannot extend past that
-      date until we re-bond for the next term — the Portal's date picker
+      date until we re-bond for the next term, the Portal's date picker
       enforces this.</td></tr>
   <tr><td>Variable rewards</td><td>Rewards change every epoch and can be zero.
       Nothing on this page is a guarantee of any return.</td></tr>
@@ -228,7 +244,7 @@ Verify these independently: our validator on the
 our entity on the
 <a href="https://flare-systems-explorer.flare.network" rel="noopener">Flare Systems Explorer</a>,
 or query Flare's own public API for
-<span class="mono">NodeID-8Tp4GLFefnrLzzD7YU6qvEzDRRT1L6Zec</span> — we publish
+<span class="mono">NodeID-8Tp4GLFefnrLzzD7YU6qvEzDRRT1L6Zec</span>, we publish
 nothing you cannot check yourself.
 </p>
 
@@ -243,7 +259,7 @@ nothing you cannot check yourself.
   <strong>Disclaimer.</strong> CashLab is an independent infrastructure operator, not a
   financial adviser; nothing on this site is financial, investment, or tax advice.
   Any reward rates shown are realized historical results for individual reward epochs,
-  annualized only for comparability — they change every epoch, can be zero, and past
+  annualized only for comparability, they change every epoch, can be zero, and past
   performance does not predict future results. Delegating or staking FLR involves risk,
   including protocol and parameter changes and loss of rewards. Figures derive from
   Flare's published settlement data and are provided as-is, without warranty. Do your
@@ -253,7 +269,17 @@ nothing you cannot check yourself.
 
 </div>
 
-<script src="js/stake-live.js?v=56146b72"></script>
+<script src="js/stake-live.js?v=819f1ffb"></script>
 <script src="js/nav.js?v=cc03f358"></script>
+<script>
+(function(){
+  function copy(text, note){
+    var done=function(){ note.textContent='Copied. Paste it in the Portal.'; setTimeout(function(){note.textContent='';},4000); };
+    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done,function(){fallback();}); } else { fallback(); }
+    function fallback(){ var ta=document.createElement('textarea'); ta.value=text; ta.setAttribute('readonly',''); ta.style.position='absolute'; ta.style.left='-9999px'; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); done(); }catch(e){ note.textContent='Long-press the address above to copy it.'; } document.body.removeChild(ta); }
+  }
+  document.querySelectorAll('[data-copy]').forEach(function(b){ b.addEventListener('click',function(){ copy(b.getAttribute('data-copy'), document.getElementById(b.getAttribute('data-note'))); }); });
+})();
+</script>
 </body>
 </html>

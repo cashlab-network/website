@@ -26,7 +26,7 @@
 //      remove ALL soft-launch markers (FA-26; reworded per FA-29
 //      2026-08-16 -- "not live" phrasing contradicted the live
 //      enrollment and is gone): the meta description's "soft launch"
-//      text, the hero "Soft launch — not announced yet" pill, the
+//      text, the hero "Soft launch, not announced yet" pill, the
 //      soft-launch banner in the body, the h2 "soft launch" pill, and
 //      the sign-up form's "Sign-ups open at the public announcement"
 //      line. Grep this file for "soft launch", "not announced",
@@ -57,11 +57,11 @@ function show(el, cls, msg) {
   async function check() {
     const owner = input.value.trim();
     if (!isAddress(owner)) {
-      show(out, "err", "That doesn't look like a wallet address — expected 0x followed by 40 hex characters.");
+      show(out, "err", "That doesn't look like a wallet address, expected 0x followed by 40 hex characters.");
       return;
     }
     if (!PUBLIC_EXECUTOR) {
-      show(out, "wait", "The CashLab executor service is not yet live — there is no executor address to be enrolled with. Check back after launch.");
+      show(out, "wait", "The CashLab executor service is not yet live, there is no executor address to be enrolled with. Check back after launch.");
       return;
     }
     show(out, "wait", "Checking on-chain…");
@@ -82,7 +82,7 @@ function show(el, cls, msg) {
         show(out, "wait", "Not enrolled: the CashLab executor is not authorized for this wallet (read live from ClaimSetupManager).");
       }
     } catch (e) {
-      show(out, "err", "Could not reach the Flare public RPC to check. Nothing is wrong with your enrollment — please try again in a moment, or verify directly at portal.flare.network.");
+      show(out, "err", "Could not reach the Flare public RPC to check. Nothing is wrong with your enrollment, please try again in a moment, or verify directly at portal.flare.network.");
     }
   }
 
@@ -116,9 +116,9 @@ function show(el, cls, msg) {
         body: JSON.stringify({ wallet, email })
       });
       if (!r.ok) throw new Error("HTTP " + r.status);
-      show(out, "ok", "Signed up. We'll email you claim outcomes and stake-expiry reminders — nothing else. Remove yourself any time via hello@cashlab.network.");
+      show(out, "ok", "Signed up. We'll email you claim outcomes and stake-expiry reminders, nothing else. Remove yourself any time via hello@cashlab.network.");
     } catch (err) {
-      show(out, "err", "Could not submit — the sign-up service is not yet live. Nothing was stored. Please check back after launch.");
+      show(out, "err", "Could not submit, the sign-up service is not yet live. Nothing was stored. Please check back after launch.");
     }
   });
 })();

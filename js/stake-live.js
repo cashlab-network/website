@@ -24,7 +24,7 @@ async function load(){
       p.textContent = "Between terms"; p.className = "pill wait";
     }
   }catch(e){
-    set("stake","—");
+    set("stake","-");
     const p=document.getElementById("vstatus");
     p.textContent="Unable to read chain"; p.className="pill wait";
   }
@@ -44,7 +44,7 @@ async function loadEpoch(){
     set("lastret-stk", apr.toFixed(2) + "% APR");
     set("lastret-stk-sub", "epoch " + e.epoch + " · net of fee · network median " + med.toFixed(2) + "%");
   }catch(_){
-    set("lastret-stk","—");
+    set("lastret-stk","-");
   }
 }
 loadEpoch();

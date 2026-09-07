@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CashLab — Delegate</title>
+<title>CashLab - Delegate</title>
 <link rel="canonical" href="https://cashlab.network/delegate">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://cashlab.network/delegate">
-<meta property="og:title" content="CashLab — Delegate">
-<meta property="og:description" content="Delegate WFLR vote power to CashLab's FTSO. Non-custodial, no minimum, no lock-up — your tokens never leave your wallet. Step-by-step Portal guide with our address and live on-chain numbers.">
+<meta property="og:title" content="CashLab, Delegate">
+<meta property="og:description" content="Delegate WFLR vote power to CashLab's FTSO. Non-custodial, no minimum, no lock-up, your tokens never leave your wallet. Step-by-step Portal guide with our address and live on-chain numbers.">
 <meta property="og:image" content="https://cashlab.network/images/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="CashLab — Delegate">
-<meta name="twitter:description" content="Delegate WFLR vote power to CashLab's FTSO. Non-custodial, no minimum, no lock-up — your tokens never leave your wallet. Step-by-step Portal guide with our address and live on-chain numbers.">
+<meta name="twitter:title" content="CashLab, Delegate">
+<meta name="twitter:description" content="Delegate WFLR vote power to CashLab's FTSO. Non-custodial, no minimum, no lock-up, your tokens never leave your wallet. Step-by-step Portal guide with our address and live on-chain numbers.">
 <meta name="twitter:image" content="https://cashlab.network/images/og-image.png">
 
-<meta name="description" content="Delegate WFLR vote power to CashLab's FTSO. Non-custodial, no minimum, no lock-up — your tokens never leave your wallet. Step-by-step Portal guide with our address and live on-chain numbers.">
+<meta name="description" content="Delegate WFLR vote power to CashLab's FTSO. Non-custodial, no minimum, no lock-up, your tokens never leave your wallet. Step-by-step Portal guide with our address and live on-chain numbers.">
 <link rel="icon" href="images/favicon.ico">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <style>
@@ -44,6 +44,12 @@ ol.steps li{margin-bottom:10px}
 .note{border-left:3px solid var(--gold);padding:10px 14px;background:#faf6ee;font-size:14px;margin:16px 0;border-radius:0 8px 8px 0}
 .note--safety{border-left-color:#b42318;background:#fdf3f2}
 .addr-box{border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:12px 14px;margin:14px 0;background:#faf6ee}
+.quick{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:14px 0 6px}
+.quick .btn{display:inline-block;padding:11px 16px;border-radius:8px;font-weight:600;font-size:15px;text-decoration:none;cursor:pointer;border:1px solid var(--line);background:#fff;color:#1a1a1a;font-family:inherit}
+.quick .btn.primary{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
+.quick .btn:hover{opacity:.92}
+.quick .copied{font-size:13.5px;color:var(--muted)}
+@media (max-width:520px){.quick .btn{flex:1 1 100%;text-align:center}}
 footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
 a{color:#8a6a23;text-decoration:underline}
 a:hover{color:#a8842c}
@@ -105,13 +111,23 @@ a:hover{color:#a8842c}
 <h1>Delegate</h1>
 
 <p class="lede">
-Delegation assigns your WFLR's <strong>vote power</strong> to CashLab's FTSO —
+Delegation assigns your WFLR's <strong>vote power</strong> to CashLab's FTSO, 
 your tokens never leave your wallet, there is no minimum, and you can undelegate
 at any moment. This page is the complete guide. Live figures are read from Flare
-mainnet <strong>by your browser</strong> — not from our servers.
+mainnet <strong>by your browser</strong>, not from our servers.
 </p>
 </div>
 
+<div class="addr-box" id="quick-box">
+  <div class="label">CashLab delegation address</div>
+  <div class="mono" style="font-size:14px;margin-top:4px;word-break:break-all"><strong>0x46F75Ac75a9E389809b965A876303681D32bCf2e</strong></div>
+  <div class="quick">
+    <button class="btn primary" type="button" data-copy="0x46F75Ac75a9E389809b965A876303681D32bCf2e" data-note="quick-note">Copy the address</button>
+    <a class="btn" href="https://portal.flare.network" rel="noopener" target="_blank">Open the Flare Portal</a>
+    <span class="copied" id="quick-note" aria-live="polite"></span>
+  </div>
+  <p style="font-size:13.5px;color:var(--muted);margin:8px 0 0">Two taps: copy, then paste it in the Portal. Cross-check the value against the one printed lower on this page and on our X account before you confirm.</p>
+</div>
 <h2>Delegation at a glance</h2>
 <div class="grid">
   <div class="card"><div class="label">Last epoch returned</div><div class="value" id="lastret">…</div><div style="font-size:12px;color:var(--muted);margin-top:4px" id="lastret-sub"></div></div>
@@ -126,7 +142,7 @@ The vote-power figure is read live from the wrapped-FLR contract
 FLR held at this address.
 </p>
 
-<h2>Our address — the only one</h2>
+<h2>Our address, the only one</h2>
 <div class="addr-box">
   <div class="label">CashLab delegation address</div>
   <div class="mono" style="font-size:14px;margin-top:4px"><strong>0x46F75Ac75a9E389809b965A876303681D32bCf2e</strong></div>
@@ -139,7 +155,7 @@ visible on-chain in every epoch we participate in via the
 <a href="https://flare-systems-explorer.flare.network/providers" rel="noopener">Flare Systems Explorer</a>.
 </p>
 
-<h2>How to delegate — four steps in the Portal</h2>
+<h2>How to delegate, four steps in the Portal</h2>
 <ol class="steps">
   <li>Go to the <a href="https://portal.flare.network" rel="noopener">Flare Portal</a> and connect your wallet.</li>
   <li><strong>Wrap</strong> the FLR you want to delegate (FLR &rarr; WFLR). Keep a little FLR unwrapped for gas. Wrapping is fully reversible at any time.</li>
@@ -147,7 +163,7 @@ visible on-chain in every epoch we participate in via the
       <span class="mono">0x46F75Ac75a9E389809b965A876303681D32bCf2e</span><br>
       You can split your vote power across up to two providers.</li>
   <li>Rewards accrue every ~3.5-day reward epoch and are claimable in the Portal.
-      <strong>Claim at least every 90 days</strong> — Flare burns rewards left
+      <strong>Claim at least every 90 days</strong>, Flare burns rewards left
       unclaimed longer than that.</li>
 </ol>
 
@@ -155,26 +171,26 @@ visible on-chain in every epoch we participate in via the
 <strong>Timing tip almost nobody explains.</strong> Each epoch measures your
 delegation at a snapshot block drawn at random from the days <em>before</em>
 the epoch starts. Delegate at the last minute and the snapshot has likely
-passed — your rewards begin one epoch later. Delegating ~4 days before an
+passed, your rewards begin one epoch later. Delegating ~4 days before an
 epoch boundary makes the next epoch certain.
 (<a href="/status">Countdown on the status page</a>.)
 </div>
 
-<h2>Our fee — stated plainly</h2>
+<h2>Our fee, stated plainly</h2>
 <p style="font-size:15px">
-<strong>20% of rewards.</strong> It applies to <em>reward</em> flows only —
+<strong>20% of rewards.</strong> It applies to <em>reward</em> flows only, 
 your principal is never touched, and 80% of the rewards earned on your
 delegation is yours. 20% is the network-wide minimum set by Flare governance in
 <a href="https://proposals.flare.network/FIP/FIP_16.html" rel="noopener">FIP.16</a>
 (April&nbsp;2026) and enforced on-chain: the fee contract's
 <span class="mono">minFeeBIPS</span> reads <span class="mono">2000</span>
-(= 20.00%) for every provider. Ours is exactly the floor — verifiable, not a
+(= 20.00%) for every provider. Ours is exactly the floor, verifiable, not a
 promise.
 </p>
 
 <h2>Claiming your rewards</h2>
 <p style="font-size:15px">
-Rewards are claimed by you, from the RewardManager contract, in the Portal —
+Rewards are claimed by you, from the RewardManager contract, in the Portal, 
 CashLab never holds your funds. Unclaimed rewards expire after 90 days on
 Flare, so claim regularly to avoid losing them.
 </p>
@@ -201,13 +217,13 @@ honest fine print: <a href="/autoclaim">auto-claim page</a>.
 <strong>Safety, once and clearly:</strong> delegation never involves sending
 FLR to us or to anyone. No legitimate provider will ever ask you to transfer
 funds, share a seed phrase, or "validate" your wallet. If anyone claiming to
-be CashLab asks for any of that, it is a scam — our only addresses are the
+be CashLab asks for any of that, it is a scam, our only addresses are the
 ones printed on this page and verifiable on-chain.
 </div>
 
-<h2>Risks — stated plainly</h2>
+<h2>Risks, stated plainly</h2>
 <p style="font-size:15px">
-Delegation has <strong>no lock-up and no custody risk</strong> — your WFLR
+Delegation has <strong>no lock-up and no custody risk</strong>, your WFLR
 never leaves your wallet and can be undelegated at any moment. The risks that
 do exist:
 </p>
@@ -217,13 +233,13 @@ do exist:
       return.</td></tr>
   <tr><td>Expiring rewards</td><td>Flare burns rewards left unclaimed for more
       than 90 days. This is the single most common way delegators actually lose
-      money — set a reminder and claim regularly.</td></tr>
+      money, set a reminder and claim regularly.</td></tr>
   <tr><td>Our performance</td><td>Your rewards depend on ours. If CashLab
       misses reward eligibility in an epoch, delegators earn nothing from us
       for that epoch. Judge us on the live numbers on our
       <a href="/status">status page</a>, not on promises.</td></tr>
   <tr><td>Protocol risk</td><td>Flare governance can change protocol
-      parameters — fees, epoch mechanics, reward amounts — and rewards flow
+      parameters, fees, epoch mechanics, reward amounts, and rewards flow
       through Flare's own reward contracts, which carry the usual
       smart-contract risk. Both apply to every provider equally, not just to
       us.</td></tr>
@@ -231,7 +247,7 @@ do exist:
 
 <h2>Prefer a fixed-term position?</h2>
 <p style="font-size:15px">
-Delegation's sibling is <strong>P-chain staking</strong> to our validator —
+Delegation's sibling is <strong>P-chain staking</strong> to our validator, 
 50,000 FLR minimum, fixed end date, settled about every two weeks. Both paths,
 compared side by side, are on the
 <a href="/stake">Stake</a> page.
@@ -249,7 +265,7 @@ compared side by side, are on the
   <strong>Disclaimer.</strong> CashLab is an independent infrastructure operator, not a
   financial adviser; nothing on this site is financial, investment, or tax advice.
   Any reward rates shown are realized historical results for individual reward epochs,
-  annualized only for comparability — they change every epoch, can be zero, and past
+  annualized only for comparability, they change every epoch, can be zero, and past
   performance does not predict future results. Delegating or staking FLR involves risk,
   including protocol and parameter changes and loss of rewards. Figures derive from
   Flare's published settlement data and are provided as-is, without warranty. Do your
@@ -259,7 +275,17 @@ compared side by side, are on the
 
 </div>
 
-<script src="js/delegate-live.js?v=990bd381"></script>
+<script src="js/delegate-live.js?v=5e124bcc"></script>
 <script src="js/nav.js?v=cc03f358"></script>
+<script>
+(function(){
+  function copy(text, note){
+    var done=function(){ note.textContent='Copied. Paste it in the Portal.'; setTimeout(function(){note.textContent='';},4000); };
+    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done,function(){fallback();}); } else { fallback(); }
+    function fallback(){ var ta=document.createElement('textarea'); ta.value=text; ta.setAttribute('readonly',''); ta.style.position='absolute'; ta.style.left='-9999px'; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); done(); }catch(e){ note.textContent='Long-press the address above to copy it.'; } document.body.removeChild(ta); }
+  }
+  document.querySelectorAll('[data-copy]').forEach(function(b){ b.addEventListener('click',function(){ copy(b.getAttribute('data-copy'), document.getElementById(b.getAttribute('data-note'))); }); });
+})();
+</script>
 </body>
 </html>

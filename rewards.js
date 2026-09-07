@@ -79,15 +79,15 @@ document.getElementById("go").onclick = async () => {
   document.getElementById("c_del").textContent = fmt(del)+" FLR";
   document.getElementById("c_stk").textContent = fmt(stk)+" FLR";
   document.getElementById("c_dpct").textContent =
-      dp.length ? (addrs.length>1 ? dp.map(x=>fmt(x,0)+"%").join(" / ") : fmt(dp[0],0)+"%") : "—";
+      dp.length ? (addrs.length>1 ? dp.map(x=>fmt(x,0)+"%").join(" / ") : fmt(dp[0],0)+"%") : "-";
   document.getElementById("c_auto").textContent =
-      autos.every(a=>a===null) ? "— (couldn\u2019t reach Flare RPC)" : autos.every(Boolean) ? "enabled ✓" : autos.some(Boolean) ? "partial" : "not enabled";
+      autos.every(a=>a===null) ? "- (couldn\u2019t reach Flare RPC)" : autos.every(Boolean) ? "enabled ✓" : autos.some(Boolean) ? "partial" : "not enabled";
   document.getElementById("zero").style.display = ROWS.length ? "none" : "block";
   const tb = document.getElementById("tbody"); tb.innerHTML = "";
   for (const r of ROWS) {
     const tr = document.createElement("tr");
     tr.innerHTML = `<td>${r.date}</td><td>${r.wallet.slice(0,8)}…</td><td>${r.epoch}</td>
-      <td>${r.stream}</td><td>${fmt(r.flr)}</td><td>${r.usd!=null?"$"+fmt(r.usd):"—"}</td>
+      <td>${r.stream}</td><td>${fmt(r.flr)}</td><td>${r.usd!=null?"$"+fmt(r.usd):"-"}</td>
       <td><a href="https://flare-explorer.flare.network/tx/${r.tx}" target="_blank" rel="noopener">${r.tx.slice(0,10)}…</a></td>`;
     tb.appendChild(tr);
   }

@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CashLab — Results</title>
+<title>CashLab - Results</title>
 <link rel="canonical" href="https://cashlab.network/epochs">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://cashlab.network/epochs">
-<meta property="og:title" content="CashLab — Results">
+<meta property="og:title" content="CashLab, Results">
 <meta property="og:description" content="Every reward epoch, scored by Flare's published settlement data. Wins and losses in the same format, with numerators and denominators.">
 <meta property="og:image" content="https://cashlab.network/images/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="CashLab — Results">
+<meta name="twitter:title" content="CashLab, Results">
 <meta name="twitter:description" content="Every reward epoch, scored by Flare's published settlement data. Wins and losses in the same format, with numerators and denominators.">
 <meta name="twitter:image" content="https://cashlab.network/images/og-image.png">
 
@@ -146,7 +146,7 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);font-si
 <h1>Results</h1>
 
 <p class="lede">
-One report per reward epoch, published when Flare settles it — wins and losses in the
+One report per reward epoch, published when Flare settles it, wins and losses in the
 same format, including <strong>what each epoch actually returned</strong> to delegators and stakers. Every number comes from the network's official settlement data
 (<a href="https://github.com/flare-foundation/fsp-rewards" rel="noopener">flare-foundation/fsp-rewards</a>),
 never from our own claims. Charts and the machine-readable history table are
@@ -186,15 +186,15 @@ below; live entity status is on the
 <p style="font-size:12.5px;color:var(--muted);margin-top:10px">
 Nothing on this page is typed in by hand. The two left tiles are
 <strong>point-in-time</strong> values the publish pipeline derives at
-generation time — active stake read live from Flare's PChainStakeMirror
-contract, feed count from our machine-readable control plane — and stamps
+generation time, active stake read live from Flare's PChainStakeMirror
+contract, feed count from our machine-readable control plane, and stamps
 with the moment they were read. The two right tiles, and everything below,
 are <strong>settled per-epoch data</strong> from <code>epochs.json</code>.
 The pipeline regenerates the whole file each epoch, so this page updates
 itself as epochs settle; each tile's exact source is in its
 <code>data-source</code> attribute and in <code>epochs.json</code> itself.
 A new report publishes automatically once Flare sets the epoch's reward
-Merkle root on chain — the pipeline checks every two hours, and won't
+Merkle root on chain, the pipeline checks every two hours, and won't
 publish from files the chain hasn't confirmed yet.<span id="gen"></span>
 </p>
 
@@ -215,8 +215,8 @@ FIP.10 reward gate. Full fractions are in the table below.
 </div>
 <div class="fig" id="fig-apr"><div class="placeholder">Loading epochs.json…</div></div>
 <p style="font-size:12.5px;color:var(--muted);margin-top:8px">
-<strong>Realized</strong> historical rates from each epoch's actual payout file —
-reward ÷ weight, annualized simply over 104.36 epochs/yr, no compounding — not a
+<strong>Realized</strong> historical rates from each epoch's actual payout file, 
+reward ÷ weight, annualized simply over 104.36 epochs/yr, no compounding, not a
 projection. A zeroed epoch really pays 0.00%. Tooltips include that epoch's
 network medians for comparison.
 </p>
@@ -235,12 +235,12 @@ network medians for comparison.
 </div>
 <p style="font-size:12.5px;color:var(--muted);margin-top:8px">
 *Uptime is a point-in-time read of the validator at settlement, not an epoch
-average — the official record only attests the ≥80% pass/fail. Every other
+average, the official record only attests the ≥80% pass/fail. Every other
 column is Flare's settled data, shown with numerator / denominator.
 </p>
 
 <div class="note">
-Machine-readable: <code>curl https://cashlab.network/epochs.json</code> — epochs
+Machine-readable: <code>curl https://cashlab.network/epochs.json</code>, epochs
 ascending, every gate with numerator and denominator, plus links to the official
 source files and the chain-verified merkle root per epoch.
 </div>
@@ -305,9 +305,9 @@ Delegators: epoch 429 rewards are claimable now and expire about 90 days after t
 </div>
 
 <!-- ================= EPOCH 428 ================= -->
-<h2 id="e428">Epoch 428<span class="when">Aug 27 – Aug 31, 2026 · ended Aug 31</span><span class="verdict paid">PAID</span></h2>
+<h2 id="e428">Epoch 428<span class="when">Aug 27, Aug 31, 2026 · ended Aug 31</span><span class="verdict paid">PAID</span></h2>
 
-<p>All four gates passed, zero strikes. Pass banked — buffer now 3.</p>
+<p>All four gates passed, zero strikes. Pass banked, buffer now 3.</p>
 
 <h3>The four gates</h3>
 <table>
@@ -349,7 +349,7 @@ Delegators: epoch 429 rewards are claimable now and expire about 90 days after t
 <p style="margin-top:10px;font-size:13px;color:var(--muted)">
 Rates are <strong>realized</strong>, not projected: derived from the epoch's actual payout file
 (<code>reward-distribution-data.json</code>) as reward ÷ weight, annualized simply over
-104.36 epochs per year — no compounding assumed, because rewards must be claimed and
+104.36 epochs per year, no compounding assumed, because rewards must be claimed and
 re-delegated to compound. The network median covers the 94 providers that paid out in
 this epoch. 20,460.47 FLR went to delegators and stakers this epoch; our fee was 5,115.12 FLR.
 Our method reproduces Flare's own published per-provider rates exactly.
@@ -359,13 +359,13 @@ Our method reproduces Flare's own published per-provider rates exactly.
 
 <div class="note">
 Delegators: epoch 428 rewards are claimable now and expire about 90 days after the epoch ends
-(~Nov 29, 2026; the exact cutoff is set on-chain as epochs leave the claimable window). Unclaimed rewards are lost — claim before then.
+(~Nov 29, 2026; the exact cutoff is set on-chain as epochs leave the claimable window). Unclaimed rewards are lost, claim before then.
 </div>
 
 <!-- ================= EPOCH 427 ================= -->
-<h2 id="e427">Epoch 427<span class="when">Aug 24 – Aug 27, 2026 · ended Aug 27</span><span class="verdict paid">PAID</span></h2>
+<h2 id="e427">Epoch 427<span class="when">Aug 24, Aug 27, 2026 · ended Aug 27</span><span class="verdict paid">PAID</span></h2>
 
-<p>All four gates passed, zero strikes. Pass banked — buffer now 3.</p>
+<p>All four gates passed, zero strikes. Pass banked, buffer now 3.</p>
 
 <h3>The four gates</h3>
 <table>
@@ -407,7 +407,7 @@ Delegators: epoch 428 rewards are claimable now and expire about 90 days after t
 <p style="margin-top:10px;font-size:13px;color:var(--muted)">
 Rates are <strong>realized</strong>, not projected: derived from the epoch's actual payout file
 (<code>reward-distribution-data.json</code>) as reward ÷ weight, annualized simply over
-104.36 epochs per year — no compounding assumed, because rewards must be claimed and
+104.36 epochs per year, no compounding assumed, because rewards must be claimed and
 re-delegated to compound. The network median covers the 91 providers that paid out in
 this epoch. 20,446.50 FLR went to delegators and stakers this epoch; our fee was 5,111.63 FLR.
 Our method reproduces Flare's own published per-provider rates exactly.
@@ -417,13 +417,13 @@ Our method reproduces Flare's own published per-provider rates exactly.
 
 <div class="note">
 Delegators: epoch 427 rewards are claimable now and expire about 90 days after the epoch ends
-(~Nov 25, 2026; the exact cutoff is set on-chain as epochs leave the claimable window). Unclaimed rewards are lost — claim before then.
+(~Nov 25, 2026; the exact cutoff is set on-chain as epochs leave the claimable window). Unclaimed rewards are lost, claim before then.
 </div>
 
 <!-- ================= EPOCH 426 ================= -->
-<h2 id="e426">Epoch 426<span class="when">Aug 20 – Aug 24, 2026 · ended Aug 24</span><span class="verdict paid">PAID</span></h2>
+<h2 id="e426">Epoch 426<span class="when">Aug 20, Aug 24, 2026 · ended Aug 24</span><span class="verdict paid">PAID</span></h2>
 
-<p>All four gates passed, zero strikes. Pass banked — buffer now 2.</p>
+<p>All four gates passed, zero strikes. Pass banked, buffer now 2.</p>
 
 <h3>The four gates</h3>
 <table>
@@ -465,7 +465,7 @@ Delegators: epoch 427 rewards are claimable now and expire about 90 days after t
 <p style="margin-top:10px;font-size:13px;color:var(--muted)">
 Rates are <strong>realized</strong>, not projected: derived from the epoch's actual payout file
 (<code>reward-distribution-data.json</code>) as reward ÷ weight, annualized simply over
-104.36 epochs per year — no compounding assumed, because rewards must be claimed and
+104.36 epochs per year, no compounding assumed, because rewards must be claimed and
 re-delegated to compound. The network median covers the 93 providers that paid out in
 this epoch. 21,005.10 FLR went to delegators and stakers this epoch; our fee was 5,251.27 FLR.
 Our method reproduces Flare's own published per-provider rates exactly.
@@ -475,13 +475,13 @@ Our method reproduces Flare's own published per-provider rates exactly.
 
 <div class="note">
 Delegators: epoch 426 rewards are claimable now and expire about 90 days after the epoch ends
-(~Nov 22, 2026; the exact cutoff is set on-chain as epochs leave the claimable window). Unclaimed rewards are lost — claim before then.
+(~Nov 22, 2026; the exact cutoff is set on-chain as epochs leave the claimable window). Unclaimed rewards are lost, claim before then.
 </div>
 
 <!-- ================= EPOCH 425 ================= -->
-<h2 id="e425">Epoch 425<span class="when">Aug 17 – Aug 20, 2026 · ended Aug 20</span><span class="verdict paid">PAID</span></h2>
+<h2 id="e425">Epoch 425<span class="when">Aug 17, Aug 20, 2026 · ended Aug 20</span><span class="verdict paid">PAID</span></h2>
 
-<p>All four gates passed, zero strikes. Pass banked — buffer now 1.</p>
+<p>All four gates passed, zero strikes. Pass banked, buffer now 1.</p>
 
 <h3>The four gates</h3>
 <table>
@@ -523,7 +523,7 @@ Delegators: epoch 426 rewards are claimable now and expire about 90 days after t
 <p style="margin-top:10px;font-size:13px;color:var(--muted)">
 Rates are <strong>realized</strong>, not projected: derived from the epoch's actual payout file
 (<code>reward-distribution-data.json</code>) as reward ÷ weight, annualized simply over
-104.36 epochs per year — no compounding assumed, because rewards must be claimed and
+104.36 epochs per year, no compounding assumed, because rewards must be claimed and
 re-delegated to compound. The network median covers the 96 providers that paid out in
 this epoch. 5,949.66 FLR went to delegators and stakers this epoch; our fee was 1,487.42 FLR.
 Our method reproduces Flare's own published per-provider rates exactly.
@@ -533,11 +533,11 @@ Our method reproduces Flare's own published per-provider rates exactly.
 
 <div class="note">
 Delegators: epoch 425 rewards are claimable now and expire about 90 days after the epoch ends
-(~Nov 18, 2026; the exact cutoff is set on-chain as epochs leave the claimable window). Unclaimed rewards are lost — claim before then.
+(~Nov 18, 2026; the exact cutoff is set on-chain as epochs leave the claimable window). Unclaimed rewards are lost, claim before then.
 </div>
 
 <!-- ================= EPOCH 424 ================= -->
-<h2 id="e424">Epoch 424<span class="when">Aug 13 – Aug 17, 2026 · ended Aug 17</span><span class="verdict paid">PAID</span></h2>
+<h2 id="e424">Epoch 424<span class="when">Aug 13, Aug 17, 2026 · ended Aug 17</span><span class="verdict paid">PAID</span></h2>
 
 <p>All four gates passed, zero strikes.</p>
 
@@ -581,7 +581,7 @@ Delegators: epoch 425 rewards are claimable now and expire about 90 days after t
 <p style="margin-top:10px;font-size:13px;color:var(--muted)">
 Rates are <strong>realized</strong>, not projected: derived from the epoch's actual payout file
 (<code>reward-distribution-data.json</code>) as reward ÷ weight, annualized simply over
-104.36 epochs per year — no compounding assumed, because rewards must be claimed and
+104.36 epochs per year, no compounding assumed, because rewards must be claimed and
 re-delegated to compound. The network median covers the 95 providers that paid out in
 this epoch. 6,250.37 FLR went to delegators and stakers this epoch; our fee was 1,562.59 FLR.
 Our method reproduces Flare's own published per-provider rates exactly.
@@ -592,11 +592,11 @@ Our method reproduces Flare's own published per-provider rates exactly.
 
 <div class="note">
 Delegators: epoch 424 rewards are claimable now and expire about 90 days after the epoch ends
-(~Nov 15, 2026; the exact cutoff is set on-chain as epochs leave the claimable window). Unclaimed rewards are lost — claim before then.
+(~Nov 15, 2026; the exact cutoff is set on-chain as epochs leave the claimable window). Unclaimed rewards are lost, claim before then.
 </div>
 
 <!-- ================= EPOCH 423 ================= -->
-<h2 id="e423">Epoch 423<span class="when">Aug 10 – Aug 13, 2026 · ended Aug 13</span><span class="verdict paid">PAID</span></h2>
+<h2 id="e423">Epoch 423<span class="when">Aug 10, Aug 13, 2026 · ended Aug 13</span><span class="verdict paid">PAID</span></h2>
 
 <p>Our first paying epoch. All four gates passed, zero strikes.</p>
 
@@ -640,13 +640,13 @@ Delegators: epoch 424 rewards are claimable now and expire about 90 days after t
 <p style="margin-top:10px;font-size:13px;color:var(--muted)">
 Rates are <strong>realized</strong>, not projected: derived from the epoch's actual payout file
 (<code>reward-distribution-data.json</code>) as reward ÷ weight, annualized simply over
-104.36 epochs per year — no compounding assumed. The network median covers the 91 providers
+104.36 epochs per year, no compounding assumed. The network median covers the 91 providers
 that paid out in this epoch. 6,361.67 FLR went to delegators and stakers this epoch;
 our fee was 1,590.42 FLR.
 </p>
 
 <h3>What changed between 422 and 423</h3>
-<p>Everything in 422's "what changed" list ran through this epoch — our own node as
+<p>Everything in 422's "what changed" list ran through this epoch, our own node as
 primary RPC, proven fallbacks on every critical source, work-based health checks,
 off-site alerting. The result: FDC recovered from 35.6% to 99.4% (missing only
 20 of 3,360 rounds), and FTSO accuracy cleared the gate with 14 points of margin.
@@ -656,11 +656,11 @@ essentially every round they were live for; epoch 424 is their first full epoch.
 <div class="note">
 Delegators: epoch 423 rewards are claimable now and expire about 90 days after the
 epoch ends (~Nov 11, 2026; the exact cutoff is set on-chain as epochs leave the
-claimable window). Unclaimed rewards are lost — claim before then.
+claimable window). Unclaimed rewards are lost, claim before then.
 </div>
 
 <!-- ================= EPOCH 422 ================= -->
-<h2 id="e422">Epoch 422<span class="when">Aug 6 – Aug 10, 2026 · ended Aug 10</span><span class="verdict zero">PAID ZERO</span></h2>
+<h2 id="e422">Epoch 422<span class="when">Aug 6, Aug 10, 2026 · ended Aug 10</span><span class="verdict zero">PAID ZERO</span></h2>
 
 <p>Our first reward-eligible epoch, and it paid nothing. Here is exactly what happened.</p>
 
@@ -688,9 +688,9 @@ claimable window). Unclaimed rewards are lost — claim before then.
   </tr>
 </table>
 
-<p style="margin-top:12px">Two gates failed with <a href="https://github.com/flare-foundation/fsp-rewards/blob/main/flare/422/passes.json" rel="noopener">no passes banked</a> — under
+<p style="margin-top:12px">Two gates failed with <a href="https://github.com/flare-foundation/fsp-rewards/blob/main/flare/422/passes.json" rel="noopener">no passes banked</a>, under
 <a href="https://proposals.flare.network/FIP/FIP_10.html" rel="noopener">FIP.10</a> each failed
-condition needs a banked pass to absorb it, so the epoch zeroed entirely — including the
+condition needs a banked pass to absorb it, so the epoch zeroed entirely, including the
 staking side, despite the validator running clean throughout.</p>
 
 <h3>What it returned</h3>
@@ -709,25 +709,25 @@ staking side, despite the validator running clean throughout.</p>
 <p style="margin-top:10px;font-size:13px;color:var(--muted)">
 Rates are <strong>realized</strong>, not projected: derived from the epoch's actual payout file
 (<code>reward-distribution-data.json</code>) as reward ÷ weight, annualized simply over
-104.36 epochs per year — no compounding assumed, because rewards must be claimed and
+104.36 epochs per year, no compounding assumed, because rewards must be claimed and
 re-delegated to compound. The network median covers the 90 providers that paid out in
 this epoch. Our method reproduces Flare's own published per-provider rates exactly.
 </p>
 
 <h3>What happened</h3>
 <p>Our RPC layer had a single point of failure. A metered third-party endpoint we depended on
-was disabled mid-epoch over a billing overage — our oversight — causing <strong>14 consecutive
-hours of zero submissions</strong> (Aug 9, 07:00–20:00 UTC). Outside that window our FTSO hit
+was disabled mid-epoch over a billing overage, our oversight, causing <strong>14 consecutive
+hours of zero submissions</strong> (Aug 9, 07:00-20:00 UTC). Outside that window our FTSO hit
 rate was ~89.8%; the outage alone dragged it under the gate. Separately, a health check that
 trusted "process running" over "work coming out" hid a dead Ethereum data source for roughly
 two days, which is what pushed FDC participation down to 35.6%.</p>
 
-<h3>What changed since — all live and tested</h3>
+<h3>What changed since, all live and tested</h3>
 <ul>
   <li>Our own Flare node is now the primary RPC for every component, with automatic
-      failover through a monitored pool — a dead endpoint rotates out within ~6 minutes.</li>
+      failover through a monitored pool, a dead endpoint rotates out within ~6 minutes.</li>
   <li>Every critical data source now has a proven fallback, including the XRP feed
-      (89% of FDC rounds) — validated by live drill, not by assumption.</li>
+      (89% of FDC rounds), validated by live drill, not by assumption.</li>
   <li>Health checks now require <em>proven work</em> (a real verified transaction, a climbing
       submission counter), not just a running process.</li>
   <li>Independent off-site monitoring alerts us even if our servers die entirely.</li>
@@ -736,7 +736,7 @@ two days, which is what pushed FDC participation down to 35.6%.</p>
 
 <div class="note">
 Delegators: epoch 422 has no rewards to claim. Validator uptime was unaffected throughout.
-Epoch 423 ran on the rebuilt architecture and settled Aug 14 — its report is above, in
+Epoch 423 ran on the rebuilt architecture and settled Aug 14, its report is above, in
 this same format, as promised.
 </div>
 
@@ -745,7 +745,7 @@ this same format, as promised.
   <strong>Disclaimer.</strong> CashLab is an independent infrastructure operator, not a
   financial adviser; nothing on this site is financial, investment, or tax advice.
   Reward rates shown are <em>realized historical results for individual reward
-  epochs</em>, annualized only to make epochs comparable — they change every epoch,
+  epochs</em>, annualized only to make epochs comparable, they change every epoch,
   can be zero, and past performance does not predict future results. Delegating or
   staking FLR involves risk, including protocol and parameter changes and loss of
   rewards. All figures derive from Flare's published settlement data
@@ -760,7 +760,7 @@ this same format, as promised.
 </footer>
 
 </div>
-<script src="js/stats-live.js?v=3d4c0918"></script>
+<script src="js/stats-live.js?v=84292cb0"></script>
 <script src="js/nav.js?v=cc03f358"></script>
 </body>
 </html>

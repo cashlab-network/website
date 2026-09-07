@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CashLab — Auto-Claim</title>
+<title>CashLab - Auto-Claim</title>
 <link rel="canonical" href="https://cashlab.network/autoclaim">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://cashlab.network/autoclaim">
-<meta property="og:title" content="CashLab — Auto-Claim">
-<meta property="og:description" content="CashLab's auto-claim executor pushes your Flare delegation and staking rewards to your own wallet as WFLR for a flat 0.25 FLR fee per claim. Non-custodial, enforced by Flare's own contracts. In soft launch — not announced yet.">
+<meta property="og:title" content="CashLab, Auto-Claim">
+<meta property="og:description" content="CashLab's auto-claim executor pushes your Flare delegation and staking rewards to your own wallet as WFLR for a flat 0.25 FLR fee per claim. Non-custodial, enforced by Flare's own contracts. In soft launch, not announced yet.">
 <meta property="og:image" content="https://cashlab.network/images/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="CashLab — Auto-Claim">
-<meta name="twitter:description" content="CashLab's auto-claim executor pushes your Flare delegation and staking rewards to your own wallet as WFLR for a flat 0.25 FLR fee per claim. Non-custodial, enforced by Flare's own contracts. In soft launch — not announced yet.">
+<meta name="twitter:title" content="CashLab, Auto-Claim">
+<meta name="twitter:description" content="CashLab's auto-claim executor pushes your Flare delegation and staking rewards to your own wallet as WFLR for a flat 0.25 FLR fee per claim. Non-custodial, enforced by Flare's own contracts. In soft launch, not announced yet.">
 <meta name="twitter:image" content="https://cashlab.network/images/og-image.png">
 
-<meta name="description" content="CashLab's auto-claim executor pushes your Flare delegation and staking rewards to your own wallet as WFLR for a flat 0.25 FLR fee per claim. Non-custodial, enforced by Flare's own contracts. In soft launch — not announced yet.">
+<meta name="description" content="CashLab's auto-claim executor pushes your Flare delegation and staking rewards to your own wallet as WFLR for a flat 0.25 FLR fee per claim. Non-custodial, enforced by Flare's own contracts. In soft launch, not announced yet.">
 <link rel="icon" href="images/favicon.ico">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <style>
@@ -101,7 +101,7 @@ a:hover{color:#a8842c}
       "name": "What does auto-claim do?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "It claims your delegation (WFLR / FTSO) and staking (P-chain mirror) rewards — the reward types Flare's autoClaim supports. Rewards go to your own wallet (or your Flare delegation account, if you enabled one), wrapped as WFLR. The payout address comes from Flare's ClaimSetupManager contract — the executor has no way to redirect it."
+        "text": "It claims your delegation (WFLR / FTSO) and staking (P-chain mirror) rewards, the reward types Flare's autoClaim supports. Rewards go to your own wallet (or your Flare delegation account, if you enabled one), wrapped as WFLR. The payout address comes from Flare's ClaimSetupManager contract, the executor has no way to redirect it."
       }
     },
     {
@@ -109,7 +109,7 @@ a:hover{color:#a8842c}
       "name": "What does it cost, in full?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "0.25 FLR per claim — scheduled on-chain and visible in advance on the ClaimSetupManager contract. The fee is deducted from the rewards being claimed, and one claim covers every unclaimed epoch you have. At enrollment you pay the per-claim fee once. 0 FLR is ever sent to CashLab directly — you never transfer funds to CashLab, and anyone asking you to is a scammer."
+        "text": "0.25 FLR per claim, scheduled on-chain and visible in advance on the ClaimSetupManager contract. The fee is deducted from the rewards being claimed, and one claim covers every unclaimed epoch you have. At enrollment you pay the per-claim fee once. 0 FLR is ever sent to CashLab directly, you never transfer funds to CashLab, and anyone asking you to is a scammer."
       }
     },
     {
@@ -117,7 +117,7 @@ a:hover{color:#a8842c}
       "name": "What happens with small balances?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Flare's contract only permits an executor claim when your accumulated rewards are at least the current per-claim fee. Below that, we cannot auto-claim for you — your rewards keep accumulating until they cross the threshold, and you can always claim any amount yourself, fee-free, in the portal. Rewards left unclaimed expire after about 90 days, whether or not an executor is set."
+        "text": "Flare's contract only permits an executor claim when your accumulated rewards are at least the current per-claim fee. Below that, we cannot auto-claim for you, your rewards keep accumulating until they cross the threshold, and you can always claim any amount yourself, fee-free, in the portal. Rewards left unclaimed expire after about 90 days, whether or not an executor is set."
       }
     },
     {
@@ -125,7 +125,7 @@ a:hover{color:#a8842c}
       "name": "How do I leave?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Open the same Set Executor section in the portal and set a new executor list without us (or an empty one). That's it — no notice period, no permission from CashLab needed. Your rewards and your ability to claim them yourself are never affected by enrolling or leaving."
+        "text": "Open the same Set Executor section in the portal and set a new executor list without us (or an empty one). That's it, no notice period, no permission from CashLab needed. Your rewards and your ability to claim them yourself are never affected by enrolling or leaving."
       }
     },
     {
@@ -133,7 +133,7 @@ a:hover{color:#a8842c}
       "name": "How do I check my enrollment?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The check on this page runs in your browser against Flare's public RPC — your address is not sent to CashLab's servers. It asks the ClaimSetupManager contract whether the CashLab executor is authorized for your wallet."
+        "text": "The check on this page runs in your browser against Flare's public RPC, your address is not sent to CashLab's servers. It asks the ClaimSetupManager contract whether the CashLab executor is authorized for your wallet."
       }
     }
   ]
@@ -165,13 +165,13 @@ a:hover{color:#a8842c}
 <div class="page-head">
 <span class="eyebrow">Delegator service</span>
 <h1>Auto-Claim</h1>
-<p style="margin:6px 0 0"><span class="pill wait">Soft launch — not announced yet</span></p>
+<p style="margin:6px 0 0"><span class="pill wait">Soft launch, not announced yet</span></p>
 
 <p class="lede">
 Delegate or stake with CashLab and stop clicking &ldquo;claim&rdquo; every 3.5 days.
 Authorize the CashLab executor once in the Flare portal, and each reward epoch we
 deliver your delegation and staking rewards <strong>straight to your own wallet as
-WFLR</strong> — automatically, on-chain, minus a flat fee per
+WFLR</strong>, automatically, on-chain, minus a flat fee per
 claim (0.25&nbsp;FLR, scheduled on-chain and live since reward epoch 429). We never hold your funds.
 </p>
 </div>
@@ -179,7 +179,7 @@ claim (0.25&nbsp;FLR, scheduled on-chain and live since reward epoch 429). We ne
 <div class="note note--safety note--big">
 <strong>The executor is registered on-chain and enrollment works today.</strong>
 We're proving it against real reward epochs before announcing it publicly.
-Same rule as always: best-effort, not guaranteed — check your claims
+Same rule as always: best-effort, not guaranteed, check your claims
 yourself, and treat any address that doesn't match the one published here
 and on-chain as a scam.
 </div>
@@ -187,7 +187,7 @@ and on-chain as a scam.
 <h2>Please read this first</h2>
 <div class="note note--safety note--big">
 <strong>This service is best-effort, not guaranteed.</strong>
-Please check your claims yourself to verify — we do not guarantee them.
+Please check your claims yourself to verify, we do not guarantee them.
 Your rewards remain yours at all times and are always claimable by you directly,
 whether or not any executor is authorized. You can verify and claim at
 <a href="https://portal.flare.network" rel="noopener">portal.flare.network</a>
@@ -196,12 +196,12 @@ whenever you like.
 
 <h2>What it does</h2>
 <table>
-  <tr><td>What gets claimed</td><td>Your delegation (WFLR / FTSO) and staking (P-chain mirror) rewards — the
+  <tr><td>What gets claimed</td><td>Your delegation (WFLR / FTSO) and staking (P-chain mirror) rewards, the
       reward types Flare's <span class="mono">autoClaim</span> supports.</td></tr>
   <tr><td>Where rewards go</td><td><strong>Your own wallet</strong> (or your Flare delegation account, if you
       enabled one), wrapped as WFLR. The payout address comes from Flare's
-      ClaimSetupManager contract — the executor has no way to redirect it.</td></tr>
-  <tr><td>Fee per claim</td><td><strong>0.25 FLR</strong> — live since reward epoch 429 (Aug 31, 2026),
+      ClaimSetupManager contract, the executor has no way to redirect it.</td></tr>
+  <tr><td>Fee per claim</td><td><strong>0.25 FLR</strong>, live since reward epoch 429 (Aug 31, 2026),
       deducted from the claimed rewards. The increase was scheduled on-chain on
       2026-08-24 and is visible in advance on the
       <a href="https://flare-explorer.flare.network/address/0xD56c0Ea37B848939B59e6F5Cda119b3fA473b5eB" rel="noopener">ClaimSetupManager
@@ -210,15 +210,15 @@ whenever you like.
       less if rewards accumulate across epochs.</td></tr>
   <tr><td>One-time enrollment cost</td><td><strong>The per-claim fee at the time you enroll</strong> (see &ldquo;What it costs you, in full&rdquo;), attached automatically by the portal when you add
       the executor. Flare's contract pays it to a newly added registered executor
-      from that transaction — it is set by the protocol, not by us.</td></tr>
+      from that transaction, it is set by the protocol, not by us.</td></tr>
   <tr><td>Fee changes</td><td>Capped by the protocol (at most 100&nbsp;FLR), and any change an executor
-      makes is delayed 3 reward epochs (~10.5 days) by the contract — no surprise
+      makes is delayed 3 reward epochs (~10.5 days) by the contract, no surprise
       pricing. Ours worked exactly that way: the current 0.25 fee was scheduled
       2026-08-24, effective epoch 429.</td></tr>
   <tr><td>Custody</td><td>None. No token approvals, no deposits, no smart-contract allowances. The
       executor can only trigger claims that pay <em>you</em>.</td></tr>
   <tr><td>Leaving</td><td>Any time, from the Flare portal, without asking us. Manual claiming always
-      keeps working — whichever happens first simply wins; nothing can be claimed
+      keeps working, whichever happens first simply wins; nothing can be claimed
       twice.</td></tr>
 </table>
 
@@ -232,18 +232,18 @@ cost recovery, not margin.
 <h2>What it costs you, in full</h2>
 <div class="grid">
   <div class="card"><div class="label">Per claim</div><div class="value">0.25 FLR</div>
-    <div style="font-size:13px;font-weight:600">Scheduled on-chain in advance — verifiable on the ClaimSetupManager contract</div>
+    <div style="font-size:13px;font-weight:600">Scheduled on-chain in advance, verifiable on the ClaimSetupManager contract</div>
     <div style="font-size:13px;color:var(--muted)">Deducted from the rewards being claimed. One claim covers every unclaimed epoch you have.</div></div>
   <div class="card"><div class="label">Once, at enrollment</div><div class="value" style="font-size:16px">Same as the per-claim fee</div>
-    <div style="font-size:13px;color:var(--muted)">Whatever the per-claim fee is on the day you enroll — attached by the portal; paid to the executor by the protocol.</div></div>
+    <div style="font-size:13px;color:var(--muted)">Whatever the per-claim fee is on the day you enroll, attached by the portal; paid to the executor by the protocol.</div></div>
   <div class="card"><div class="label">Ever sent to us directly</div><div class="value">0 FLR</div>
     <div style="font-size:13px;color:var(--muted)">You never transfer funds to CashLab. Anyone asking you to is a scammer.</div></div>
 </div>
 
-<h2>Small balances — the contract's rule, stated plainly</h2>
+<h2>Small balances, the contract's rule, stated plainly</h2>
 <p style="font-size:15px">
 Flare's contract only permits an executor claim when your accumulated rewards are
-at least the current per-claim fee (the contract enforces this against whatever the fee is at claim time). <strong>Below that, we cannot auto-claim for you</strong> —
+at least the current per-claim fee (the contract enforces this against whatever the fee is at claim time). <strong>Below that, we cannot auto-claim for you</strong>, 
 your rewards simply keep accumulating until they cross the threshold, and
 <strong>you can always claim any amount yourself, fee-free</strong>, in the
 portal. Remember Flare's claim window: rewards left unclaimed expire after about
@@ -254,8 +254,8 @@ portal. Remember Flare's claim window: rewards left unclaimed expire after about
 <ol class="steps">
   <li>Open the <a href="https://portal.flare.network" rel="noopener">Flare portal</a> and connect the wallet that holds your delegation or stake.</li>
   <li>Go to the claim-setup / <strong>Set Executor</strong> section and paste the executor address:<br>
-      <span class="mono">0x4b7905d5CBd4f2Ee02Aff3c20bBf728Ec69E33d4</span> <span class="pill wait">verify this address independently — see below</span><br>
-      The portal shows executors by address, not by name — it will confirm the
+      <span class="mono">0x4b7905d5CBd4f2Ee02Aff3c20bBf728Ec69E33d4</span> <span class="pill wait">verify this address independently, see below</span><br>
+      The portal shows executors by address, not by name, it will confirm the
       address is a registered executor and display its fee &mdash; it must match &ldquo;What it costs you, in full&rdquo; above (see
       &ldquo;How to verify it's really us&rdquo;).</li>
   <li>Confirm the transaction. The portal attaches the one-time authorization fee &mdash; equal to the current per-claim fee &mdash; described above.</li>
@@ -265,14 +265,14 @@ portal. Remember Flare's claim window: rewards left unclaimed expire after about
 <div class="note note--safety">
 <strong>Already using another executor?</strong> The portal's transaction
 (<span class="mono">setClaimExecutors</span>) <strong>replaces your entire
-executor list</strong> — it does not add to it. If you want to keep an existing
+executor list</strong>, it does not add to it. If you want to keep an existing
 executor as well, include both addresses in the same transaction. Setting only
 ours would silently remove the other one.
 </div>
 
 <h2>How to verify it's really us</h2>
 <p style="font-size:15px">
-Before you enroll with any executor — ours included — you should be able to
+Before you enroll with any executor, ours included, you should be able to
 answer: <em>how do I know this address is really theirs?</em> Here is how, and
 here is why the stakes are smaller than they look.
 </p>
@@ -281,31 +281,31 @@ here is why the stakes are smaller than they look.
 <strong>First, what an executor can never do.</strong> Flare's RewardManager
 contract always sends claimed rewards to <strong>your own wallet</strong> (or
 your delegation account, if you enabled one), minus only the executor's fee.
-The executor has no way to choose a destination — the payout address comes from
+The executor has no way to choose a destination, the payout address comes from
 the ClaimSetupManager contract, not from the executor.
-<strong>The worst a fake address can do is overcharge you a fee — it can never
+<strong>The worst a fake address can do is overcharge you a fee, it can never
 take your rewards.</strong>
 </div>
 
 <p style="font-size:15px">
 <strong>So the one thing to check at enrollment is the fee.</strong> When your
 wallet asks you to confirm the enrollment transaction, it shows the amount
-attached — that amount is the executor's current fee, paid once at enrollment,
+attached, that amount is the executor's current fee, paid once at enrollment,
 and the same fee is what each later claim deducts. <strong>It must match the
 fee stated at the top of this page &mdash; 0.25&nbsp;FLR.</strong> The protocol lets an executor charge up to
-100&nbsp;FLR, so a scam executor's game is a high fee — the confirmation shows
+100&nbsp;FLR, so a scam executor's game is a high fee, the confirmation shows
 it before you sign. <strong>Anything else: stop and don't sign.</strong>
 </p>
 
 <p style="font-size:15px">
-<strong>Second, don't take the address from one place — including this
+<strong>Second, don't take the address from one place, including this
 website.</strong> If this site were ever compromised, the page (and the
 enrollment checker above) could show you a wrong address. That is not
 paranoia, it is how you should treat every operator's website. Before
 enrolling, cross-check the executor address in independent places:
 </p>
 <table>
-  <tr><td>Our X account</td><td><a href="https://x.com/CashLabNetwork" rel="noopener">@CashLabNetwork</a> —
+  <tr><td>Our X account</td><td><a href="https://x.com/CashLabNetwork" rel="noopener">@CashLabNetwork</a>, 
       when we announce the service publicly, the executor address will be
       pinned there and must match this page exactly. Until then, use the
       chain links below &mdash; the chain, not this website, is the
@@ -320,12 +320,12 @@ enrolling, cross-check the executor address in independent places:
   <tr><td>The Flare portal</td><td>The portal checks the address for you. When you paste an executor
       address into its Set Executor field, <strong>the portal itself reads
       Flare's ClaimSetupManager contract live</strong> and tells you whether
-      the address is a registered executor and what fee it charges — for ours
+      the address is a registered executor and what fee it charges, for ours
       it must say registered, with <strong>exactly the fee stated at the top
       of this page</strong>. That
       confirmation comes from the chain, not from this website, so it works
       even if you trust nothing we publish. (The portal shows all executors
-      this way — by address, not by name.) If the portal does not confirm the
+      this way, by address, not by name.) If the portal does not confirm the
       address as a registered executor, or shows a fee that does not match the
       one stated at the top of this page, stop.</td></tr>
 </table>
@@ -338,14 +338,14 @@ so check the full list you are signing, not just one entry.
 <h2>How to leave</h2>
 <p style="font-size:15px">
 Open the same Set Executor section in the portal and set a new executor list
-without us (or an empty one). That's it — no notice period, no permission from
+without us (or an empty one). That's it, no notice period, no permission from
 CashLab needed. Your rewards and your ability to claim them yourself are never
 affected by enrolling or leaving.
 </p>
 
 <h2>Check my enrollment</h2>
 <p style="font-size:14px;color:var(--muted)">
-This check runs <strong>in your browser</strong> against Flare's public RPC —
+This check runs <strong>in your browser</strong> against Flare's public RPC, 
 your address is not sent to CashLab's servers. It asks the ClaimSetupManager
 contract (<span class="mono">0xD56c0Ea37B848939B59e6F5Cda119b3fA473b5eB</span>)
 whether the CashLab executor is authorized for your wallet.
@@ -359,15 +359,15 @@ whether the CashLab executor is authorized for your wallet.
   <div class="result" id="check-result" role="status"></div>
 </div>
 
-<h2 id="notifications">Email notifications — opt-in, and only if you want them</h2>
+<h2 id="notifications">Email notifications, opt-in, and only if you want them</h2>
 <p style="font-size:15px">
 If you give us an email address, we will use it for exactly two things:
 </p>
 <table>
   <tr><td>Claim outcomes</td><td>After each claim run: whether your claim succeeded (and the amount) or did
-      not complete this cycle — in which case you can always claim manually
+      not complete this cycle, in which case you can always claim manually
       yourself.</td></tr>
-  <tr><td>Stake-expiry reminders</td><td>Delegated stakes on Flare's P-chain <strong>do not auto-renew</strong> —
+  <tr><td>Stake-expiry reminders</td><td>Delegated stakes on Flare's P-chain <strong>do not auto-renew</strong>, 
       every stake has a fixed on-chain end date and simply stops earning when it
       passes. If you stake to the CashLab validator and opt in, we email you
       before your stake ends so you can re-stake in time.</td></tr>
@@ -397,14 +397,14 @@ and removable at any time by emailing
   </p>
 </div>
 
-<h2>Why it's safe — enforced by Flare's contracts, not by our promises</h2>
+<h2>Why it's safe, enforced by Flare's contracts, not by our promises</h2>
 <table>
   <tr><td>Payout destination</td><td>Fixed by the ClaimSetupManager contract to your own address (or your
       delegation account). Not configurable by the executor.</td></tr>
-  <tr><td>Double claiming</td><td>Impossible by contract: once rewards are claimed — by us or by you — a
+  <tr><td>Double claiming</td><td>Impossible by contract: once rewards are claimed, by us or by you, a
       second claim finds nothing. First claimer wins; nobody pays twice.</td></tr>
   <tr><td>Our track record</td><td>Once live, we will publish actual per-epoch numbers (claims made /
-      wallets enrolled) on the <a href="/status">status page</a> — numbers
+      wallets enrolled) on the <a href="/status">status page</a>, numbers
       first, promises never.</td></tr>
 </table>
 
@@ -423,7 +423,7 @@ and removable at any time by emailing
   funds, and reward payouts can only be delivered to your own address as enforced by
   those contracts. The per-claim fee is as stated in &ldquo;What it costs you, in full&rdquo; above; claims require accumulated rewards of
   at least the fee, as required by the protocol. The service is provided on a
-  best-effort basis and may be delayed or interrupted — please check your claims
+  best-effort basis and may be delayed or interrupted, please check your claims
   yourself to verify; we do not guarantee them. Unclaimed rewards remain claimable by
   you directly for the period defined by the protocol (currently about 90 days) and
   expire after it, whether or not any executor is authorized. Reward rates change
@@ -435,7 +435,7 @@ and removable at any time by emailing
 
 </div>
 
-<script src="js/autoclaim-live.js?v=cd8ceb2b"></script>
+<script src="js/autoclaim-live.js?v=f546f514"></script>
 <script src="js/nav.js?v=cc03f358"></script>
 </body>
 </html>

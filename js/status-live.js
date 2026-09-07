@@ -40,17 +40,17 @@ function tick(){
 }
 
 async function load(){
-  try{ set("block", (await blockNumber()).toLocaleString()); }catch(e){ set("block","—"); }
+  try{ set("block", (await blockNumber()).toLocaleString()); }catch(e){ set("block","-"); }
 
   try{
     const id = parseInt(await call(FSM, SEL.epochId), 16);
     set("epoch", id);
-  }catch(e){ set("epoch","—"); }
+  }catch(e){ set("epoch","-"); }
 
   try{
     endTs = parseInt(await call(FSM, SEL.epochEnd), 16);
     tick(); setInterval(tick, 30000);
-  }catch(e){ set("countdown","—"); }
+  }catch(e){ set("countdown","-"); }
 
   try{
     const res = await call(EM, SEL.voterAddr + pad(ID));
@@ -62,12 +62,12 @@ async function load(){
       p.textContent = "Registered on Flare mainnet";
       p.className = "pill";
     } else {
-      set("submitaddr","—");
+      set("submitaddr","-");
       const p=document.getElementById("regstatus");
       p.textContent="Not yet registered"; p.className="pill wait";
     }
   }catch(e){
-    set("submitaddr","—");
+    set("submitaddr","-");
     const p=document.getElementById("regstatus");
     p.textContent="Unable to read chain"; p.className="pill wait";
   }
@@ -77,7 +77,7 @@ async function load(){
     const w = res.replace("0x","").match(/.{64}/g) || [];
     const registered = w[0] && !/^0+$/.test(w[0]);
     set("pubkey", registered ? "Registered" : "Not registered");
-  }catch(e){ set("pubkey","—"); }
+  }catch(e){ set("pubkey","-"); }
 }
 load();
 setInterval(load, 60000);

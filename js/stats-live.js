@@ -172,8 +172,8 @@ function renderTable(eps){
 function renderSnapshot(doc){
   const s = doc.snapshot;
   if(!s || !s.activeStake || !s.feeds){
-    $("tile-stake").textContent = "—";
-    $("tile-feeds").textContent = "—";
+    $("tile-stake").textContent = "-";
+    $("tile-feeds").textContent = "-";
     $("tile-stake-sub").textContent = "snapshot missing from epochs.json";
     $("tile-feeds-sub").textContent = "snapshot missing from epochs.json";
     return;
@@ -236,7 +236,7 @@ function fail(msg){
   ifel("history-body", el => el.innerHTML =
     `<tr><td colspan="9" style="color:var(--muted)">${msg}</td></tr>`);
   for(const id of ["tile-stake", "tile-feeds", "tile-uptime", "tile-epoch"])
-    ifel(id, el => el.textContent = "—");
+    ifel(id, el => el.textContent = "-");
 }
 
 async function load(){
@@ -248,7 +248,7 @@ async function load(){
   }catch(err){
     fail("Could not load epochs.json (" + err.message +
          "). If you opened this file directly from disk, serve it over " +
-         "HTTP — or fetch /epochs.json yourself; it is the complete dataset.");
+         "HTTP, or fetch /epochs.json yourself; it is the complete dataset.");
     return;
   }
   const eps = (doc.epochs || []).slice().sort((a, b) => a.epoch - b.epoch);
