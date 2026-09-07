@@ -41,6 +41,9 @@ ol.steps li{margin-bottom:10px}
 .note{border-left:3px solid var(--gold);padding:10px 14px;background:#faf6ee;font-size:14px;margin:16px 0;border-radius:0 8px 8px 0}
 .note--safety{border-left-color:#b42318;background:#fdf3f2}
 .addr-box{border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:12px 14px;margin:14px 0;background:#faf6ee}
+.card--path{position:relative}
+.card--path a.stretch::after{content:"";position:absolute;inset:0;border-radius:10px}
+.card--path:hover{border-color:#8a6a23;box-shadow:0 2px 10px rgba(0,0,0,.06)}
 footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
 a{color:#8a6a23;text-decoration:underline}
 a:hover{color:#a8842c}
@@ -121,7 +124,7 @@ not from our servers.
       <tr><td>Rewards</td><td>Every reward epoch (~3.5 days)</td></tr>
       <tr><td>Best for</td><td>Most holders. Simple and flexible.</td></tr>
     </table>
-    <p style="margin-top:12px"><a href="/delegate" style="display:inline-block;background:#0E0E0D;color:#fff;font-weight:600;padding:10px 20px;border-radius:6px;text-decoration:none;border:0">Delegate now &rarr;</a></p>
+    <p style="margin-top:12px"><a href="/delegate" class="stretch" style="display:inline-block;background:#0E0E0D;color:#fff;font-weight:600;padding:10px 20px;border-radius:6px;text-decoration:none;border:0">Delegate now &rarr;</a></p>
   </div>
   <div class="card card--path">
     <h3>Stake to our validator <span class="label">· P-chain</span></h3>
@@ -132,7 +135,7 @@ not from our servers.
       <tr><td>Rewards</td><td>Settled about every two weeks</td></tr>
       <tr><td>Best for</td><td>Larger, longer-horizon positions</td></tr>
     </table>
-    <p style="margin-top:12px"><a href="#path-2" style="display:inline-block;background:#0E0E0D;color:#fff;font-weight:600;padding:10px 20px;border-radius:6px;text-decoration:none;border:0">Stake now &rarr;</a></p>
+    <p style="margin-top:12px"><a href="/stake" class="stretch" style="display:inline-block;background:#0E0E0D;color:#fff;font-weight:600;padding:10px 20px;border-radius:6px;text-decoration:none;border:0">Stake now &rarr;</a></p>
   </div>
 </div>
 
