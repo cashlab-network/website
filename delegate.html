@@ -277,15 +277,6 @@ compared side by side, are on the
 
 <script src="js/delegate-live.js?v=5e124bcc"></script>
 <script src="js/nav.js?v=cc03f358"></script>
-<script>
-(function(){
-  function copy(text, note){
-    var done=function(){ note.textContent='Copied. Paste it in the Portal.'; setTimeout(function(){note.textContent='';},4000); };
-    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done,function(){fallback();}); } else { fallback(); }
-    function fallback(){ var ta=document.createElement('textarea'); ta.value=text; ta.setAttribute('readonly',''); ta.style.position='absolute'; ta.style.left='-9999px'; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); done(); }catch(e){ note.textContent='Long-press the address above to copy it.'; } document.body.removeChild(ta); }
-  }
-  document.querySelectorAll('[data-copy]').forEach(function(b){ b.addEventListener('click',function(){ copy(b.getAttribute('data-copy'), document.getElementById(b.getAttribute('data-note'))); }); });
-})();
-</script>
+<script src="js/quick-copy.js?v=fa494e1c"></script>
 </body>
 </html>
