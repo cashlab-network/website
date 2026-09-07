@@ -72,8 +72,12 @@ async function loadPChain(){
     set("pstake-sub", Number(ownF).toLocaleString() + " own bond + " + Number(delF).toLocaleString() + " from stakers");
     set("pstake-count", String(v.delegatorCount ?? (v.delegators ? v.delegators.length : "-")));
     if(room === 0n){
+      // capacity reopens when the earliest current stake matures (or at the next term)
+      const dels = (v.delegators || []).map(d => ({ end: Number(d.endTime), w: BigInt(d.weight || "0") / nano }));
+      const soon = dels.length ? dels.reduce((a, b) => (a.end < b.end ? a : b)) : null;
+      const when = soon ? new Date(soon.end * 1000).toLocaleDateString(undefined, { month: "short", day: "numeric" }) : "the next term";
       set("pstake-room", "Full");
-      set("pstake-room-sub", "at the network cap of " + Number(cap).toLocaleString() + " FLR (15 x own bond) until the next term");
+      set("pstake-room-sub", "at the cap of " + Number(cap).toLocaleString() + " FLR (15 x own bond); " + (soon ? Number(soon.w).toLocaleString() + " FLR matures " + when : "until " + when));
     } else {
       set("pstake-room", Number(room).toLocaleString() + " FLR");
       set("pstake-room-sub", "of a " + Number(cap).toLocaleString() + " FLR cap (15 x own bond)");
