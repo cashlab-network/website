@@ -1,9 +1,9 @@
 {
  "$comment": "CashLab (cashlab.network) per-reward-epoch history on Flare mainnet. Schema (see schema_version): snapshot (point-in-time values DERIVED at generation time -- activeStake.flr read live from PChainStakeMirror.votePowerOf(bytes20 nodeId) on the public Flare RPC, feeds.configured from CashLab's control plane cross-checked against its gate denominator; asOf = generated_at, nothing is hand-written); epochs[] sorted ascending by epoch; per epoch: dates (UTC ISO-8601 start/end of the reward epoch, derived from the official voting-round ids -- the canonical per-epoch date is dates.end, the reward-epoch END; no settlement timestamp exists in the official files, and the settledUtc field of schema 1 was a pipeline RUN time, not data, so it was removed), paid (eligibleForReward from Flare's official minimal-conditions.json), gates.ftso/.fdc (pct = 100*num/den from the official settlement record; num and den are published so you can check the division), gates.staking (uptimePct is a POINT-IN-TIME read of the validator's uptime when the epoch's report was published, not an epoch average -- the official record only attests the >=80% boolean 'pass'; selfBond in whole FLR), gates.fastUpdates (actual vs expected submissions), returns (realized APR %, net of fee, annualized simply over 104.36 epochs/yr, no compounding; medians = network median across providers that paid that epoch), flr (whole-FLR amounts paid to delegators+stakers, and our fee), sources (the official flare-foundation/fsp-rewards files every number derives from; merkleRoot was verified on chain against FlareSystemsManager.rewardsHash(epoch) before this file was built). Realized historical results, not advice and not a projection.",
  "schema_version": "2.0.0",
- "generated_at": "2026-09-04T22:21:47Z",
+ "generated_at": "2026-09-08T00:24:04Z",
  "snapshot": {
-  "asOf": "2026-09-04T22:21:47Z",
+  "asOf": "2026-09-08T00:24:04Z",
   "activeStake": {
    "flr": 45000000,
    "nodeId": "NodeID-8Tp4GLFefnrLzzD7YU6qvEzDRRT1L6Zec",
@@ -509,6 +509,68 @@
     "minimalConditions": "https://raw.githubusercontent.com/flare-foundation/fsp-rewards/main/flare/429/minimal-conditions.json",
     "distribution": "https://raw.githubusercontent.com/flare-foundation/fsp-rewards/main/flare/429/reward-distribution-data.json",
     "merkleRoot": "0xa730c711361d45cfefd4c65aab8265db8b458e0eb18f85aba0d413b4122b79e2"
+   }
+  },
+  {
+   "epoch": 430,
+   "dates": {
+    "start": "2026-09-03T18:59:15+00:00",
+    "end": "2026-09-07T06:57:45+00:00",
+    "human": "Sep 3 \u2013 Sep 7, 2026"
+   },
+   "paid": true,
+   "conditions": {
+    "passesHeld": 3,
+    "banked": true,
+    "strikes": 0,
+    "passBalanceAfter": 3
+   },
+   "gates": {
+    "ftso": {
+     "pct": 99.43,
+     "num": 207124,
+     "den": 208320,
+     "pass": true
+    },
+    "fdc": {
+     "pct": 100.0,
+     "num": 3360,
+     "den": 3360,
+     "pass": true
+    },
+    "staking": {
+     "uptimePct": 99.9972,
+     "selfBond": 3000000,
+     "pass": true
+    },
+    "fastUpdates": {
+     "actual": 880,
+     "expected": 631,
+     "pass": true
+    }
+   },
+   "peers": {
+    "providers": 100,
+    "rank": 67,
+    "medianPct": 99.62,
+    "passedFloor": 97
+   },
+   "returns": {
+    "delegationAprPct": 2.18,
+    "stakingAprPct": 10.9,
+    "medians": {
+     "delegationAprPct": 1.38,
+     "stakingAprPct": 6.89
+    }
+   },
+   "flr": {
+    "toDelegatorsStakers": 26952.35,
+    "fee": 6738.09
+   },
+   "sources": {
+    "minimalConditions": "https://raw.githubusercontent.com/flare-foundation/fsp-rewards/main/flare/430/minimal-conditions.json",
+    "distribution": "https://raw.githubusercontent.com/flare-foundation/fsp-rewards/main/flare/430/reward-distribution-data.json",
+    "merkleRoot": "0xf860d0f1ea882da47cbe04fce8270411434ab197f5b3a8603931052f740527eb"
    }
   }
  ]
