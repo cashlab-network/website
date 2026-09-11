@@ -4,15 +4,15 @@
 // at launch. While this is empty, the enrollment widget reports "not live".
 //
 // FILL-IN-AT-LAUNCH CHECKLIST (status as of 2026-08-15, soft launch):
-//   1. DONE 2026-08-15 — PUBLIC_EXECUTOR set, visible placeholders replaced,
+//   1. DONE 2026-08-15, PUBLIC_EXECUTOR set, visible placeholders replaced,
 //      explorer links (registration tx + address page) filled in. All values
 //      chain-verified: executor is #18 in getRegisteredExecutors, fee 0.1,
 //      registration tx status 1.
-//   2. PARTLY DONE 2026-08-15 — executor-count/fee census re-read from the
+//   2. PARTLY DONE 2026-08-15, executor-count/fee census re-read from the
 //      chain and re-dated (18 executors, 9 at 0.1, median 0.15). STILL TO DO
 //      at public announce: re-verify the ~90-day claim window from the chain
 //      (WEBSITE-COPY.md requirement).
-//   3. DONE 2026-08-15 — portal-listing question resolved (verified from the
+//   3. DONE 2026-08-15, portal-listing question resolved (verified from the
 //      portal's production frontend bundle): the portal names NO executor;
 //      its Set Executor field is free-text address entry, and on pasting a
 //      registered executor's address the portal itself reads
@@ -20,7 +20,7 @@
 //      Row rewritten as a third independent verification path.
 //   4. Deploy workers/notify-signup with a KV or webhook binding.
 //   5. ANNOUNCE GATE: the server-side tamper watchdog (built separately) must
-//      be live — it polls this page and alarms if the displayed executor
+//      be live, it polls this page and alarms if the displayed executor
 //      address ever differs from the expected constant.
 //   6. AT PUBLIC ANNOUNCE ONLY (deliberately kept during soft launch):
 //      remove ALL soft-launch markers (FA-26; reworded per FA-29
@@ -39,6 +39,31 @@ const CLAIM_SETUP_MANAGER = "0xD56c0Ea37B848939B59e6F5Cda119b3fA473b5eB";
 // keccak256("isClaimExecutor(address,address)")[0:4], verified against the
 // live contract 2026-08-15 (valid calldata returns a bool word).
 const SELECTOR_IS_CLAIM_EXECUTOR = "0x87962abe";
+// Staking leg (2026-09-11): ValidatorRewardManager resolved from Flare's
+// ContractRegistry; claimExecutors(address) selector byte-anchored in the
+// executor service (cast sig -> 0x3f317fe1). Returns address[]: one offset
+// word, one length word, then one 32-byte word per address.
+const VALIDATOR_REWARD_MANAGER = "0xc0CF3Aaf93bd978C5BC662564Aa73E331f2eC0B5";
+const SELECTOR_CLAIM_EXECUTORS = "0x3f317fe1";
+
+async function ethCall(to, data) {
+  const r = await fetch(RPC, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "eth_call",
+      params: [{ to, data }, "latest"] })
+  });
+  const j = await r.json();
+  if (j.error) throw new Error(j.error.message);
+  return j.result;
+}
+
+function decodeAddressArray(hex) {
+  const words = (hex || "0x").slice(2).match(/.{1,64}/g) || [];
+  if (words.length < 2) return [];
+  const len = Number(BigInt("0x" + words[1]));
+  return words.slice(2, 2 + len).map((w) => "0x" + w.slice(24).toLowerCase());
+}
 
 const isAddress = (s) => /^0x[0-9a-fA-F]{40}$/.test(s);
 const pad32 = (addr) => addr.toLowerCase().replace(/^0x/, "").padStart(64, "0");
@@ -66,21 +91,20 @@ function show(el, cls, msg) {
     }
     show(out, "wait", "Checking on-chain…");
     try {
-      const data = SELECTOR_IS_CLAIM_EXECUTOR + pad32(owner) + pad32(PUBLIC_EXECUTOR);
-      const r = await fetch(RPC, {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "eth_call",
-          params: [{ to: CLAIM_SETUP_MANAGER, data }, "latest"] })
-      });
-      const j = await r.json();
-      if (j.error) throw new Error(j.error.message);
-      const enrolled = BigInt(j.result) === 1n;
-      if (enrolled) {
-        show(out, "ok", "Enrolled: the CashLab executor is authorized for this wallet (read live from ClaimSetupManager).");
-      } else {
-        show(out, "wait", "Not enrolled: the CashLab executor is not authorized for this wallet (read live from ClaimSetupManager).");
-      }
+      const enrolled = BigInt(await ethCall(CLAIM_SETUP_MANAGER,
+        SELECTOR_IS_CLAIM_EXECUTOR + pad32(owner) + pad32(PUBLIC_EXECUTOR))) === 1n;
+      const vrmExecs = decodeAddressArray(await ethCall(VALIDATOR_REWARD_MANAGER,
+        SELECTOR_CLAIM_EXECUTORS + pad32(owner)));
+      const staking = vrmExecs.includes(PUBLIC_EXECUTOR.toLowerCase());
+      const line1 = enrolled
+        ? "Enrolled: the CashLab executor is authorized for this wallet (read live from ClaimSetupManager)."
+        : "Not enrolled: the CashLab executor is not authorized for this wallet (read live from ClaimSetupManager).";
+      const line2 = staking
+        ? (enrolled
+            ? "Staking leg: authorized on the ValidatorRewardManager too, so both streams are covered once the staking leg is switched on."
+            : "Staking leg: authorized on the ValidatorRewardManager, but without the enrollment above the staking leg is not served.")
+        : "Staking leg: not authorized on the ValidatorRewardManager (optional; see the staking section).";
+      show(out, enrolled ? "ok" : "wait", line1 + " " + line2);
     } catch (e) {
       show(out, "err", "Could not reach the Flare public RPC to check. Nothing is wrong with your enrollment, please try again in a moment, or verify directly at portal.flare.network.");
     }
@@ -91,7 +115,7 @@ function show(el, cls, msg) {
 })();
 
 // --- Email opt-in form (POSTs to a placeholder endpoint; worker is staged,
-//     not deployed — see workers/notify-signup/) ---
+//     not deployed, see workers/notify-signup/) ---
 (function () {
   const form = document.getElementById("notify-form");
   const out = document.getElementById("notify-result");

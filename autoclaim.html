@@ -130,6 +130,14 @@ a:hover{color:#a8842c}
     },
     {
       "@type": "Question",
+      "name": "Does auto-claim cover the 14-day native staking rewards?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, once the staking leg is switched on. Native staking rewards are paid through Flare's ValidatorRewardManager every 4 reward epochs, about every two weeks. Wallets enrolled in the auto-claim service that also authorize the same executor on the ValidatorRewardManager get that stream claimed too, with no fee, once at least 1 FLR has accrued, delivered as WFLR to the owner's own address."
+      }
+    },
+    {
+      "@type": "Question",
       "name": "How do I check my enrollment?",
       "acceptedAnswer": {
         "@type": "Answer",
@@ -343,12 +351,136 @@ CashLab needed. Your rewards and your ability to claim them yourself are never
 affected by enrolling or leaving.
 </p>
 
+<!-- ===================================================================== -->
+<!-- ==== NATIVE STAKING LEG (14-day ValidatorRewardManager stream) ======= -->
+<!-- GATE W1 / TAMPER-WATCHDOG: this section adds TWO 0x tokens to the page -->
+<!--   0xc0CF3Aaf93bd978C5BC662564Aa73E331f2eC0B5  ValidatorRewardManager  -->
+<!--   0xaD67FE66660Fb8dFE9d6b1b4240d8650e30F6019  Flare ContractRegistry  -->
+<!-- Regenerate the W1 page-allowlist from live page bytes at deploy        -->
+<!-- (executor-service/INSTALL.md GATE W1 step 3) or W1 pages rogue-address -->
+<!-- alarms on these two legitimate contract addresses.                     -->
+<!-- GO-LIVE: remove every element carrying data-staking-dark (the pill and  -->
+<!-- the red banner) in the same push that sets VRM_SEND_ENABLED=1.          -->
+<!-- ===================================================================== -->
+<h2 id="staking">Native staking rewards, the 14-day stream: included, no fee <span class="pill wait" style="text-transform:none;letter-spacing:0" data-staking-dark>not switched on yet</span></h2>
+
+<div class="note note--safety note--big" data-staking-dark>
+<strong>Not switched on yet.</strong> The staking leg described here is built,
+independently reviewed, and waiting for its switch-on. Until this banner is
+gone, nothing is claimed for this stream and you should not enroll for it.
+The contract addresses below are real and verifiable today.
+</div>
+
+<p style="font-size:15px">
+If you stake FLR on Flare's P-chain, you earn a second reward stream on top of
+delegation rewards: native staking rewards, paid out through Flare's
+<a href="https://flare-explorer.flare.network/address/0xc0CF3Aaf93bd978C5BC662564Aa73E331f2eC0B5" rel="noopener">ValidatorRewardManager
+contract</a> every 4 reward epochs, about every two weeks (Flare's own figure;
+the claim bursts on that contract fell on Aug 13, Aug 26 to 27 and Sep 9 to 11,
+2026). The auto-claim service claims this stream too: <strong>both reward
+streams, one service, each delivered to your own wallet.</strong>
+</p>
+
+<table>
+  <tr><td>Who gets it</td><td>Wallets that are enrolled in the auto-claim service above <em>and</em> have
+      authorized the same CashLab executor on the ValidatorRewardManager. Both
+      are required. A wallet that only does the second step is not served: the
+      3.5-day enrollment is what pays for the gas of both streams.</td></tr>
+  <tr><td>Fee for this stream</td><td><strong>None.</strong> This contract has no fee mechanism and we add none. Our
+      own cost is the gas, about 0.2 to 0.35 FLR per claim (measured on 10 real
+      claims, 2026-09-11), covered by the 0.25 FLR fee on the 3.5-day stream.</td></tr>
+  <tr><td>When we claim</td><td>Daily check. We claim once your unclaimed staking rewards are at least
+      <strong>1 FLR</strong>, so a claim is never mostly gas. Below that, your
+      rewards simply keep accruing; they do not expire on this contract, and
+      you can claim any amount yourself at any time in the Flare portal.</td></tr>
+  <tr><td>Where rewards go</td><td><strong>Your own wallet address, as WFLR.</strong> The contract lets an
+      executor deliver only to the reward owner (or to a recipient the owner
+      allow-listed on chain, a setting only you control). Our executor sends
+      every claim to the owner address itself; this contract has no
+      delegation-account option.</td></tr>
+  <tr><td>Enrollment cost</td><td><strong>0 FLR</strong> plus network gas. Unlike the 3.5-day enrollment, this
+      contract attaches no protocol fee at enrollment (simulated from an
+      arbitrary wallet with zero value, 2026-09-11).</td></tr>
+  <tr><td>Leaving</td><td>Any time, without asking us: send the same transaction with an empty
+      executor list. Manual claiming always keeps working; nothing can be
+      claimed twice.</td></tr>
+</table>
+
+<h3 style="margin-top:22px">How to authorize the staking leg</h3>
+<div class="note">
+<strong>The Flare Portal has no screen for this.</strong> The portal lets you
+claim staking rewards yourself, but its Set Executor screen writes only to the
+ClaimSetupManager (the 3.5-day stream above); we verified this against the
+portal's production code on 2026-09-11. So this authorization is done on the
+<strong>Flare explorer's verified-contract write page</strong> with
+WalletConnect. The steps below say exactly what your wallet must show before
+you sign.
+</div>
+<ol class="steps">
+  <li>Open the ValidatorRewardManager's
+      <a href="https://flare-explorer.flare.network/address/0xc0CF3Aaf93bd978C5BC662564Aa73E331f2eC0B5?tab=write_contract" rel="noopener">Write
+      Contract tab on the Flare explorer</a>. First confirm the address against
+      Flare's ContractRegistry (check 1 below).</li>
+  <li>Connect the wallet that holds your stake.</li>
+  <li>Find <span class="mono">setClaimExecutors</span> and enter a one-item list
+      containing the CashLab executor:<br>
+      <span class="mono">[0x4b7905d5CBd4f2Ee02Aff3c20bBf728Ec69E33d4]</span>
+      <span class="pill wait">same address as above, verify it independently</span></li>
+  <li>Before signing, check what your wallet shows:
+      <strong>To = <span class="mono">0xc0CF3Aaf93bd978C5BC662564Aa73E331f2eC0B5</span></strong>
+      and <strong>Amount = 0 FLR</strong>. Any other destination or any non-zero
+      amount: <strong>stop and do not sign.</strong></li>
+  <li>Sign. Confirm it worked with the check below, or on the same explorer
+      page's Read Contract tab: <span class="mono">claimExecutors</span> with
+      your address must list the executor you just set.</li>
+</ol>
+
+<div class="note note--safety">
+<strong>Same replace-the-whole-list rule as above.</strong> On this contract
+<span class="mono">setClaimExecutors</span> also <strong>replaces</strong> your
+executor list (the deployed source calls <span class="mono">replaceAll</span>);
+it does not add. To keep another executor you already authorized here, include
+both addresses in the same list. This list is separate from the portal's
+3.5-day executor list; the two never affect each other.
+</div>
+
+<h3 style="margin-top:22px">Verify, do not trust: three checks</h3>
+<table>
+  <tr><td>1. The contract is Flare's</td><td>Do not take the ValidatorRewardManager address from this page. Flare's
+      ContractRegistry at
+      <span class="mono">0xaD67FE66660Fb8dFE9d6b1b4240d8650e30F6019</span>
+      (published in Flare's developer docs) names every official contract. On
+      its <a href="https://flare-explorer.flare.network/address/0xaD67FE66660Fb8dFE9d6b1b4240d8650e30F6019?tab=read_contract" rel="noopener">Read
+      Contract tab</a>, call <span class="mono">getContractAddressByName</span>
+      with <span class="mono">ValidatorRewardManager</span>. It must return
+      <span class="mono">0xc0CF3Aaf93bd978C5BC662564Aa73E331f2eC0B5</span>
+      (we re-ran this on 2026-09-11). That answer comes from Flare's chain, not
+      from us.</td></tr>
+  <tr><td>2. The executor is ours</td><td>The executor address is the same one as the 3.5-day stream. Cross-check
+      it in the independent places listed in &ldquo;How to verify it's really
+      us&rdquo; above.</td></tr>
+  <tr><td>3. What the contract enforces</td><td>The verified source on the explorer shows it: an executor can only
+      <em>trigger</em> a claim; the rewards can only go to <strong>your own
+      address</strong> (or a recipient you allow-listed yourself); the executor
+      has no spending power over anything in your wallet; and the authorization
+      is reversible any time by setting the list empty.</td></tr>
+</table>
+
+<div class="note note--safety note--big">
+<strong>Best-effort here too.</strong> Same rule as the 3.5-day stream: no
+guarantee, no SLA. Please check your claims yourself. Your staking rewards stay
+yours and stay claimable by you directly at all times, whether or not any
+executor is authorized, and enrolling or leaving never touches your stake.
+</div>
+<!-- ================== END NATIVE STAKING LEG =========================== -->
+
 <h2>Check my enrollment</h2>
 <p style="font-size:14px;color:var(--muted)">
-This check runs <strong>in your browser</strong> against Flare's public RPC, 
+This check runs <strong>in your browser</strong> against Flare's public RPC,
 your address is not sent to CashLab's servers. It asks the ClaimSetupManager
 contract (<span class="mono">0xD56c0Ea37B848939B59e6F5Cda119b3fA473b5eB</span>)
-whether the CashLab executor is authorized for your wallet.
+whether the CashLab executor is authorized for your wallet, and the
+ValidatorRewardManager whether the staking leg is authorized too.
 </p>
 <div class="card">
   <div class="field">
@@ -435,7 +567,7 @@ and removable at any time by emailing
 
 </div>
 
-<script src="js/autoclaim-live.js?v=f546f514"></script>
+<script src="js/autoclaim-live.js?v=6bb2018e"></script>
 <script src="js/nav.js?v=cc03f358"></script>
 </body>
 </html>
