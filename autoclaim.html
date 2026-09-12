@@ -8,14 +8,14 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://cashlab.network/autoclaim">
 <meta property="og:title" content="CashLab, Auto-Claim">
-<meta property="og:description" content="CashLab's auto-claim executor pushes your Flare delegation and staking rewards to your own wallet as WFLR for a flat 0.25 FLR fee per claim. Non-custodial, enforced by Flare's own contracts. In soft launch, not announced yet.">
+<meta property="og:description" content="CashLab's auto-claim executor pushes your Flare delegation and staking rewards to your own wallet as WFLR for a flat per-claim fee (0.25 FLR today, 0.35 FLR from Sep 21, 2026). Non-custodial, enforced by Flare's own contracts. In soft launch, not announced yet.">
 <meta property="og:image" content="https://cashlab.network/images/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="CashLab, Auto-Claim">
-<meta name="twitter:description" content="CashLab's auto-claim executor pushes your Flare delegation and staking rewards to your own wallet as WFLR for a flat 0.25 FLR fee per claim. Non-custodial, enforced by Flare's own contracts. In soft launch, not announced yet.">
+<meta name="twitter:description" content="CashLab's auto-claim executor pushes your Flare delegation and staking rewards to your own wallet as WFLR for a flat per-claim fee (0.25 FLR today, 0.35 FLR from Sep 21, 2026). Non-custodial, enforced by Flare's own contracts. In soft launch, not announced yet.">
 <meta name="twitter:image" content="https://cashlab.network/images/og-image.png">
 
-<meta name="description" content="CashLab's auto-claim executor pushes your Flare delegation and staking rewards to your own wallet as WFLR for a flat 0.25 FLR fee per claim. Non-custodial, enforced by Flare's own contracts. In soft launch, not announced yet.">
+<meta name="description" content="CashLab's auto-claim executor pushes your Flare delegation and staking rewards to your own wallet as WFLR for a flat per-claim fee (0.25 FLR today, 0.35 FLR from Sep 21, 2026). Non-custodial, enforced by Flare's own contracts. In soft launch, not announced yet.">
 <link rel="icon" href="images/favicon.ico">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <style>
@@ -109,7 +109,7 @@ a:hover{color:#a8842c}
       "name": "What does it cost, in full?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "0.25 FLR per claim, scheduled on-chain and visible in advance on the ClaimSetupManager contract. The fee is deducted from the rewards being claimed, and one claim covers every unclaimed epoch you have. At enrollment you pay the per-claim fee once. 0 FLR is ever sent to CashLab directly, you never transfer funds to CashLab, and anyone asking you to is a scammer."
+        "text": "0.25 FLR per claim today, 0.35 FLR from reward epoch 435 (Sep 21, 2026); both scheduled on-chain and visible in advance on the ClaimSetupManager contract. The fee is deducted from the rewards being claimed, and one claim covers every unclaimed epoch you have. At enrollment you pay the per-claim fee once. 0 FLR is ever sent to CashLab directly, you never transfer funds to CashLab, and anyone asking you to is a scammer."
       }
     },
     {
@@ -180,7 +180,7 @@ Delegate or stake with CashLab and stop clicking &ldquo;claim&rdquo; every 3.5 d
 Authorize the CashLab executor once in the Flare portal, and each reward epoch we
 deliver your delegation and staking rewards <strong>straight to your own wallet as
 WFLR</strong>, automatically, on-chain, minus a flat fee per
-claim (0.25&nbsp;FLR, scheduled on-chain and live since reward epoch 429). We never hold your funds.
+claim (0.25&nbsp;FLR today; 0.35&nbsp;FLR from reward epoch 435, Sep 21, 2026, scheduled on-chain on Sep 12). We never hold your funds.
 </p>
 </div>
 
@@ -209,9 +209,10 @@ whenever you like.
   <tr><td>Where rewards go</td><td><strong>Your own wallet</strong> (or your Flare delegation account, if you
       enabled one), wrapped as WFLR. The payout address comes from Flare's
       ClaimSetupManager contract, the executor has no way to redirect it.</td></tr>
-  <tr><td>Fee per claim</td><td><strong>0.25 FLR</strong>, live since reward epoch 429 (Aug 31, 2026),
-      deducted from the claimed rewards. The increase was scheduled on-chain on
-      2026-08-24 and is visible in advance on the
+  <tr><td>Fee per claim</td><td><strong>0.25 FLR</strong> today, live since reward epoch 429 (Aug 31, 2026);
+      <strong>0.35 FLR from reward epoch 435</strong> (Sep 21, 2026), scheduled on-chain on
+      2026-09-12 (<a href="https://flare-explorer.flare.network/tx/0x147e93d276a637eeb697ba00a9da41a5187f09f8abc88d18feb2e129c206f958" rel="noopener">transaction</a>).
+      Deducted from the claimed rewards. Every change is visible in advance on the
       <a href="https://flare-explorer.flare.network/address/0xD56c0Ea37B848939B59e6F5Cda119b3fA473b5eB" rel="noopener">ClaimSetupManager
       contract</a>. One claim covers <em>all</em> your accumulated unclaimed
       epochs at once, so the fee is at most one per-claim fee per epoch and
@@ -222,7 +223,8 @@ whenever you like.
   <tr><td>Fee changes</td><td>Capped by the protocol (at most 100&nbsp;FLR), and any change an executor
       makes is delayed 3 reward epochs (~10.5 days) by the contract, no surprise
       pricing. Ours worked exactly that way: the current 0.25 fee was scheduled
-      2026-08-24, effective epoch 429.</td></tr>
+      2026-08-24, effective epoch 429; the 0.35 fee was scheduled 2026-09-12,
+      effective epoch 435.</td></tr>
   <tr><td>Custody</td><td>None. No token approvals, no deposits, no smart-contract allowances. The
       executor can only trigger claims that pay <em>you</em>.</td></tr>
   <tr><td>Leaving</td><td>Any time, from the Flare portal, without asking us. Manual claiming always
@@ -231,16 +233,18 @@ whenever you like.
 </table>
 
 <div class="note">
-<strong>Why 0.25.</strong> One claim run costs us
-≈0.23&nbsp;FLR of gas per wallet (measured 2026-08-21), so the
-protocol minimum we launched at was below our own cost. 0.25 is
-cost recovery, not margin.
+<strong>Why 0.35 from Sep 21.</strong> Measured on real claims: one 3.5-day claim
+costs us about 0.23&nbsp;FLR of gas per wallet (0.70 FLR for 3 wallets in one batch,
+read from the chain 2026-09-12), and the free 14-day staking claim costs another
+0.19 to 0.35&nbsp;FLR each. For a wallet that stakes, 0.25 was below our cost.
+0.35 covers the worst case we allow ourselves to send (we never claim when the
+network's base fee is above 1,000 gwei). Cost recovery, not margin.
 </div>
 
 <h2>What it costs you, in full</h2>
 <div class="grid">
   <div class="card"><div class="label">Per claim</div><div class="value">0.25 FLR</div>
-    <div style="font-size:13px;font-weight:600">Scheduled on-chain in advance, verifiable on the ClaimSetupManager contract</div>
+    <div style="font-size:13px;font-weight:600">0.35 FLR from Sep 21, 2026 (epoch 435). Scheduled on-chain in advance, verifiable on the ClaimSetupManager contract</div>
     <div style="font-size:13px;color:var(--muted)">Deducted from the rewards being claimed. One claim covers every unclaimed epoch you have.</div></div>
   <div class="card"><div class="label">Once, at enrollment</div><div class="value" style="font-size:16px">Same as the per-claim fee</div>
     <div style="font-size:13px;color:var(--muted)">Whatever the per-claim fee is on the day you enroll, attached by the portal; paid to the executor by the protocol.</div></div>
@@ -300,7 +304,7 @@ take your rewards.</strong>
 wallet asks you to confirm the enrollment transaction, it shows the amount
 attached, that amount is the executor's current fee, paid once at enrollment,
 and the same fee is what each later claim deducts. <strong>It must match the
-fee stated at the top of this page &mdash; 0.25&nbsp;FLR.</strong> The protocol lets an executor charge up to
+fee stated at the top of this page (0.25&nbsp;FLR today, 0.35&nbsp;FLR from Sep 21, 2026).</strong> The protocol lets an executor charge up to
 100&nbsp;FLR, so a scam executor's game is a high fee, the confirmation shows
 it before you sign. <strong>Anything else: stop and don't sign.</strong>
 </p>
@@ -365,9 +369,9 @@ affected by enrolling or leaving.
 <h2 id="staking">Native staking rewards, the 14-day stream: included, no fee <span class="pill wait" style="text-transform:none;letter-spacing:0" data-staking-dark>not switched on yet</span></h2>
 
 <div class="note note--safety note--big" data-staking-dark>
-<strong>Not switched on yet.</strong> The staking leg described here is built,
-independently reviewed, and waiting for its switch-on. Until this banner is
-gone, nothing is claimed for this stream and you should not enroll for it.
+<strong>Not open yet.</strong> The staking leg described here is built,
+independently reviewed, and is being proven on our own wallet first. Until this
+banner is gone, do not enroll for it: your staking rewards would not be claimed.
 The contract addresses below are real and verifiable today.
 </div>
 
@@ -388,7 +392,7 @@ streams, one service, each delivered to your own wallet.</strong>
       3.5-day enrollment is what pays for the gas of both streams.</td></tr>
   <tr><td>Fee for this stream</td><td><strong>None.</strong> This contract has no fee mechanism and we add none. Our
       own cost is the gas, about 0.2 to 0.35 FLR per claim (measured on 10 real
-      claims, 2026-09-11), covered by the 0.25 FLR fee on the 3.5-day stream.</td></tr>
+      claims, 2026-09-11), covered by the per-claim fee on the 3.5-day stream.</td></tr>
   <tr><td>When we claim</td><td>Daily check. We claim once your unclaimed staking rewards are at least
       <strong>1 FLR</strong>, so a claim is never mostly gas. Below that, your
       rewards simply keep accruing; they do not expire on this contract, and
