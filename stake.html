@@ -145,6 +145,21 @@ Side-by-side comparison of both paths: <a href="/earn">earn page</a>.</p>
   <div class="card"><div class="label">Custody</div><div class="value" style="font-size:16px">Locked on-chain &mdash; only your keys move it</div></div>
 </div>
 
+<h2 id="capacity">Room to stake</h2>
+<p style="font-size:13.5px;color:var(--muted);margin:8px 0 12px">How much you can stake with CashLab right now, and when more room frees up. Reads live from the chain.</p>
+<div class="card card--path">
+  <div class="label">Room for new stake right now</div>
+  <div class="value" id="cap-now">…</div>
+  <p id="cap-now-plain" style="font-size:14px;color:var(--muted);margin:8px 0 0">reading the chain…</p>
+
+  <div id="cap-more" hidden style="margin-top:18px;border-top:1px solid var(--line);padding-top:16px">
+    <div class="label" style="margin-bottom:10px">When more room opens up</div>
+    <table><tbody id="cap-rows"></tbody></table>
+    <p style="font-size:12px;color:var(--muted);margin:10px 0 0">Each date is when a current stake's lock ends and that much room frees up. Approximate; updates live.</p>
+  </div>
+  <p id="cap-rebond" style="font-size:12.5px;color:var(--muted);margin:14px 0 0"></p>
+</div>
+
 <h2 id="path-2">How to stake, the steps in the Portal</h2>
 <ol class="steps">
   <li>In the <a href="https://portal.flare.network" rel="noopener">Flare Portal</a>, open the <strong>Staking</strong> section and connect your wallet.</li>
@@ -272,7 +287,7 @@ nothing you cannot check yourself.
 
 </div>
 
-<script src="js/stake-live.js?v=92b5a616"></script>
+<script src="js/stake-live.js?v=74c90ee2"></script>
 <script src="js/nav.js?v=cc03f358"></script>
 <script src="js/quick-copy.js?v=fa494e1c"></script>
 </body>
